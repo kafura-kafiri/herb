@@ -1,0 +1,6 @@
+.venv/
+face/predictor.dat
+face/faces
+face/age_gender/pretrained_models/weights.18-4.06.hdf5
+.idea/
+

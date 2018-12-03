@@ -1,0 +1,15 @@
+flask
+flask_login
+flask-cors
+
+pillow
+pymongo
+
+demjson
+
+requests
+
+bs4
+
+uwsgi
+gunicorn

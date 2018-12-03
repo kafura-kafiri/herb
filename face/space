@@ -1,0 +1,13 @@
+image -> skin area* -> gray* -> hessian + frangi* -> wrinkles* -> eyes* >>> cream(age, gender, integral)
+                                                           -> Forehead and laps* >>> cream(age, gender, integral)
+                                                           -> integral >>>
+                   -> color >>> whitening(gender)
+#2                   -> landmarks -> forehead height -> hair regrowth >>> laser(), hejamat(), leech_blood(), massage(),
+      -> gray* -> landmarks* -> lip_points* -> integral >>> leech(gender)
+#2                           -> cheek -> classifier >>> leech(gender)
+#1    -> library -> age -> anti_aging(gender)
+#1               -> gender
+
+yolo face detector
+https://stackoverflow.com/questions/48014729/how-does-mtcnn-perform-vs-dlib-for-face-detection/51054158#51054158?newreg=d40029a96c154fcdbb03b6272de3b563
+https://github.com/azmathmoosa/azFace
