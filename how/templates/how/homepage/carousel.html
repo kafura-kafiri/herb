@@ -1,0 +1,100 @@
+{% if carousel %}
+<div class="popular-articles">
+    <div class="row">
+        <div class="col-xs-24">
+            <div class="section-header">
+                <div class="row">
+                    <div class="col-xs-24">
+                        <h4 class="pull-left">
+                            Popular Articles
+                        </h4>
+                        <!-- Carousel Controls -->
+                        <div class="controls pull-right">
+                            <a class="carousel-control left pagination-last"
+                               href="#carousel-popular-articles"
+                               role="button"
+                               data-slide="prev"
+                               data-ga-event="click"
+                               data-ga-event-category="Blog"
+                               data-ga-event-action="Homepage Toggle"
+                               data-ga-event-label="Toggle Left"
+                            >
+                                <i class="icon-recentlyviewedarrowleft"></i>
+                            </a>
+                            <bdi><span class="carousel-pagination"></span></bdi>
+                            <a class="carousel-control right pagination-next"
+                               href="#carousel-popular-articles"
+                               role="button"
+                               data-slide="next"
+                               data-ga-event="click"
+                               data-ga-event-category="Blog"
+                               data-ga-event-action="Homepage Toggle"
+                               data-ga-event-label="Toggle Right"
+                            >
+                                <i class="icon-recentlyviewedarrowright"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-24">
+                        <hr/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-24 carousel-container">
+            <div id="carousel-popular-articles" class="carousel slide">
+                <div class="carousel-inner">
+                    {% for item in carousel %}
+                        {% if loop.index % 2 == 1 %}
+                    <div class="item {{ 'active' if loop.index == 1 else '' }}">
+                        {% endif %}
+                        <div class="article-preview-container">
+                            <div class="col-xs-12">
+                                <div class="article-preview">
+                                    <a href="/hows/{{ item._id }}">
+                                        <img src="https://s.images-iherb.com/blog/uploads/cinnamon-extract-and-blood-sugar-large.jpg"
+                                             class="img-responsive">
+                                    </a>
+                                    <div class="content">
+                                        <h5 class="underscore">
+                                            <i class="icon-{{ item.meta.category }}"></i>
+                                            {{ item.meta.category }}
+                                        </h5>
+                                        <h3>
+                                            <a href="/hows/{{ item._id }}">
+                                                {{ item.meta.title }}
+                                            </a>
+                                        </h3>
+                                        <div class="small">
+                                            {{ item._date }}
+                                        </div>
+                                        <div class="text-container hidden-xs hidden-sm">
+                                            {{ item.meta.intro }}
+                                        </div>
+                                        <a href="/hows/{{ item._id }}" class="hidden-xs hidden-sm">{{ _('Read More') }}</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% if loop.index % 2 == 0 %}
+                    </div>
+                        {% endif %}
+                    {% endfor %}
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        {% for item in carousel %}
+                            {% if loop.index % 2 == 1 %}
+                        <li data-target="#carousel-popular-articles" data-slide-to="{{ (loop.index - 1) / 2 }}" class="{{ 'active' if loop.index == 1 else '' }}"></li>
+                            {% endif %}
+                        {% endfor %}
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}

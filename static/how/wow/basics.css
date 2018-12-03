@@ -1,0 +1,92 @@
+
+html, body {
+    height: 100%
+}
+
+body, h1, h2, h3, h4, p, li, textarea {
+    font-family: Helvetica, arial, sans-serif;
+    -webkit-font-smoothing: antialiased
+}
+
+img {
+    border: none
+}
+
+* {
+    margin: 0;
+    padding: 0
+}
+
+:focus {
+    outline: none
+}
+
+::-moz-focus-inner {
+    border: 0
+}
+
+body {
+    background-color: #ecebe8;
+    color: #545454;
+    margin: 0px;
+    padding: 0px;
+    font-size: 1em
+}
+
+a {
+    color: #363;
+    text-decoration: none
+}
+
+a:hover {
+    text-decoration: underline
+}
+
+ol {
+    padding: 0
+}
+
+h1 {
+    font-size: 35px;
+    color: #222222;
+    line-height: normal;
+    margin: 0;
+    text-align: left
+}
+
+h2, legend {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0px 0px 10px 0px;
+    padding: 0;
+    color: #222222;
+    line-height: 18px
+}
+
+legend {
+    color: #545454
+}
+
+h3, h4 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #222222;
+    line-height: 18px;
+    width: 100%;
+    background-color: #f6f5f4
+}
+
+.container {
+    position: absolute;
+    width: 757px;
+}
+
+.container .related-title {
+    margin: 5px 25px;
+    width: calc(100% - 30px);
+}
+
+.container #intro {
+    margin: 5px 25px;
+    width: calc(100% - 83px);
+}

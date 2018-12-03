@@ -1,0 +1,131 @@
+{% extends "how/base.html" %}
+{% block head %}
+    <title>home</title>
+{% endblock %}
+{% block content %}
+    <div class="side">
+        {% block author %}{% endblock %}
+        {% block recommelizer %}{% endblock %}
+        {% block plus %}{% endblock %}
+    </div>
+    <div class="container" style="position:absolute; right: 60px;">
+        <div id="intro" class="section  sticky  hasad" style="text-align: right">
+            <h1 class="firstHeading"><a href="//www.wikihow.com/Self-Detox-from-Alcohol"><span
+                    id="hdr_prefix">دکتر میگوید</span>{{ meta.title }}</a>
+            </h1>
+            <div style="background-color: #ddf5d5; margin: 6px -27px 6px -27px; padding-right: 45px">
+                <span>{{ _('In this Article') }}</span>
+                {% for level in level_1 %}
+                    <div style="display: inline">
+                        <a href="#{{ level.title }}" class="">
+                            <span style="display: inline-block;margin-left: 5px; width: 10px; height: 10px; background-color: #8acf8a"></span>
+                            {{ level.title }}
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <p>{{ meta.intro }}</p>
+            <div class="clearall"></div>
+            <div class="wh_ad_inner adunitintro">
+                <!-- <script async="" src="http://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script> -->
+            </div>
+            <div class="clearall adclear"></div>
+        </div>
+
+        {% for level in level_1 %}
+            <div class="section steps sticky" style="padding-top: 79px;">
+                <!--<h3 class="related-title">
+                <div class="altblock">{{ meta.level_1 }}<span>{{ loop.index }}</span></div>
+                <span class="mw-headline" id="Helping_Children_and_Healthy_Adults">{{ level.title }}</span>
+            </h3>-->
+                <h3 id="{{ level.title }}" class="related-title h3">
+                    <div class="pointer"></div>
+                    <div class="tube">
+                        <span>{{ level.title }}</span>
+                    </div>
+                    <div class="sand-time"></div>
+                    <div class="num">
+                        <div class="level">{{ meta.level_1 }}</div>
+                        <div class="int">{{ _(loop.index) }}</div>
+                    </div>
+                </h3>
+                <div id="steps_1" class="section_text">
+                    <ol class="steps_list_2">
+                        {% set outer_loop = loop %}
+                        {% for inner_level in level.level_2 %}
+                            <li class="hasad">
+                                <div class="mwimg largeimage floatcenter " style="max-width:728px">
+                                    {% if bool_var %}
+                                        <form action="/hows/{{ _id }}/{{ outer_loop.index }}/{{ loop.index }}/media/+" method="post"
+                                              enctype="multipart/form-data">
+                                            <input type="file" name="image">
+                                            <input type="submit" value="Upload Image">
+                                        </form>
+                                    {% endif %}
+
+                                    {% if inner_level.i %}
+                                        <a href="#/Image:Treat-Chicken-Pox-Step-1-Version-2.jpg" class="image lightbox"
+                                           data-href="/Image:Treat-Chicken-Pox-Step-1-Version-2.jpg?ajax=true&amp;aid=1383609"><img
+                                                alt="Image titled Treat Chicken Pox Step 1" width="728" height="546"
+                                                class="whcdn"
+                                                onload=""
+                                                id="img_1c2bb87c5f"
+                                                data-src="http://pad3.whstatic.com/images/thumb/4/44/Treat-Chicken-Pox-Step-1-Version-2.jpg/aid1383609-728px-Treat-Chicken-Pox-Step-1-Version-2.jpg"
+                                                src="/media/i/n/{{ inner_level.i }}">
+                                        </a>
+                                    {% endif %}
+                                </div>
+                                <div class="step_num" aria-label="Step 1">{{ inner_level.index }}</div>
+                                <div class="step" style="text-align: right">
+                                    <b class="whb">{{ inner_level.b }}</b>{{ inner_level.t }}
+                                    {% if inner_level.li %}
+                                        <ul dir="rtl">
+                                            {% for li in inner_level.li %}
+                                                <li>{{ li }}</li>
+                                            {% endfor %}
+                                        </ul>
+                                    {% endif %}
+                                    {% if inner_level.tr %}
+                                        <table style="width:100%; float: right; text-align: right">
+                                            {% for tr in inner_level.tr %}
+                                                <tr>
+                                                    {% for td in tr %}
+                                                        <td>{{ td }}</td>
+                                                    {% endfor %}
+                                                </tr>
+                                            {% endfor %}
+                                        </table>
+                                    {% endif %}
+                                </div>
+                                <div class="clearall"></div>
+                                <div class="adunit0 dfpad" style="margin-left:-20px">
+                                    <div id="div-gpt-0-First-Step">
+
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ol>
+                    <div class="clearall"></div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <script>
+        if( navigator.userAgent.match(/Android/i)
+            || navigator.userAgent.match(/webOS/i)
+            || navigator.userAgent.match(/iPhone/i)
+            || navigator.userAgent.match(/iPad/i)
+            || navigator.userAgent.match(/iPod/i)
+            || navigator.userAgent.match(/BlackBerry/i)
+        ){
+            $(function() {
+                var rt = ($(window).width() - ($('div.title_bar').offset().left + $('div.title_bar').outerWidth()));
+                $('div.container').css('right', (rt - 4) + 'px');
+            });
+            alert('heh');
+        }
+
+    </script>
+{% endblock %}

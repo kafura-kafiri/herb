@@ -1,0 +1,248 @@
+<section class="column action-fixed">
+   <div class="product-past-purchased hide hidden-xs hidden-sm">
+      <p>{{ _('You purchased this item on') }} <span class="product-ordered-date"></span></p>
+      <a href="" class="product-ordered-link">{{ _('View this order') }}</a>
+   </div>
+   <section id="shipping-saver">
+      <div class="row">
+         <div class="col-xs-24 shipping">
+            <div class="shipping-container">
+               <i class="icon-shipping-saver-thick"></i>
+               <span class="shipping-saver">
+                            {{ _('Shipping Saver') }}
+                        </span>
+               <span class="question-mark popup-shipping-saver">{{ _('?') }}</span>
+            </div>
+            <div id="modal-shipping-saver" class="popup-container modal-shipping-saver">
+               <div class="popup-title">{{ _('Shipping Saver') }}</div>
+               <div class="popup-content">{{ _('''Shipping Saver items cost less to ship, so we can pass the savings
+                  along to you! This means that, when you add a Shipping Saver item to your cart, your
+                  shipping cost will decrease.''') }}
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+   <div id="product-action" itemscope itemtype="http://schema.org/Offer" itemprop="offers"
+        itemref="stock-status">
+      <link itemprop="itemCondition" href="http://schema.org/NewCondition"/>
+      <div class="product-action-container">
+
+         <link itemprop="availability" href="http://schema.org/InStock"/>
+
+
+         <section id="pricing">
+            <section id="product-msrp">
+               <div class="row">
+                  <div class="col-xs-9 col-md-8 label">
+                     {{ _('MSRP:') }}
+                  </div>
+                  <div class="col-xs-15 col-md-16 price">
+                     <s>{{ _('$') }}{{ _(27.81) }}</s>
+                  </div>
+               </div>
+            </section>
+            <section id="product-price">
+               <span id="price-currency" itemprop="priceCurrency" content="USD"></span>
+
+               <div class="row">
+                  <div class="col-xs-9 col-md-8 label">
+                     {{ _('Our Price:') }}
+                  </div>
+                  <div class="col-xs-15 col-md-16 price our-price" id="price" itemprop="price"
+                       content="27.80">
+                     {{ _('$') }}{{ _(27.80) }}
+                  </div>
+               </div>
+            </section>
+            <section id="product-discount">
+               <div class="row">
+                  <div class="col-xs-9 col-md-8 label">
+                     {{ _('You Save:') }}
+                  </div>
+                  <div class="col-xs-15 col-md-16 discount">
+                     {{ _('$') }}{{ _(0.01) }} (<span class="discount-text">{{ _(0) }}</span>)
+                  </div>
+               </div>
+            </section>
+         </section>
+         <script>
+                        $('#Potency-qty').on('change', function (event) {
+                            $('option:selected', this).each(function (item) {
+                                alert($(this).val());
+                                //window.location = $(this).val();
+                            })
+                        })
+
+
+         </script>
+         <section id="product-form">
+            <form class="form-add-to-cart" action="https://checkout.iherb.com/pro/addtocart" method="post">
+               <div class="row row-action">
+                  <div class="col-xs-24">
+                     <span>{{ _('Quantity:') }}</span>
+
+                     <select name="qty" size="1" id="ddlQty" class="quantity">
+
+                        <option value="1">{{ _(1) }}</option>
+                        <option value="2">{{ _(2) }}</option>
+                        <option value="3">{{ _(3) }}</option>
+                        <option value="4">{{ _(4) }}</option>
+                        <option value="5">{{ _(5) }}</option>
+                        <option value="6">{{ _(6) }}</option>
+                        <option value="7">{{ _(7) }}</option>
+                        <option value="8">{{ _(8) }}</option>
+                        <option value="9">{{ _(9) }}</option>
+                        <option value="10">{{ _(10) }}</option>
+                        <option value="12">{{ _(12) }}</option>
+                        <option value="24">{{ _(24) }}</option>
+                        <option value="48">{{ _(48) }}</option>
+                        <option value="72">{{ _(72) }}</option>
+                        <option value="144">{{ _(144) }}</option>
+                     </select>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-xs-24">
+                     <div id="out-of-stock-message-added" class="out-of-stock-message info-popup">
+                        <p>{{ _('Sorry, this product is no longer in stock.') }}</p>
+                     </div>
+                     <button type="submit" class="btn btn-primary btn-block btn-lg btn-add-to-cart"
+                             name="AddToCart" data-product-id="52954">
+                        <strong>{{ _('Add to Cart') }}</strong>
+                     </button>
+                     <input type="hidden" name="pid" value="52954"/>
+                     <input type="hidden" name="part" value="THR-00287"/>
+                  </div>
+               </div>
+            </form>
+
+            <form id="teleform" action="" method="post">
+               <div class="row">
+                  <div class="col-xs-24">
+                     <input name="number" style="margin-bottom: 10px; display: inline-block; width: 70%; border-radius: 4px; padding: 8px 8px;font-size: 18px; line-height: 1.33333; border-radius: 3px; box-sizing: border-box;">
+                     <button style="margin-bottom: 10px; display: inline-block; width: 29%; border-radius: 4px; padding: 8px 8px;font-size: 18px; line-height: 1.33333; border-radius: 3px; box-sizing: border-box;">{{ _('Call') }}</button>
+                     <input type="hidden" name="pr_id" value="{{ pr._id }}"/>
+                  </div>
+               </div>
+               <script>
+                  $(function(){
+                     $('#teleform').submit(function(e) {
+                        var unindexed_array = $(e.target).serializeArray();
+                        var indexed_array = {};
+                        $.map(unindexed_array, function(n, i){
+                           indexed_array[n['name']] = n['value'];
+                        });
+                        indexed_array = JSON.stringify(indexed_array);
+                        $.ajax({
+                           type: "POST",
+                           url: '/orders/+',
+                           data: {json: indexed_array},
+                           success: function(response) {
+                              alert(response);
+                           },
+                        });
+                        return false;
+                     })
+                  });
+               </script>
+            </form>
+
+            <div class="row">
+               <div class="col-xs-24 wishlist">
+                  <div class="wishlist-items-container">
+                     <button type="submit" name="AddToWishlist"
+                             class="btn btn-default btn-block btn-lg btn-add-wishlist"
+                             data-in-wishlist="false">{{ _('Add to Wish List') }}
+                     </button>
+                     {% if current_user.is_authenticated %}
+                     <script>
+                        document.addEventListener('DOMContentLoaded', function() {
+                           $('button[name="AddToWishlist"]').click(function() {
+                              data = {json: '1', node: 'wish_list.products.{{ pr._id }}', ajax: ''};
+                              $.ajax({
+                                 url: '/users/{{ current_user._id }}$',
+                                 type: 'POST',
+                                 data: data,
+                              }).done(function(response) {
+                                 alert(response);
+                              });
+                           });
+                        });
+                     </script>
+                     {% endif %}
+                     <i class="icon-uparrow wishlist-arrow"></i>
+                     <input class="wishlist-model" type="hidden" name="pid" value="52954"
+                            data-account="//secure.iherb.com"
+                            data-my-list="My List"
+                            data-item-added="Item Added to List"
+                            data-new-list="Item Added to New List"
+                            data-item-removed="Item Removed From List"/>
+                     <div class="dropdown-wrapper">
+                        <div class="wishlist-sub-items">
+                        </div>
+                        <div class="create-new-list">
+                           <i class="icon-plus"></i><span>{{ _('Create a New List:') }}</span>
+                        </div>
+                        <div class="input-new-list">
+                           <input class="list-input" maxlength="20"/>
+                           <div class="list-input-blank"><span>!</span>{{ _('List Name Required') }}</div>
+                           <button type="submit"
+                                   class="btn btn-default btn-block btn-md create-list-button">
+                              {{ _('Create List') }}
+                           </button>
+                           <button class="btn btn-default btn-block btn-md load-button">
+                              <div class="loader"></div>
+                           </button>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </section>
+      </div>
+      <div class="product-share">
+         <ul>
+            <li class="share-facebook">
+               <i class="icon-facebook"></i>
+            </li>
+            <li>
+               <i class="icon-googleplus"></i>
+            </li>
+            <li>
+               <i class="icon-twitter"></i>
+            </li>
+            <li>
+               <i class="icon-smsmessenger"></i>
+            </li>
+            <li>
+               <i class="icon-facebookmessenger"></i>
+            </li>
+         </ul>
+      </div>
+      <div class="hidden coupon-code"></div>
+   </div>
+
+   <section id="loyalty-credit">
+      <div class="row">
+         <div class="col-xs-24 loyalty-text">
+            <i class="icon-dollarsign-wrapper">
+               <i class="icon-dollarsign"></i>
+            </i>
+            <span class="loyalty-credit-text">
+                        {{ _('Earn') }} <strong>5%</strong> <span class="text-nowrap">{{ _('Loyalty Credit') }}</span>
+                        <span class="question-mark popup-modal">{{ _('?') }}</span>
+                        <div id="popup-loyalty-credit" class="popup-container">
+                            <div class="popup-title">{{ _('Loyalty Program') }}</div>
+                            <div class="popup-content">
+                                <p>{{ _("- You earn loyalty credit for every order you place at iHerb!") }}</p>
+                                <p>{{ _("-&nbsp;&nbsp;Loyalty credit is equal to 5% of the value of your order after discounts and credits applied, excluding shipping charges.") }}</p>
+                                <p>{{ _("- Your loyalty credit will be applied towards your next order as soon as your current order has shipped.") }}</p>
+                                <p>{{ _("- Your loyalty credits are valid for up to 90 days from the date of your last purchase.") }}</p>
+                            </div>
+                        </div>
+                    </span>
+         </div>
+      </div>
+   </section>
+</section>

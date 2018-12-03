@@ -1,0 +1,45 @@
+.section h1 {
+  text-align: right;
+}
+
+.h3 .tube span {
+  text-align: right;
+  line-height: 20px;
+  margin-right: 17px;
+}
+
+.h3 .num div {
+  text-align: center;
+  font-size: 17px;
+  line-height: 23px;
+}
+
+.h3 .num div.int {
+  font-size: 23px;
+}
+
+.title_bar .tube span {
+  text-align: right;
+  line-height: 20px;
+  margin-top: 14px;
+  margin-right: 17px;
+  display: block;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.title_bar .num div {
+  text-align: center;
+  font-size: 17px;
+  line-height: 23px;
+}
+
+.title_bar .num div.int {
+  font-size: 23px;
+}
+
+.upload {
+  width: 350px;
+  height: 100px;
+  background-color: #defae1;
+}

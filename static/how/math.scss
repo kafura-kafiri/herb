@@ -1,0 +1,180 @@
+@function pow($number, $exp) {
+  $value: 1;
+  @if $exp > 0 {
+    @for $i from 1 through $exp {
+      $value: $value * $number;
+    }
+  }
+  @else if $exp < 0 {
+    @for $i from 1 through -$exp {
+      $value: $value / $number;
+    }
+  }
+  @return $value;
+}
+
+@function fact($number) {
+  $value: 1;
+  @if $number > 0 {
+    @for $i from 1 through $number {
+      $value: $value * $i;
+    }
+  }
+  @return $value;
+}
+
+@function pi() {
+  @return 3.14159265359;
+}
+
+@function sqrt($r) {
+  $x0: 1; // initial value
+  $solution: false;
+
+  @for $i from 1 through 10 {
+    @if abs(2 * $x0) < 0.00000000000001 { // Don't want to divide by a number smaller than this
+      $solution: false;
+    }
+
+    $x1: $x0 - ($x0 * $x0 - abs($r)) / (2 * $x0) !global;
+
+    @if ( abs($x1 - $x0) / abs($x1)) < 0.0000001 { // 7 digit accuracy is desired
+      $solution: true;
+    }
+
+    $x0: $x1;
+  }
+
+  @if $solution == true {
+    // If $r is negative, then the output will be multiplied with <a href="http://en.wikipedia.org/wiki/Imaginary_number">i = √-1</a>
+    // (√xy = √x√y) => √-$r = √-1√$r
+    @if $r < 0 {
+      @return $x1 #{i};
+    }
+    @else {
+      @return $x1;
+    }
+  }
+  @else {
+    @return "No solution";
+  }
+}
+
+@function rad($angle) {
+  $unit: unit($angle);
+  $unitless: $angle / ($angle * 0 + 1);
+  // If the angle has 'deg' as unit, convert to radians.
+  @if $unit == deg {
+    $unitless: $unitless / 180 * pi();
+  }
+  @return $unitless;
+}
+
+@function sin($angle) {
+  $sin: 0;
+  $angle: rad($angle);
+  // Iterate a bunch of times.
+  @for $i from 0 through 10 {
+    $sin: $sin + pow(-1, $i) * pow($angle, (2 * $i + 1)) / fact(2 * $i + 1);
+  }
+  @return $sin;
+}
+
+@function cos($angle) {
+  $cos: 0;
+  $angle: rad($angle);
+  // Iterate a bunch of times.
+  @for $i from 0 through 10 {
+    $cos: $cos + pow(-1, $i) * pow($angle, 2 * $i) / fact(2 * $i);
+  }
+  @return $cos;
+}
+
+@function tan($angle) {
+  @return sin($angle) / cos($angle);
+}
+
+@debug sin(pi()/4); // => 0.70711
+@debug cos(45deg);  // => 0.70711
+
+/* ---------------- *\
+  done
+\* ---------------- */
+
+
+$factors: (
+  rad: 1rad,
+  deg: 180deg/pi(),
+  turn: .5turn/pi(),
+  grad: 200grad/pi()
+);
+
+@function convert-angle($value, $unit-name) {
+  $factors: (
+    rad: 1rad,
+    deg: 180deg/pi(),
+    turn: .5turn/pi(),
+    grad: 200grad/pi()
+  );
+
+  @return $value*map-get($factors, $unit-name);
+}
+
+@function convert-angle($value, $unit-name) {
+  $factors: (
+    rad: 1rad,
+    deg: 180deg/pi(),
+    grad: 200grad/pi(),
+    turn: .5turn/pi()
+  );
+
+  @if not unitless($value) {
+    @warn '`#{$value}` should be unitless';
+    @return false;
+  }
+
+  @if not map-has-key($factors, $unit-name) {
+    @warn 'unit `#{$unit-name}` is not a valid unit - please make sure it is either `deg`, `rad`, `grad` or `turn`';
+    @return false;
+  }
+
+  @return $value*map-get($factors, $unit-name);
+}
+
+$default-threshold: 10;
+@function asin($z, $unit-name: deg, $threshold: $default-threshold) {
+  // same as before, nothing changes here
+  $sum: 0;
+  $complement: false;
+  $sign: $z/abs($z);
+  $z: abs($z);
+
+  @if $z > sin(pi()/4) {
+    $complement: true;
+    $z: sqrt(1 - pow($z, 2));
+  }
+
+  $term: $z;
+  $i: 0;
+  $k: 1;
+
+  @while $term > $threshold {
+    $sum: $sum + $term;
+
+    $i: $i + 1;
+    $k: $k*(2*$i - 1)/(2*$i);
+    $j: 2*$i + 1;
+
+    $term: $k*pow($z, $j)/$j;
+  }
+
+  @return convert-angle($sign*(if($complement, pi()/2 - $sum, $sum)), $unit-name);
+}
+
+@function acos($z, $unit-name: deg, $threshold: $default-threshold) {
+  @return convert-angle(pi()/2, $unit-name) - asin($z, $unit-name, $threshold);
+}
+
+@function atan($z, $unit-name: deg, $threshold: $default-threshold) {
+  @return asin($z/sqrt(1 + pow($z, 2)), $unit-name, $threshold);
+}

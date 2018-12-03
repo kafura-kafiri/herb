@@ -1,0 +1,997 @@
+{% extends "how/article.html" %}
+{% block author %}
+    <style>
+    #social_proof_sidebox {
+    line-height: normal;
+    margin: 3px 0 15px 0;
+    padding: 0;
+    background-color: #fff;
+    color: #686868;
+    font-size: 12px;
+    font-weight: bold;
+    position: relative;
+}
+.sidebox {
+    background-color: #f6f5f4;
+    padding: 16px;
+    margin: 0 0 15px 0;
+    position: relative;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -khtml-border-radius: 4px;
+    border-radius: 4px;
+    color: #686868;
+    font-size: 13px;
+    line-height: 1.3em;
+}
+
+.sidebox {
+    background-color: #f6f5f4;
+    padding: 16px;
+    margin: 0 0 15px 0;
+    position: relative;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -khtml-border-radius: 4px;
+    border-radius: 4px;
+    color: #686868;
+    font-size: 13px;
+    line-height: 1.3em;
+}
+
+.sp_top_box {
+    padding: 10px;
+    position: relative;
+    background-color: #f0f5ec;
+    border-radius: 4px 4px 0 0;
+}
+
+.sp_top_popup_container {
+    top: -58px;
+    right: 18px;
+    left: 30px;
+    position: absolute;
+    z-index: 100000007;
+    display: none;
+}
+
+#sp_stats_box.sp_thin_box {
+    width: 100%;
+    float: none;
+}
+.sp_thin_box {
+    width: 100%;
+    height: auto !important;
+    padding: 0 !important;
+    display: table;
+}
+.sp_box {
+    float: left;
+    width: 130px;
+    height: 75px;
+    position: relative;
+    padding: 18px 0 5px 15px;
+}
+
+.sp_top_icon_bg {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: #ADC996;
+    border-radius: 50%;
+    border: 3px solid #6F8460;
+}
+
+.sp_top_icon_bg > div {
+    background-repeat: no-repeat;
+}
+.ar_check, .sp_top_icon_check {
+    background-image: url(https://www.wikihow.com/skins/owl/images/sp_expert_icon_white.png);
+    background-image: url(https://www.wikihow.com/skins/owl/images/sp_expert_icon_white.svg);
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    z-index: 5;
+    background-size: 18px;
+    background-repeat: no-repeat;
+    right: -5px;
+    bottom: -4px;
+}
+
+.sp_top_icon_bg > div {
+    background-repeat: no-repeat;
+}
+.sp_staff_icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #93b874;
+    background-size: 81%;
+    background-position: 45% 50%;
+    background-image: url(https://www.wikihow.com/skins/WikiHow/wH-initials_152x152.png);
+}
+
+.sp_expert_text {
+    line-height: 55px;
+    font-weight: normal;
+    text-align: left;
+    margin-left: 66px;
+}
+
+.sp_nonverifier_text > div {
+    font-size: 13px;
+}
+.sp_expert_text > div {
+    font-size: 12px;
+    line-height: normal;
+    display: inline-block;
+    vertical-align: middle;
+    margin: 0 auto;
+    color: #222;
+}
+
+#sp_expert_team_label {
+    font-size: 12px;
+    padding-bottom: 2px;
+}
+
+#sp_expert_team {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+#sp_expert_blurb {
+    padding-top: 2px;
+}
+
+.sp_top_popup_container {
+    top: -58px;
+    right: 18px;
+    left: 30px;
+    position: absolute;
+    z-index: 100000007;
+    display: none;
+}
+
+.hint_box {
+    min-width: 150px;
+    max-width: 180px;
+    position: relative;
+    background: #FFFFFF;
+    border: 3px solid;
+    border-color: rgba(0,0,0,.13);
+    border-radius: 4px;
+    font-weight: normal;
+    padding: 9px;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding;
+    background-clip: padding-box;
+}
+
+.hint_box p {
+    font-size: 12px;
+    line-height: normal;
+    margin: 0;
+    text-align: left;
+}
+.sidebox p {
+    font-size: 14px;
+    line-height: 17px;
+    /*margin: 12px 0px 0px 0px;*/
+}
+
+#sp_stats_box.sp_thin_box {
+    width: 100%;
+    float: none;
+}
+.sp_thin_box {
+    width: 100%;
+    height: auto;
+    padding: 0;
+    display: table;
+}
+.sp_box {
+    float: left;
+    width: 130px;
+    height: 75px;
+    position: relative;
+    padding: 18px 0 5px 15px;
+}
+
+
+.sp_thin_box .sp_text:first-child {
+    width: 26%;
+    padding-left: 6.5%;
+}
+.sp_thin_box .sp_text {
+    display: table-cell;
+    padding: 8px 3.5%;
+    vertical-align: top;
+    color: #999;
+}
+.sp_text {
+    line-height: 17px;
+    font-weight: normal;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    font-size: 11px;
+}
+
+.sp_thin_box .sp_text_data {
+    display: block;
+    color: #545454;
+}
+.sp_text_data {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+#sp_modified {
+    display: inline-block;
+    min-width: 70px;
+}
+
+.sp_thin_box .sp_text_data {
+    display: block;
+    color: #545454;
+}
+.sp_text_data {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.sp_thin_box .sp_text:first-child {
+    width: 26%;
+    padding-left: 6.5%;
+}
+.sp_thin_box .sp_text {
+    display: table-cell;
+    padding: 8px 3.5%;
+    vertical-align: top;
+    color: #999;
+}
+.sp_text {
+    line-height: 17px;
+    font-weight: normal;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    font-size: 11px;
+}
+
+.clearall {
+    clear: both;
+}
+
+
+.social_sidebox {
+    background-color: #FFF;
+    padding: 0;
+}
+
+.helpful_sidebox #sp_helpful_lower {
+    padding-left: 10px;
+}
+.helpful_sidebox #sp_star_section_upper, .helpful_sidebox #sp_helpful_lower {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+#sp_star_rating_text {
+    font-weight: normal;
+}
+
+#sp_helpful_rating_count, #sp_helpful_text_sidebox {
+    font-size: 11px;
+    font-weight: normal;
+    color: #a3a3a3;
+}
+
+#sp_helpful_text_sidebox {
+    margin-top: 5px;
+}
+#sp_helpful_rating_count, #sp_helpful_text_sidebox {
+    font-size: 11px;
+    font-weight: normal;
+    color: #a3a3a3;
+}
+
+/* ------- *\
+   pop up
+\* ------- */
+
+.sp_popup_container {
+    top: 80px;
+    left: -20px;
+    position: absolute;
+    z-index: 100000007;
+    display: none;
+}
+
+.hint_box {
+    min-width: 150px;
+    max-width: 180px;
+    position: relative;
+    background: #FFFFFF;
+    border: 3px solid;
+    border-color: rgba(0,0,0,.13);
+    border-radius: 4px;
+    font-weight: normal;
+    padding: 9px;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding;
+    background-clip: padding-box;
+}
+
+#sp_helpful_box.helpful_sidebox {
+    float: none;
+    border-right: none;
+    width: auto;
+    height: auto;
+    padding: 15px;
+    border-bottom: 1px solid #e7e7e7;
+}
+#sp_helpful_box {
+    display: block;
+}
+#sp_helpful_box, #sp_helpful_new, #sp_difficult_box {
+    border-right: 1px solid #e7e7e5;
+}
+.sp_box {
+    float: left;
+    width: 130px;
+    height: 75px;
+    position: relative;
+    padding: 18px 0 5px 15px;
+}
+
+#sp_helpful_statement {
+    font-size: 13px;
+    margin-bottom: 5px;
+}
+
+#sp_helpful_statement span {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.sp_thin_box .sp_text:nth-child(2) {
+    width: 28%;
+}
+
+.sp_thin_box .sp_text:last-child {
+    width: 22%;
+}
+
+
+/* ------- *\
+    stars
+\* ------- */
+
+.helpful_sidebox #sp_star_section_upper, .helpful_sidebox #sp_helpful_lower {
+    display: table-cell;
+    vertical-align: middle;
+}
+#sp_star_section_upper {
+    margin-top: 4px;
+    display: inline-block;
+}
+
+.helpful_sidebox .sp_star_container {
+    height: 27px;
+    width: 27px;
+}
+.sp_star_container {
+    position: relative;
+    width: 21px;
+    height: 21px;
+    float: left;
+    border-right: 2px solid transparent;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(https://www.wikihow.com/skins/owl/images/sp_helpful_icon_star_empty.png);
+    background-image: url(https://www.wikihow.com/skins/owl/images/sp_helpful_icon_star_empty.optimized.svg);
+}
+
+
+.sp_helpful_icon_star {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-image: url(https://www.wikihow.com/skins/owl/images/sp_helpful_icon_star.png);
+    background-image: url(https://www.wikihow.com/skins/owl/images/sp_helpful_icon_star.optimized.svg);
+}
+
+.pretty_star {
+    background-image: url(https://www.wikihow.com/extensions/wikihow/socialproof/star.png);
+    background-image: url(https://www.wikihow.com/extensions/wikihow/socialproof/star.svg);
+}
+
+
+/* ------- *\
+   reviews
+\* ------- */
+
+
+#userreviews {
+    line-height: normal;
+    margin: 3px 0 15px 0;
+    padding: 0;
+    color: #686868;
+    font-size: 12px;
+    font-weight: bold;
+    position: relative;
+    background-color: #e7e7e5;
+}
+
+#userreviews.sidebox {
+    background-color: #f6f5f4;
+    padding: 0px;
+    margin: 0 0 15px 0;
+    position: relative;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -khtml-border-radius: 4px;
+    border-radius: 4px;
+    color: #686868;
+    font-size: 13px;
+    line-height: 1.3em;
+}
+
+.ur_review.ur_review0 {
+    display: block;
+}
+.ur_review {
+    display: none;
+    margin-bottom: 1px;
+    background-color: #fff;
+    padding: 15px 20px;
+    border-radius: 4px;
+}
+
+.ur_initials, .ur_avatar {
+    width: 36px;
+    height: 36px;
+    background-color: #adc996;
+    display: inline-block;
+    border-radius: 18px;
+    margin-right: 5px;
+    vertical-align: bottom;
+}
+.ur_initials {
+    line-height: 36px;
+    text-align: center;
+    color: white;
+}
+
+.ur_author {
+    display: block;
+    margin-top: 5px;
+    color: #c3c3c3;
+    font-weight: normal;
+    display: inline-block;
+}
+
+.ur_author .ur_name {
+    font-size: 13px;
+    color: #545454;
+    font-weight: bold;
+}
+.ur_review p {
+    margin-top: 0px;
+}
+
+.ur_review .ur_date {
+    font-size: 11px;
+    color: #9c9c9c;
+}
+
+.ur_review_text {
+    position: relative;
+    text-align: left;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 18px;
+    color: #545454;
+    margin-top: 7px;
+}
+
+.ur_nav_container {
+    background-color: #ffffff;
+    margin-top: -6px;
+    padding: 0px 20px 15px;
+    min-height: 1em;
+    border-radius: 0 0 4px 4px;
+}
+
+/* ------ *\
+	hint
+\* ------ */
+
+.hint_box:after, .hint_box:before {
+    top: 100%;
+    left: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+}
+
+.hint_box:before {
+    border-top-color: #d5d5d5;
+    border-width: 14px;
+    margin-left: -14px;
+    -moz-background-clip: padding;
+    -webkit-background-clip: padding;
+    background-clip: padding-box;
+}
+
+.hint_box:after {
+    border-color: rgba(255,255,255,0);
+    border-top-color: #FFFFFF;
+    border-width: 10px;
+    margin-left: -10px;
+}
+    </style>
+    <div id="social_proof_sidebox" class="sidebox ">
+
+	<div id="sp_inner">
+			<div id="sp_staff" class="sp_top_box sp_person">
+
+
+				<div class="sp_top_icon_bg">
+					<div class="sp_top_icon_check"></div>
+					<div class="sp_staff_icon"></div>
+				</div>
+				<div class="sp_expert_text sp_top_box_hoverable sp_nonverifier_text">
+					<div>
+						<div id="sp_expert_team_label">Co-Authored by:</div>
+						<div id="sp_expert_team">wikiHow Staff Editor</div>
+						<div id="sp_expert_blurb"></div>
+					</div>
+				</div>
+			</div>
+
+			<div class="sp_top_popup_container" style="display: none; top: -80px; opacity: 1;">
+				<div class="hint_box staff_hint_box">
+					<p>A wikiHow Staff Editor reviewed this article to make sure it's helpful and accurate. <a href="/wikiHow:About-wikiHow#Why_should_you_choose_wikiHow_first.3F_sub">Learn more...</a></p>
+				</div>
+			</div>
+
+
+
+		<div id="sp_stats_box" class="sp_box sp_thin_box">
+			<div class="sp_text">
+				Co-authors:  <span class="sp_text_data">20</span>
+			</div>
+			<div class="sp_text">
+				<span data-datestamp="2018-10-26T16:29:20Z" id="sp_modified">Updated: <span class="sp_text_data">4 weeks ago</span></span>
+			</div>
+			<div class="sp_text">
+				Views:&nbsp;<span class="sp_text_data">{{ reviews.aggregation.view }}</span>
+			</div>
+		</div>
+		<div class="clearall"></div>
+	</div>
+</div>
+
+{% set score = (reviews.aggregation.sum * 100 / reviews.aggregation.num) if reviews.aggregation.num else 0 -%}
+
+<div id="sp_star_box" class="sidebox social_sidebox">
+	<div id="sp_helpful_box" class="sp_box sp_box_hoverable sp_helpful_hoverable helpful_sidebox" data-helpful="100">
+		<div id="sp_helpful_statement"><span>{{ score | round(1) }}%</span> of readers found this article <b>helpful</b>.</div>
+		<div id="sp_star_section_upper">
+			<div class="sp_star_section_hoverable">
+				{% for star in ['Unhelpful', 'Mostly unhelpful', 'Possibly helpful', 'Mostly helpful', 'Very helpful'] %}
+				{% set width = [100, [0, score * 5 - (loop.index - 1) * 100] | max] | min -%}
+				<div class="sp_star_container" id="star{{ loop.index }}" name="{{ star }}" value="{{ loop.index / 5 }}">
+					<div class="sp_helpful_icon_star pretty_star" style="width:{{ width }}%" width="{{ width }}"></div>
+				</div>
+				{% endfor %}
+			</div>
+		</div>
+		<div id="sp_helpful_lower">
+			<div id="sp_star_rating_text" style="display: none;"></div>
+			<div id="sp_helpful_rating_count" style="display: block;">{{ reviews.aggregation.num }} votes - {{ score | round(1) }}%</div>
+		</div>
+		<div id="sp_helpful_text_sidebox">Click a star to add your vote</div>
+		<div class="sp_popup_container" style="top: -17px; display: none;">
+			<div class="hint_box">100% of people told us that this article helped them.</div>
+		</div>
+	</div>
+</div>
+
+<div id="userreviews" class="sidebox">
+	<div id="reviews">
+		<div class="ur_review ur_review0">
+			<div class="ur_user">
+				<span class="ur_initials">
+					AG
+				</span>
+				<div class="ur_author">
+					<p class="ur_name">Alex G.</p>
+					<p class="ur_date">Jul 17</p>
+				</div>
+			</div>
+			<div class="ur_review_text">
+				"Going to Canada in my car, wish me luck! Thanks, this is the best web page I've never heard about!"
+			</div>
+			<div class="ur_rating">
+			</div>
+		</div>
+		<div class="ur_review ur_review1">
+			<div class="ur_user">
+				<span class="ur_initials">
+					SP
+				</span>
+				<div class="ur_author">
+					<p class="ur_name">S. P.</p>
+					<p class="ur_date">May 19</p>
+				</div>
+			</div>
+			<div class="ur_review_text">
+				"I'm a single parent about to take a 12-hour trip. I am not mechanically-inclined, so this list is helpful so I can<span class="ur_review_more"> get prepared."</span><span class="ur_ellipsis">..." </span><a href="#ur_anchor_full" class="ur_review_show">more</a>
+			</div>
+			<div class="ur_rating">
+			</div>
+		</div>
+		<div class="ur_review ur_review2">
+			<div class="ur_user">
+				<span class="ur_initials">
+					DR
+				</span>
+				<div class="ur_author">
+					<p class="ur_name">Dulce Ramon</p>
+					<p class="ur_date">Jul 14, 2017</p>
+				</div>
+			</div>
+			<div class="ur_review_text">
+				"My sister and I are about to go on a short road trip and I know we needed to change the oil beforehand, but I was<span class="ur_review_more"> not sure what else needed our attention since we are not that mechanically-inclined. However, this for sure helped us, thank you! "</span><span class="ur_ellipsis">..." </span><a href="#ur_anchor_full" class="ur_review_show">more</a>
+			</div>
+			<div class="ur_rating">
+					<span>Rated this article: </span>
+						<div class="ur_star ur_rating_on"></div>
+						<div class="ur_star ur_rating_on"></div>
+						<div class="ur_star ur_rating_on"></div>
+						<div class="ur_star ur_rating_on"></div>
+						<div class="ur_star ur_rating_on"></div>
+					<div class="clearall"></div>
+			</div>
+		</div>
+		<div class="ur_review ur_review3">
+			<div class="ur_user">
+					<img src="https://lh6.googleusercontent.com/-RrOMgbaKV2E/AAAAAAAAAAI/AAAAAAAAAAs/e3p3TYXR388/s96-c/photo.jpg" class="ur_avatar">
+				<div class="ur_author">
+					<p class="ur_name"><span class="qa_user_link" data-href="/User:M-Loyaltie">M Loyaltie</span></p>
+					<p class="ur_date">Jun 8, 2017</p>
+				</div>
+			</div>
+			<div class="ur_review_text">
+				"I learn something new every time I visit your site, and so far all advice has been successful. Thank you, keep up<span class="ur_review_more"> the good work, very helpful."</span><span class="ur_ellipsis">..." </span><a href="#ur_anchor_full" class="ur_review_show">more</a>
+			</div>
+			<div class="ur_rating">
+			</div>
+		</div>
+		<div class="ur_review ur_review4">
+			<div class="ur_user">
+				<span class="ur_initials">
+					DP
+				</span>
+				<div class="ur_author">
+					<p class="ur_name">Divya Prasher</p>
+					<p class="ur_date">Mar 4, 2017</p>
+				</div>
+			</div>
+			<div class="ur_review_text">
+				"Very helpful article, especially for beginners. I like how wikiHow makes it so easy to understand, showing<span class="ur_review_more"> practical ways for everything."</span><span class="ur_ellipsis">..." </span><a href="#ur_anchor_full" class="ur_review_show">more</a>
+			</div>
+			<div class="ur_rating">
+			</div>
+		</div>
+		<div class="ur_review ur_review5">
+			<div class="ur_user">
+				<span class="ur_initials">
+					HC
+				</span>
+				<div class="ur_author">
+					<p class="ur_name">Harikrishnan C.</p>
+					<p class="ur_date">Apr 22, 2017</p>
+				</div>
+			</div>
+			<div class="ur_review_text">
+				"This is my first long trip. Tips like tires will get heated on the long run are very useful tips."
+			</div>
+			<div class="ur_rating">
+			</div>
+		</div>
+		<div class="ur_review ur_review6">
+			<div class="ur_user">
+				<span class="ur_initials">
+					A
+				</span>
+				<div class="ur_author">
+					<p class="ur_name">Anonymous</p>
+					<p class="ur_date">Nov 13, 2016</p>
+				</div>
+			</div>
+			<div class="ur_review_text">
+				"wikiHow is the best!  This is great for someone that is a first-time vehicle owner like myself."
+			</div>
+			<div class="ur_rating">
+			</div>
+		</div>
+		<div class="ur_review ur_review7">
+			<div class="ur_user">
+				<span class="ur_initials">
+					A
+				</span>
+				<div class="ur_author">
+					<p class="ur_name">Anonymous</p>
+					<p class="ur_date">Aug 26, 2017</p>
+				</div>
+			</div>
+			<div class="ur_review_text">
+				"Helped me provide a list to my mechanic to check before my long trip."
+			</div>
+			<div class="ur_rating">
+			</div>
+		</div>
+		<div class="ur_review ur_review8">
+			<div class="ur_user">
+				<span class="ur_initials">
+					SG
+				</span>
+				<div class="ur_author">
+					<p class="ur_name">Sarah Gowe</p>
+					<p class="ur_date">Apr 28, 2017</p>
+				</div>
+			</div>
+			<div class="ur_review_text">
+				"The tire tread test and why it's important is really good to know!"
+			</div>
+			<div class="ur_rating">
+					<span>Rated this article: </span>
+						<div class="ur_star ur_rating_on"></div>
+						<div class="ur_star ur_rating_on"></div>
+						<div class="ur_star ur_rating_on"></div>
+						<div class="ur_star ur_rating_on"></div>
+						<div class="ur_star ur_rating_on"></div>
+					<div class="clearall"></div>
+			</div>
+		</div>
+		<div class="ur_review ur_review9">
+			<div class="ur_user">
+				<span class="ur_initials">
+					EL
+				</span>
+				<div class="ur_author">
+					<p class="ur_name">Elijah Lane</p>
+					<p class="ur_date">Jul 13, 2017</p>
+				</div>
+			</div>
+			<div class="ur_review_text">
+				"Love taking long trips. Want car to be just as ready as I am."
+			</div>
+			<div class="ur_rating">
+					<span>Rated this article: </span>
+						<div class="ur_star ur_rating_on"></div>
+						<div class="ur_star ur_rating_on"></div>
+						<div class="ur_star ur_rating_on"></div>
+						<div class="ur_star ur_rating_on"></div>
+						<div class="ur_star ur_rating_on"></div>
+					<div class="clearall"></div>
+			</div>
+		</div>
+		<div class="ur_review ur_review10">
+			<div class="ur_user">
+				<span class="ur_initials">
+					GJ
+				</span>
+				<div class="ur_author">
+					<p class="ur_name">Gladys Johnson</p>
+					<p class="ur_date">Jul 28, 2017</p>
+				</div>
+			</div>
+			<div class="ur_review_text">
+				"This showed me how to take proper preventive maintenance."
+			</div>
+			<div class="ur_rating">
+			</div>
+		</div>
+		<div class="ur_review ur_review11">
+			<div class="ur_user">
+				<span class="ur_initials">
+					JL
+				</span>
+				<div class="ur_author">
+					<p class="ur_name">John Lucio</p>
+					<p class="ur_date">Jun 26, 2017</p>
+				</div>
+			</div>
+			<div class="ur_review_text">
+				"Helped me by getting me prepared before a road trip."
+			</div>
+			<div class="ur_rating">
+					<span>Rated this article: </span>
+						<div class="ur_star ur_rating_on"></div>
+						<div class="ur_star ur_rating_on"></div>
+						<div class="ur_star ur_rating_on"></div>
+						<div class="ur_star ur_rating_on"></div>
+						<div class="ur_star ur_rating_on"></div>
+					<div class="clearall"></div>
+			</div>
+		</div>
+		<div class="ur_review ur_review12">
+			<div class="ur_user">
+				<span class="ur_initials">
+					RL
+				</span>
+				<div class="ur_author">
+					<p class="ur_name">Renea Lawson</p>
+					<p class="ur_date">May 21, 2017</p>
+				</div>
+			</div>
+			<div class="ur_review_text">
+				"It helped a lot, I really needed to know this info."
+			</div>
+			<div class="ur_rating">
+					<span>Rated this article: </span>
+						<div class="ur_star ur_rating_on"></div>
+						<div class="ur_star ur_rating_on"></div>
+						<div class="ur_star ur_rating_on"></div>
+						<div class="ur_star ur_rating_on"></div>
+						<div class="ur_star ur_rating_on"></div>
+					<div class="clearall"></div>
+			</div>
+		</div>
+		<div class="ur_review ur_review13">
+			<div class="ur_user">
+				<span class="ur_initials">
+					PM
+				</span>
+				<div class="ur_author">
+					<p class="ur_name">Patricia Moss</p>
+					<p class="ur_date">Jun 25, 2016</p>
+				</div>
+			</div>
+			<div class="ur_review_text">
+				"It was helpful because I'm going on a road trip."
+			</div>
+			<div class="ur_rating">
+			</div>
+		</div>
+		<div class="ur_review ur_review14">
+			<div class="ur_user">
+				<span class="ur_initials">
+					AS
+				</span>
+				<div class="ur_author">
+					<p class="ur_name">Anuj S.</p>
+					<p class="ur_date">Jan 16, 2017</p>
+				</div>
+			</div>
+			<div class="ur_review_text">
+				"App experience is smoother and faster."
+			</div>
+			<div class="ur_rating">
+			</div>
+		</div>
+		<div class="ur_nav_container">
+			<a href="#" class="ur_share" style="float: right">Share yours!</a>
+			<a href="#" class="ur_more ur_nav" style="display: block">More success stories</a>
+			<a href="#" class="ur_even_more ur_nav" style="display: none">All success stories</a>
+			<a href="#" class="ur_hide ur_nav" style="display: none">Hide success stories</a>
+		</div>
+		<script>
+			$(function() {
+				$('div.ur_nav_container .ur_more').click(function() {
+					$(this).css('display', 'none');
+					$('div.ur_nav_container .ur_hide').css('display', 'block');
+					$('div.ur_review').css('display', 'block');
+				});
+
+				$('div.ur_nav_container .ur_hide').click(function() {
+					$(this).css('display', 'none');
+					$('div.ur_nav_container .ur_more').css('display', 'block');
+					$('div.ur_review').css('display', 'none');
+					$('div.ur_review0').css('display', 'block');
+				});
+
+				$('#sp_staff').hover(
+					function () {
+						$('.sp_top_popup_container').fadeIn('slow');
+					},
+					function () {
+						$('.sp_top_popup_container').fadeOut('slow');
+				  	}
+				);
+
+				$('#sp_helpful_text_sidebox').hover(
+					function () {
+						$('.sp_popup_container').fadeIn('slow');
+					},
+					function () {
+						$('.sp_popup_container').fadeOut('slow');
+				  	}
+				);
+
+				$('div.sp_star_container').hover(
+					function (eve) {
+						if (!window.star_clicked) {
+							flag = 1;
+							target = $(eve.target).closest('.sp_star_container');
+							id = target.attr('id');
+							name = target.attr('name');
+							window.star_hint = $('#sp_helpful_rating_count').html();
+							$('#sp_helpful_rating_count').html('<span style="color: #686868; font-size: 1.3em;">' + name + '</span>');
+							id = parseInt(id.substr(4)) - 1;
+							$('div.sp_star_container .pretty_star').each(function(i, e) {
+								$(e).css('width', flag * 100 + '%');
+								if (i == id) flag = 0;
+							});
+						}
+					}, function(eve) {
+						if (!window.star_clicked) {
+							$('div.sp_star_container .pretty_star').each(function(i, e) {
+								$(e).css('width', $(e).attr('width') + '%');
+							});
+							$('#sp_helpful_rating_count').html(window.hint);
+						}
+					}
+				);
+
+				$('div.sp_star_container').click(function(eve) {
+					if (!window.star_clicked) {
+						window.star_clicked = true;
+						flag = 1;
+						target = $(eve.target).closest('.sp_star_container');
+						id = target.attr('id');
+						id = parseInt(id.substr(4)) - 1;
+						$('div.sp_star_container .pretty_star').each(function(i, e) {
+							$(e).css('width', flag * 100 + '%');
+							if (i == id) flag = 0;
+						});
+						$('#sp_helpful_text_sidebox').html('thank you for voting!');
+					}
+				});
+
+			});
+		</script>
+	</div>
+
+</div>
+
+
+    <!--<div class="stars">
+        <div class="star"></div>
+        <div class="star"></div>
+    </div>-->
+{% endblock %}
+{% block recommelizer %}
+    <div class="lg msg">
+        <div class="rack">
+            <div class="item" style="background-image: url(http://localhost:5000/static/img/almonds.jpg)">
+                <div class="title"> به نام خدا تاثیرات مخرب گوشی ها و انواع دیگر لوازم</div>
+            </div>
+
+            <div class="item" style="background-image: url(http://localhost:5000/static/img/lice.jpg)">
+                <div class="title">خارش پوست</div>
+            </div>
+        </div>
+        <div class="rack">
+            <div class="item" style="background-image: url(http://localhost:5000/static/img/lip.jpg)">
+                <div class="title">مقاله حجیم کننده های لب</div>
+            </div>
+
+            <div class="item" style="background-image: url(http://localhost:5000/static/img/old_skin.jpg)">
+                <div class="title">پیر پوستی</div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block footer %}
+
+{% endblock %}

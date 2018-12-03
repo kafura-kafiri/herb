@@ -1,0 +1,99 @@
+body {
+  background-color: #c6c5c7; }
+
+/* ---------------------------- *\
+    item
+\* ---------------------------- */
+.container {
+  width: calc(100% - 60px);
+  margin: 30px; }
+
+/* ---------------------------- *\
+    item
+\* ---------------------------- */
+.item {
+  border-radius: 7px;
+  background-color: #ffffff;
+  width: 300px;
+  height: 250px;
+  overflow: hidden; }
+
+.item:not(.extended) .img-container {
+  width: 100%;
+  height: calc(100% - 40px);
+  overflow: hidden;
+  border-bottom-left-radius: 7px;
+  border-bottom-right-radius: 7px; }
+
+.item:not(.extended) .img-container > img {
+  border-radius: 7px;
+  width: 100%;
+  height: auto; }
+
+.item:not(.extended) .img-container > .cover {
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 300%;
+  position: relative;
+  top: calc(0px - 200% - 40px); }
+
+.item:not(.extended) .item > .title {
+  height: 65px;
+  width: 240px;
+  margin-left: 30px;
+  margin-top: -25px;
+  background-color: #ffffff;
+  z-index: 2;
+  position: relative;
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+  direction: rtl;
+  padding: 2px;
+  font-size: 1.5em; }
+
+/* ---------------------------- *\
+    extended
+\* ---------------------------- */
+.item.extended {
+  height: 375px; }
+
+.item.extended > .img-container {
+  height: 100%;
+  width: 100%; }
+
+.item.extended:hover > .img-container > .cover {
+  position: relative;
+  height: calc(100% - 10px);
+  width: calc(100% - 10px);
+  top: calc(0% - 100% - 4px);
+  border-radius: 7px;
+  border: solid 5px rgba(0, 0, 0, 0.5); }
+
+.item.extended > .img-container > img {
+  height: 100%;
+  width: auto;
+  margin-left: -25%; }
+
+.item.extended > .title {
+  height: 100%;
+  width: 100%;
+  position: relative;
+  top: -100%;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+  color: transparent;
+  text-align: center;
+  line-height: 120px; }
+
+.item.extended:hover > .title {
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+  position: relative;
+  top: calc(0% - 50% - 60px);
+  left: calc(50% - 60px);
+  background-color: rgba(0, 0, 0, 0.5);
+  transition: all 0.2s ease;
+  color: white; }
+
+/*# sourceMappingURL=menu_item.css.map */

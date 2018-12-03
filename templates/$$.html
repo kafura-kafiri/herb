@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>{{ ctx.title }}</title>
+   <link rel="icon" href="{{ url_for('static', filename='img/$$.jpeg') }}">
+   <link rel="stylesheet" href="{{ url_for('static', filename='semantic/dist/semantic.min.css') }}">
+   <script src="{{ url_for('static', filename='jquery/jquery-3.2.1.min.js') }}"></script>
+   <script src="{{ url_for('static', filename='semantic/dist/semantic.min.js') }}"></script>
+   <script src="{{ url_for('static', filename='ractive.js') }}"></script>
+</head>
+<body></body>
+{% raw %}
+<script id="template" type="text/ractive">
+   {{#partial field}}
+      <form enctype="multipart/form-data">
+         <div class="ui left action input">
+            <button on-click="['valuate', @keypath, @event, @node]" class="ui button" type="submit" value="Valuate">Valuate</button>
+            <input class="ui button" type="file" name="file" accept="image/*">
+            <input
+               {{#if typeof this === 'number' }}
+                  type="number"
+               {{else }}
+                  type="text"
+               {{/if }}
+               placeholder="Value or TAG" value="{{ this }}" size="55" dir="rtl" style=" text-align: right; float: right; clear: both; direction: RTL">
+         </div>
+      </form>
+   {{/partial}}
+
+   {{#partial thumbnail}}
+      {{#if typeof this === 'number' || typeof this ==='string' }}
+         {{> field this }}
+      {{elseif Object.prototype.toString.call( this ) === '[object Array]' }}
+         <div class="ui middle aligned list">
+            {{#each this: num }}
+               <i on-click="['delete', @keypath]" class="red close link icon"></i>
+               <div class="item">
+                  <div class="content">
+                     {{> thumbnail this }}
+                  </div>
+               </div>
+               <div class="ui fitted divider"></div>
+            {{/each}}
+            <br>
+            <div class="ui input">
+               <input type="text" value="{{ this.__selector__ }}" placeholder="@collectoin: #_id ..." size="30"> <!-- dir="rtl" style=" text-align: right; float: right; clear: both; direction: RTL" -->
+            </div>
+            #
+            <div class="ui buttons">
+               <button on-click="['insert', @keypath, {}, null, __selector__]" class="ui red basic button">Dictionary {}</button>
+               <button on-click="['insert', @keypath, [], null, __selector__]" class="ui blue basic button">Array []</button>
+               <button on-click="['insert', @keypath, "", null, __selector__]" class="ui green basic button">String ""</button>
+               <button on-click="['insert', @keypath, 0, null, __selector__]" class="ui yellow basic button">Num 0</button>
+            </div>
+         </div>
+      {{elseif Object.prototype.toString.call( this ) === '[object Object]' }}
+         <div class="ui styled fluid accordion">
+            {{#each this: attr }}
+               {{#if !attr.match(/__.*__/) }}
+                  <div class="title">
+                     <i class="dropdown icon"></i>
+                     {{ attr }}
+                     <i on-click="['delete', @keypath]" class="orange close link icon"></i>
+                  </div>
+                  <div class="content">
+                     {{> thumbnail this }}
+                  </div>
+               {{/if}}
+            {{/each}}
+            <div class="ui bottom attached warning message">
+               <div class="ui input">
+                  <input type="text" value="{{ this.__selector__ }}" placeholder="@collectoin: #_id ..." size="30"> <!-- dir="rtl" style=" text-align: right; float: right; clear: both; direction: RTL" -->
+               </div>
+               #
+               <div class="ui buttons">
+                  <button on-click="['insert', @keypath, {}, __attr__, __selector__]" class="ui red basic button">Dictionary {}</button>
+                  <button on-click="['insert', @keypath, [], __attr__, __selector__]" class="ui blue basic button">Array []</button>
+                  <button on-click="['insert', @keypath, "", __attr__, __selector__]" class="ui green basic button">String ""</button>
+                  <button on-click="['insert', @keypath, 0, __attr__, __selector__]" class="ui yellow basic button">Num 0</button>
+               </div> &nbsp;&nbsp;:&nbsp;
+               <div class="ui input">
+                  <input type="text" value="{{ this.__attr__ }}" placeholder="new unique name" size="40"> <!-- dir="rtl" style=" text-align: right; float: right; clear: both; direction: RTL" -->
+               </div>
+            </div>
+         </div>
+      {{/if}}
+   {{/partial}}
+   <div class="ui {# #} right aligned container">
+      <br>
+      {{> thumbnail}}
+      <br>
+      <button class="ui big inverted fluid green button"> SAVE </button>
+      <br>
+   </div>
+</script>
+{% endraw %}
+
+<script>
+   $(function() {
+      var plusUltra = new Ractive({
+         template: '#template',
+         target: 'body',
+         data: {{ ctx | tojson }},
+      });
+
+      $('.ui.accordion').first()
+         .accordion({
+            selector: { trigger: '.title .icon.dropdown' }
+         });
+
+      plusUltra.on( 'valuate', function( ctx, keyPath, event ) {
+         btn = event.target;
+         uploader = btn.nextElementSibling;
+         input = uploader.nextElementSibling;
+         form = $(btn).closest('form');
+         var file = uploader.files[0];
+         if(file) {
+            $.ajax({
+               url: '/media/i/+',
+               type: 'POST',
+               data: new FormData(form[0]),
+               cache: false,
+               contentType: false,
+               processData: false,
+            }).done(function(response) {
+               plusUltra.set(keyPath, response);
+            });
+         } else {
+            input = $(input).val();
+            $.post( '/media/i/+', { url: input })
+            .done(function( response ) {
+               plusUltra.set(keyPath, response);
+            });
+         }
+         return false;
+      });
+
+      plusUltra.on( 'delete', function( ctx, keyPath ) {
+         var split = keyPath.split('.');
+         var size = split.length, head = split[split.length - 1];
+         var tail = split.slice(0, split.length - 1);
+         tail = tail.join('.');
+         data = plusUltra.get(tail);
+         if(Object.prototype.toString.call( data ) === '[object Array]') {
+            head = parseInt(head);
+            data.splice(head, 1);
+         } else if(Object.prototype.toString.call( data ) === '[object Object]') {
+            delete data[head];
+         }
+         plusUltra.set(tail, data);
+      });
+
+      plusUltra.on( 'insert', function( ctx, keyPath, type, key, collection_selector ) {
+         var sexySet = function() {
+            var data = plusUltra.get(keyPath);
+            if(Object.prototype.toString.call( data ) === '[object Array]') {
+               data.push(type);
+            } else if(Object.prototype.toString.call( data ) === '[object Object]') {
+               if(key != "" && !(key in data)) {
+                  data[key] = type;
+               } else {
+                  alert('key error');
+               }
+            }
+            plusUltra.set(keyPath, data);
+         }
+
+         var pattern = /.*@.*:.*#.*/;
+         if(pattern.test(collection_selector)) {
+            splited = collection_selector.split(':');
+            var _collection = splited[0].trim().substring(1).trim();
+            var _selector = splited[1].trim().substring(1).trim();
+            $.ajax({
+               type: "POST",
+               url: '/' + _collection + '/' + _selector + '-',
+               success: function(response) {
+                  type = response;
+                  sexySet();
+               },
+               dataType: 'json'
+            });
+         } else {
+            sexySet();
+         }
+
+      });
+
+      $(document).on('keyup', function(eve) {
+         shifted = eve.shiftKey;
+         controlled = eve.ctrlKey;
+         if(shifted && controlled && eve.which == 83) { // 83 == 's'
+            var document = plusUltra.get();
+            document = JSON.stringify(document);
+            $.ajax({
+               type: "POST",
+               url: '',
+               data: {json: document},
+               success: function(response) {
+                  location.reload();
+               },
+            });
+         }
+      });
+
+      $('button.ui.big.inverted.fluid.green.button').click(function() {
+         var document = plusUltra.get();
+         document = JSON.stringify(document);
+         $.ajax({
+            type: "POST",
+            url: '',
+            data: {json: document},
+            success: function(response) {
+               location.reload();
+            },
+         });
+      });
+
+   });
+</script>
+</html>

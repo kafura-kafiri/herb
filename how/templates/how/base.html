@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1"/>-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='how/wow/style-cleaned.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='how/wow/basics.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='how/wow/sticky.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='how/wow/intro.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='how/side.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='how/static.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='how/bar.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='how/extra.css') }}"/>
+    <link rel="stylesheet" href="{{ url_for('static', filename='how/details.css') }}"/>
+    <style>
+    .else a {
+        height: 100%;
+        width: 19%;
+        text-align: center;
+        padding-top: 5px;
+        cursor: pointer;
+    }
+
+    .else a * {
+
+    }
+
+    .else a:not(:first-child) {
+        margin-left: -3px;
+    }
+
+    .else [class^=icon-] {
+    color: white /*#9aba12*/;
+    font-size: 24px;
+    vertical-align: text-top;
+}
+
+    .else div {
+        color: white;
+    }
+
+    .icon-wellness:before {
+    content: "\e9b3";
+}
+
+    .icon-beauty:before {
+    content: "\e9d9";
+}
+
+    .icon-fitness:before {
+    content: "\e9d7";
+}
+
+    .icon-nutrition:before {
+    content: "\e9d5";
+}
+
+    .icon-conditions:before {
+    content: "\e9d6";
+}
+
+    .logo i {
+    color: #fff;
+    font-size: 35px;
+}
+
+    .logo i:before {
+    position: relative;
+    top: 8px;
+    left: 11px;
+    float: left;
+}
+.icon-header_cart:before {
+    content: "\ea00";
+}
+[class*=" icon-"]:after, [class*=" icon-"]:before, [class^=icon-]:after, [class^=icon-]:before {
+    font-family: iHerb-Font!important;
+    speak: none;
+    font-style: normal;
+    font-weight: 400;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+    </style>
+    <script src="{{ url_for('static', filename='how/jquery-3.1.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='how/jquery.inview.min.js') }}"></script>
+    {% block head %}{% endblock %}
+</head>
+<body>
+
+<div class="theme"
+     {% if base and base.theme %}
+        style="background-image: url(/media/n/{{ base.theme }})"
+     {% endif %}
+>
+    <div class="menu">
+        <div class="else" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);">
+            {% for item in ['beauty', 'wellness', 'fitness', 'nutrition', 'conditions'] %}
+            <a style="display: inline-block" href="/hows/?category={{ item }}">
+                <i class="icon-{{ item }}"></i>
+                <div>{{ _(item) }}</div>
+            </a>
+            {% endfor %}
+        </div>
+        <div class="title_bar">
+            <div class="tube">
+                <span id="input" contenteditable="true" style="direction: rtl;">title</span>
+            </div>
+            <div class="sand-time"></div>
+            <div class="num">
+                <div class="level">search</div>
+                <div class="int">{{ _(0) }}</div>
+            </div>
+        </div>
+        <div class="logo" style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);">
+            <a href="/">
+                <i class="icon-header_cart"></i>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="menu-shadow"></div>
+
+{% block content %}{% endblock %}
+{% block footer %}{% endblock %}
+</body>
+<script>
+    $(function() {
+        function absolute(height) {
+            var ratio = height / 6;
+            height = 90 - height / 2.3;
+            $('.theme').css({
+                height: height + 'px',
+                'padding-top': height + 'px',
+                'background-position-y': 27 - ratio + '%',
+            });
+            $('.theme').find('.menu').css({
+                position: 'initial',
+            });
+            $('.menu-shadow').css({
+                height: '0px',
+            });
+        }
+        function fixed() {
+            $('.theme').css({
+                height: '0px',
+                'padding-top': '0px',
+                'background-position-y': '27%',
+            });
+            $('.theme').find('.menu').css({
+                position: 'fixed',
+            });
+            $('.menu-shadow').css({
+                height: '128px',
+            });
+        }
+
+        window.index = -1;
+        window._int = $('div.title_bar .num .int').html();
+        window.level = $('div.title_bar .num .level').html();
+        window.title = '';
+        window.scroll = 0;
+        range = $('div.title_bar').outerHeight();
+        $(window).scroll(function() {
+            var distances = [];
+            var elements = [];
+            $('.pointer').each(function(index, element) {
+                distances.push(parseInt($(element).offset().top));
+                elements.push(element);
+            });
+            // distances = distances.sort();
+            var scroll = $(window).scrollTop();
+            var index = -1;
+            var quit = false;
+            for(var i=0; i<distances.length; i++)
+                if (scroll >= distances[i])
+                    index ++;
+
+            if (index != window.index) {
+                if (index != -1) {
+                    var h3 = $(elements[index]).parent();
+                    var title = h3.attr('id');
+                    h3.css('z-index', -89);
+                    var _int = h3.find('.num .int').html();
+                    var level = h3.find('.num .level').html();
+                } else {
+                    var title = window.title;
+                    var _int = window._int;
+                    var level = window.level;
+                }
+                $('#input').html(title);
+                $('div.title_bar .num .int').html(_int);
+                $('div.title_bar .num .level').html(level);
+                window.index = index;
+                window.flag = true;
+            }
+
+            if (window.flag && index != -1 && scroll - distances[index] > range && scroll > window.scroll) {
+                window.flag = false;
+                var h3 = $(elements[index]).parent();
+                h3.css('z-index', 89);
+            }
+
+            if (index + 1 != distances.length && distances[index + 1] - scroll > range && scroll < window.scroll) {
+                var h3 = $(elements[index + 1]).parent();
+                h3.css('z-index', 89);
+            }
+
+            window.scroll = scroll;
+        });
+    });
+</script>
+</html>

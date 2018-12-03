@@ -1,0 +1,78 @@
+<div class="section-header">
+    <div class="row">
+        <div class="col-xs-24">
+            <h4 class="pull-left">
+                Explore
+            </h4>
+            <h5 class="pull-right">
+                <a href="/blog/all" class="">
+                    View All
+                </a>
+            </h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-24">
+            <hr/>
+        </div>
+    </div>
+</div>
+
+<div class="loader">
+    <div class="loader-background"></div>
+    <figure class="spinner fixed">
+        <i class="icon-iherbleaf"></i>
+    </figure>
+</div>
+<div class="explore-articles" data-blog-id="1">
+    <div class="row">
+        {% for item in result %}
+        <div class="article-preview-container">
+            <div class="col-xs-8 col-buffer-md">
+                <div class="article-preview">
+                    <a href="/blog/nighttime-body-butter-for-fall">
+                        <img src="https://s.images-iherb.com/blog/uploads/nighttime-body-butter-for-fall-large.jpg"
+                             class="img-responsive">
+                    </a>
+                    <div class="content">
+                        <h5 class="underscore">
+                            <i class="icon-{{ item.meta.category }}"></i>
+                            {{ _(item.meta.category) }}
+                        </h5>
+                        <h3>
+                            <a href="/blog/nighttime-body-butter-for-fall">
+                                {{ item.meta.title }}
+                            </a>
+                        </h3>
+                        <div class="small">
+                            {{ item._date }}
+                        </div>
+                        <div class="text-container hidden-xs hidden-sm">
+                            {{ item.meta.intro }}
+                        </div>
+                        <a href="/hows/{{ item._id }}" class="hidden-xs hidden-sm">{{ _('Read More') }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="row row-buffer">
+        <div class="col-xs-24">
+            {#
+            <div class="pagination col-buffer-lg">
+                <span class="pagination-selected">1</span>
+                <a class="pagination-link" href="/blog?p=2" data-url="/blog?p=2">2</a>
+                <a class="pagination-link" href="/blog?p=3" data-url="/blog?p=3">3</a>
+                <a class="pagination-link" href="/blog?p=4" data-url="/blog?p=4">4</a>
+                <span>...</span>
+                <a class="pagination-link" href="/blog?p=30" data-url="/blog?p=30">30</a>
+
+                <a class="pagination-next" href="/blog?p=2" data-url="/blog?p=2">
+                    <i class="icon-recentlyviewedarrowright"></i>
+                </a>
+            </div>
+            #}
+        </div>
+    </div>
+</div>

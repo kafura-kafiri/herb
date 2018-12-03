@@ -1,0 +1,99 @@
+#intro {
+    padding: 27px;
+    margin-bottom: 25px;
+    word-wrap: break-word;
+    background-color: #ffffff
+}
+
+#intro {
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px
+}
+
+#intro.article_inner {
+    border-bottom-right-radius: 0;
+    -moz-border-bottom-right-radius: 0px;
+    -webkit-border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0px;
+    -moz-border-bottom-left-radius: 0px;
+    -webkit-border-bottom-left-radius: 0px;
+    margin-top: 0px
+}
+
+#intro.hasad {
+    padding-bottom: 0
+}
+
+.sp_intro_expert {
+    float: right;
+    padding-left: 31px;
+    margin-top: 6px;
+    width: 55px;
+    height: 28px;
+    background-size: 28px;
+    background-image: url(/skins/owl/images/sp_expert_icon.png);
+    background-image: url(/skins/owl/images/sp_expert_icon.svg);
+    background-repeat: no-repeat;
+    line-height: 14px;
+    font-size: 12px;
+    background-position: 0% 5%;
+    text-decoration: none !important
+}
+
+#intro .sp_intro_expert p {
+    vertical-align: middle;
+    display: inline-block;
+    font-size: 12px;
+    line-height: 14px;
+    padding-top: 0px
+}
+
+.sp_intro_expert::after {
+    display: inline-block;
+    line-height: 2em;
+    width: 0;
+    content: "\00A0";
+    overflow: hidden;
+    vertical-align: middle
+}
+
+#intro .sp_intro_user {
+    float: right;
+    padding-left: 32px;
+    margin-top: 6px;
+    width: 55px;
+    height: 28px;
+    background-size: 28px;
+    background-image: url(../../skins/owl/images/sp_user_icon.png);
+    background-image: url(../../skins/owl/images/sp_user_icon.svg);
+    background-repeat: no-repeat;
+    line-height: 6px;
+    font-size: 12px;
+    background-position: 0% 5%;
+    padding-top: 4px
+}
+
+.sp_intro_user::after {
+    display: inline-block;
+    line-height: 2em;
+    width: 0;
+    content: "\00A0";
+    overflow: hidden;
+    vertical-align: middle
+}
+
+
+#intro.hasad {
+    padding-bottom: 0
+}
+
+#intro .wh_ad_inner {
+    margin-left: -27px;
+    line-height: 0;
+    margin-top: 8px
+}
+
+#intro li {
+    line-height: 17px;
+}

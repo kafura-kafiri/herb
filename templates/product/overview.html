@@ -1,0 +1,85 @@
+<div class="container">
+   <div class="content-frame">
+      <section class="content-wrapper">
+         <div class="title-bar">
+            <div class="row">
+               <div class="col-xs-24">
+                  <strong>{{ _('Product Overview') }}</strong>
+               </div>
+            </div>
+         </div>
+         <div class="inner-content">
+            <div class="item-row">
+               <div class="row">
+                  <div class="col-xs-24 col-md-14">
+                     {% for specification in pr.specifications %}
+                     <div class="row item-row">
+                        <div class="col-xs-24">
+                           <h3>
+                              <strong>{{ specification.title }}</strong>
+                           </h3>
+                           <div itemprop="description">
+                              {% if specification.ul %}
+                              <ul>
+                                 {% for li in specification.ul %}
+                                    <li>{{ li }}</li>
+                                 {% endfor %}
+                              </ul>
+                              {% endif %}
+                              {% if specification.p %}
+                              <ul>
+                                 {% for p in specification.p %}
+                                    <p>{{ p }}</p>
+                                 {% endfor %}
+                              </ul>
+                              {% endif %}
+                           </div>
+                        </div>
+                     </div>
+                     {% endfor %}
+                     <div class="row item-row">
+                        <div class="col-xs-24">
+                           <a target="_blank" href="http://www.thorne.com/">
+                              <strong class="link-lg">{{ _("Visit Manufacturer&#39;s Website") }}</strong>
+                           </a>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-xs-24 col-md-10">
+                     <div class="supplement-facts-container">
+                        <table width="100%" border="1" cellspacing="0" cellpadding="3">
+                           <tbody>
+                           <tr align="left" valign="top">
+                              <td colspan="3"><strong>{{ pr.supplement_facts.title }}</strong></td>
+                           </tr>
+                           {% for serving in pr.supplement_facts.serving %}
+                                 <tr align="left" valign="top">
+                                    <td colspan="3"><strong>{{ serving.0 }}:</strong> {{ serving.1 }}</td>
+                                 </tr>
+                           {% endfor %}
+                           <tr align="left" valign="top">
+                              <td width="70%"><strong>{{ pr.supplement_facts.serving.0.1 }} {{ _('Contain:') }}</strong></td>
+                              <td width="15%"><strong>{{ _('Amount Per Serving') }}</strong></td>
+                              <td width="15%"><strong>{{ _('%DV') }}</strong></td>
+                           </tr>
+                           {% for supplement in pr.supplement_facts.supplements %}
+                              <tr align="left" valign="top">
+                                 <td>{{ supplement.element }}</td>
+                                 <td>{{ supplement.amo }}</td>
+                                 <td>{{ supplement.dv }}</td>
+                              </tr>
+                           {% endfor %}
+                           <tr align="left" valign="top">
+                              <td colspan="3">
+                                 {{ _("*Daily Value (DV) not established.<br/> †This product uses Gnosis S.p.A.'s L-5-Methyltetrahydrofolic acid, Glucosamine Salt<br/> ††This product uses Albion&rsquo;s TRAACS Calcium Bisglycinate Chelate, Chromium Nicotinate Glycinate Chelate, Copper Bisglycinate Chelate, Manganese Bisglycinate Chelate, Magnesium Bisglycinate Chelate, Molybdenum Glycinate Chelate, and Zinc Bisglycinate Chelate. TRAACS is a registered trademark of Albion International, Inc. <br/> †††This product uses Albion&rsquo;s Bororganic Boron Glycinate Complex. Bororganic is a trademark of Albion International, Inc.<br/>") | safe }}</td>
+                           </tr>
+                           </tbody>
+                        </table>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+   </div>
+</div>

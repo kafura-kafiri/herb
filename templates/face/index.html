@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<!--[if IE 9 ]><html class="ie9 en home index " dir="ltr"> <![endif]-->
+<!--[if IE 10 ]><html class="ie10 en home index " dir="ltr"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html class="en home index  " dir="ltr">
+<!--<![endif]-->
+<head>
+   {% include 'layout/resources.html' %}
+   <title>{{ _('Infinite Beauty') }}</title>
+   <meta name="format-detection" content="telephone=no">
+</head>
+<body>
+<script src="{{ url_for( 'static', filename='jquery/jquery-3.2.1.min.js') }}" type="text/javascript"></script>
+<script src="https://s.images-iherb.com/js/ga-pro6.min.js"></script>
+{% set no_secondary = True %}
+{% include 'layout/header/index.html' %}
+<div class="iherb-header-threshold" style=""></div>
+<div class="iherb-header-overlay transparency hide"></div>
+<style>
+    .page {
+        height: calc(100% - 170px - 72px);
+        background: #fee;
+    }
+
+    .upload, .intro {
+        display: inline-block;
+        height: 100%;
+    }
+
+    .upload {
+        /* background: rgba(255, 100, 255, .3); */
+        background-image: url(/static/img/hole/3.jpg);
+        /* background-repeat:no-repeat; */
+        background-size:cover;
+        background-position:50% calc(50%);
+        width: 57%;
+    }
+
+    .intro {
+        margin-left: -4px;
+        background: rgba(255, 255, 100, .3);
+        width: 43%;
+        text-align: center;
+    }
+
+    .frame {
+        position: absolute;
+        height: calc(100% - 170px - 72px);
+        width: 57%;
+    }
+
+    .frame .border {
+        border-style: solid;
+        border-color: rgba(147, 184, 116, 1);
+        height: 90px;
+        width: 90px;
+
+        position: absolute;
+    }
+
+    .frame .face {
+        position: absolute;
+        width: 306px;
+        height: 306px;
+
+        /* background: rgba(0,0,0,.5); */
+        left: calc(50% - 153px); top: calc(50% - 153px);
+    }
+
+    .frame .face:hover {
+        cursor: pointer;
+    }
+
+    .frame .face .zebra.hover, .frame .face:hover .zebra {
+        background-image: url(http://localhost:5000/static/img/zebra.jpg);
+        height: 100%;
+        width: 100%;
+        background-size: 140%;
+        background-position: 50% calc(50%);
+        display: block;
+    }
+
+    .frame .face:hover img {
+        display: none;
+    }
+
+    .frame .face img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        padding: 5px;
+        background-color: rgba(0, 0, 0, 0);
+        position: absolute;
+        top: 0;
+    }
+
+    .frame .face .zebra {
+        display: none;
+        text-align: center;
+        padding-top: 50px;
+        font-size: 1.3em;
+        color: #333;
+    }
+
+    .banner {
+        height: 170px;
+        background-size: cover;
+    }
+
+    #submit_img {
+        padding:5px 15px;
+        background:#ccc;
+        border:0 none;
+        cursor:pointer;
+        -webkit-border-radius: 5px;
+        border-radius: 5px;
+        display: none;
+        position: absolute;
+        left: calc(50% - 30px);
+        bottom: 10px;
+    }
+
+    #submit_img:hover {
+        background:#bbb;
+    }
+</style>
+<div class="banner" style="background-image: url({{ banner.img }}); background-position: 0px {{ banner.position }}px;"></div>
+<div class="page">
+    <div class="upload">
+        <div class="frame">
+            <div class="border" style="border-width: 0px 0px 7px 7px; left: calc(50% - 160px); bottom: calc(50% - 160px);"></div>
+            <div class="border" style="border-width: 7px 0px 0px 7px; left: calc(50% - 160px); top: calc(50% - 160px);"></div>
+            <div class="border" style="border-width: 0px 7px 7px 0px; right: calc(50% - 160px); bottom: calc(50% - 160px);"></div>
+            <div class="border" style="border-width: 7px 7px 0px 0px; right: calc(50% - 160px); top: calc(50% - 160px);"></div>
+            <div class="face">
+                <div class="zebra" id="auto_hover">
+                    {{ _('Upload your face') }}
+                    <br>
+                    <span style="color: #666">({{ _('click') }})</span>
+                </div>
+                <img id="face_img">
+                <form id="img_form" action="/action_page.php" method="post" enctype="multipart/form-data">
+                    <input type="file" name="pic" id="imgupload" accept="image/*" onchange="readURL(this);" style="display:none">
+                    <input id="submit_img" type="submit">
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="intro">
+        {% if face %}
+            <div style="position: absolute">
+                <div>{{ face.age }}</div>
+                <div>
+                    {{
+                        'مرد'
+                        if face.gender else
+                        'زن'
+                    }}
+                </div>
+            </div>
+        {% else %}
+        {% endif %}
+    </div>
+</div>
+<script>
+    $(function() {
+        $('#auto_hover').click(function(){
+            $('#imgupload').trigger('click');
+        });
+        var cnt = 0;
+        flag = true;
+        setInterval(function() {
+            if (cnt == 10 && flag) {
+                cnt = 0;
+                $('#auto_hover').addClass('hover');
+                //$('#face_img').css('display', 'none');
+            } else if(cnt != 1 && flag) {
+                $('#auto_hover').removeClass('hover');
+                //$('#face_img').css('display', 'block');
+            }
+            cnt ++;
+        }, 800);
+        window.readURL = function(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#face_img').attr('src', e.target.result).css('display', 'block');
+                    $('#auto_hover').removeClass('zebra').css('display', 'none');
+                    $('#submit_img').css('display', 'block');
+                    flag = false;
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        };
+
+        $("#img_form").on('submit', function(e) {
+            e.preventDefault();
+            $.ajax({
+                url: "/media/i/+",
+                type: "POST",
+                data:  new FormData(this),
+                contentType: false,
+                cache: false,
+                processData:false,
+                beforeSend : function() {
+                    //$("#preview").fadeOut();
+                    $("#err").fadeOut();
+                },
+                success: function(data) {
+                    $.post('/face/' + data, function(response) {
+                        response = $.parseJSON(response);
+                        if(response.success) {
+                            // add waiter
+                            setInterval(function() {
+                                $.get('/face/' + data + '-', function(response) {
+                                    alert(response);
+                                    if(response != 'null') {
+                                        document.location.href = '/face/' + data;
+                                    }
+                                    console.log('he he');
+                                });
+                            }, 2000);
+                        } else {
+                            console.log(response.success);
+                            alert('پاسخی دریافت نشد.')
+                        }
+                    });
+                },
+                error: function(e) {
+                    $("#err").html(e).fadeIn();
+                }
+            });
+        });
+    });
+</script>
+{% if face %}
+<div class="content">
+    {{ face._date }}
+    <div>اطلاعات کلی</div>
+    <img src="/media/n/{{ face.raw }}" alt="Smiley face" width="42">
+    {{ face.age }}
+    {{
+        'مرد'
+        if face.gender else
+        'زن'
+    }}
+    <img src="/media/n/{{ face.areas }}" alt="Smiley face" width="42">
+    <div>رنگ صورت</div>
+    <img src="/media/n/{{ face.color.picture }}" alt="Smiley face" width="200">
+    {{ face.color.value }}
+    <div>لب ها</div>
+    <img src="/media/n/{{ face.lips.picture }}" alt="Smiley face" width="42">
+    {{ face.lips.value }}
+    <div>چروک</div>
+    {{ face.wrinkle.value }}
+    <img src="/media/n/{{ face.wrinkle.hessian }}" alt="Smiley face" width="42">
+    <img src="/media/n/{{ face.wrinkle.frangi }}" alt="Smiley face" width="42">
+</div>
+{% endif %}
+{% include 'live/index.html' %}
+{% include 'how/latest/index.html' %}
+{% include 'layout/footer.html' %}
+</body>
+</html>

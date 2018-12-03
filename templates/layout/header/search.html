@@ -1,0 +1,142 @@
+<div class="iherb-header-search">
+   <form action="/s/" method="get" id="searchForm">
+      <div class="search-box">
+         <input
+               id="txtSearch"
+               class="iherb-header-search-input"
+               placeholder="{{ _('Search from over 35,000 products') }}"
+               name="kw"
+               type="text"
+               maxlength="60"
+               autocomplete="off"
+         />
+         <input type="hidden" name="category" value="">
+         <input type="hidden" name="brand" value="">
+         <input type="hidden" name="page" value="1">
+         <input type="hidden" name="pagesize" value="24">
+         <div class="iherb-header-search-button">
+            <button type="submit" id="searchBtn">
+               <i class="icon-header_search" style="font-size: 22px;"></i>
+            </button>
+         </div>
+         <div id="quick-links-container" class="container" hidden="hidden">
+            <div class="wrapper row">
+               <div id="quick-links-wrapper" class="column-results col-xs-12">
+                  <div class="wrapper-title">{{ _('Quick Links') }}</div>
+                  <ul class="results-container">
+                     <li>
+                        <a href="https://www.iherb.com/specials" data-ga-event="click"
+                           data-ga-event-category="Ecommerce"
+                           data-ga-event-action="Internal Search Functionality"
+                           data-ga-event-label="Quick Links:Daily Deal">
+                           <div>
+                              {{ _('Daily Deal') }}
+                           </div>
+                        </a>
+                     </li>
+                     <li>
+                        <a href="https://checkout.iherb.com/checkout/profile" data-ga-event="click"
+                           data-ga-event-category="Ecommerce"
+                           data-ga-event-action="Internal Search Functionality"
+                           data-ga-event-label="Quick Links:Order History">
+                           <div>
+                              {{ _('Order History') }}
+                           </div>
+                        </a>
+                     </li>
+                     <li>
+                        <a href="https://secure.iherb.com/myaccount/wishlist" data-ga-event="click"
+                           data-ga-event-category="Ecommerce"
+                           data-ga-event-action="Internal Search Functionality"
+                           data-ga-event-label="Quick Links:Wish List">
+                           <div>
+                              {{ _('Wish List') }}
+                           </div>
+                        </a>
+                     </li>
+                     <li>
+                        <a href="https://secure.iherb.com/info/Contact" data-ga-event="click"
+                           data-ga-event-category="Ecommerce"
+                           data-ga-event-action="Internal Search Functionality"
+                           data-ga-event-label="Quick Links:Contact Us">
+                           <div>
+                              {{ _('Contact Us') }}
+                           </div>
+                        </a>
+                     </li>
+                  </ul>
+               </div>
+               <div id="trending-links-wrapper" class="column-results col-xs-12">
+                  <div class="wrapper-title">{{ _('Trending Searches') }}</div>
+                  <ul class="results-container">
+                     <li>
+                        <a href="https://www.iherb.com/c/probiotics" data-ga-event="click"
+                           data-ga-event-category="Ecommerce"
+                           data-ga-event-action="Internal Search Functionality"
+                           data-ga-event-label="Trending Keyword:c/probiotics">
+                           <div class="keyword">
+                              {{ _('Probiotics') }}
+                           </div>
+                        </a>
+                     </li>
+                     <li>
+                        <a href="https://www.iherb.com/search?kw=collagen" data-ga-event="click"
+                           data-ga-event-category="Ecommerce"
+                           data-ga-event-action="Internal Search Functionality"
+                           data-ga-event-label="Trending Keyword:search?kw=collagen">
+                           <div class="keyword">
+                              {{ _('Collagen') }}
+                           </div>
+                        </a>
+                     </li>
+                     <li>
+                        <a href="https://www.iherb.com/search?kw=vitamin+c+serum"
+                           data-ga-event="click" data-ga-event-category="Ecommerce"
+                           data-ga-event-action="Internal Search Functionality"
+                           data-ga-event-label="Trending Keyword:/search?kw=vitamin+c+serum">
+                           <div class="keyword">
+                              Vitamin C Serum
+                           </div>
+                        </a>
+                     </li>
+                     <li>
+                        <a href="https://www.iherb.com/search?kw=fish+oil" data-ga-event="click"
+                           data-ga-event-category="Ecommerce"
+                           data-ga-event-action="Internal Search Functionality"
+                           data-ga-event-label="Trending Keyword:search?kw=fish+oil">
+                           <div class="keyword">
+                              Fish Oil
+                           </div>
+                        </a>
+                     </li>
+                  </ul>
+               </div>
+               <div id="search-history-wrapper" class="column-results col-xs-12"
+                    data-translation="Search History">
+                  <div class="wrapper-title">
+                     {{ _('Search History') }}
+                     <div class="search-history-clear" data-ga-event="click"
+                          data-ga-event-category="Ecommerce"
+                          data-ga-event-action="Internal Search Functionality"
+                          data-ga-event-label="Search History:Clear Search History">
+                        {{ _('Clear Search History') }}
+                     </div>
+                  </div>
+                  <ul class="results-container" data-ga-event="click"
+                      data-ga-event-category="Ecommerce"
+                      data-ga-event-action="Internal Search Functionality"
+                      data-ga-event-label="Search History"></ul>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div id="sug-results"
+           class="container"
+           data-sug-country="US"
+           data-sug-brands="Brands"
+           data-sug-categories="Categories"
+           data-sug-suggested-products="suggested products"
+           data-sug-keywords="keywords">
+      </div>
+   </form>
+</div>

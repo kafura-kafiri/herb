@@ -1,0 +1,128 @@
+$margin: 30px;
+$padding: 40px;
+$radius: 7px;
+
+$menu-height: 40px;
+$menu-width: 50px;
+
+body {
+  background-color: #c6c5c7;
+}
+
+/* ---------------------------- *\
+    item
+\* ---------------------------- */
+.container {
+  width: calc(100% - #{$margin * 2});
+  margin: $margin;
+}
+/* ---------------------------- *\
+    item
+\* ---------------------------- */
+$item-background-color: #ffffff;
+$item-width: 300px;
+$item-height: 250px;
+$title-width: 240px;
+
+.item {
+  border-radius: $radius;
+  background-color: $item-background-color;
+  width: $item-width;
+  height: $item-height;
+  overflow: hidden;
+}
+
+.item:not(.extended) .img-container {
+  width: 100%;
+  height: calc(100% - 40px);
+  overflow: hidden;
+  border-bottom-left-radius: $radius;
+  border-bottom-right-radius: $radius;
+}
+
+.item:not(.extended) .img-container > img {
+  border-radius: $radius;
+  width: 100%;
+  height: auto;
+}
+
+.item:not(.extended) .img-container > .cover {
+  background-color: rgba(0, 0, 0, .5);
+  width: 100%;
+  height: 300%;
+  position: relative;
+  top: calc(0px - 200% - 40px);
+}
+
+.item:not(.extended) .item > .title {
+  height: 65px;
+  width: $title-width;
+  margin-left: ($item-width - $title-width) / 2;
+  margin-top: -25px;
+  background-color: #ffffff;
+  z-index: 2;
+  position: relative;
+  border-top-left-radius: $radius;
+  border-top-right-radius: $radius;
+
+  direction: rtl;
+  padding: 2px;
+  font-size: 1.5em;
+}
+
+/* ---------------------------- *\
+    extended
+\* ---------------------------- */
+
+$extended-height: $item-height * 3 / 2;
+.item.extended {
+  height: $extended-height;
+}
+
+.item.extended > .img-container {
+  height: 100%;
+  width: 100%;
+}
+
+.item.extended:hover > .img-container > .cover {
+  position: relative;
+  height: calc(100% - 10px);
+  width: calc(100% - 10px);
+  top: calc(0% - 100% - 4px);
+
+  border-radius: $radius;
+  border: solid 5px rgba(0, 0, 0, .5);
+}
+
+.item.extended > .img-container > img {
+  height: 100%;
+  width: auto;
+  margin-left: -25%;
+}
+
+.item.extended > .title {
+  height: 100%;
+  width: 100%;
+
+  position: relative;
+  top: -100%;
+  left: 0;
+  background-color: rgba(0, 0, 0, .1);
+  color: transparent;
+  text-align: center;
+  line-height: 120px;
+}
+
+.item.extended:hover > .title {
+  height: 120px;
+  width: 120px;
+
+  border-radius: 50%;
+
+  position: relative;
+  top: calc(0% - 50% - 60px);
+  left: calc(50% - 60px);
+  background-color: rgba(0, 0, 0, .5);
+  transition:all 0.2s ease;
+  color: white;
+}

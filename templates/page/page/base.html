@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<!--[if IE 9 ]>
+<html class="ie9 en info termsofuse " dir="ltr"> <![endif]-->
+<!--[if IE 10 ]>
+<html class="ie10 en info termsofuse " dir="ltr"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html class="en info termsofuse  " dir="ltr" style="overflow-y: visible">
+<!--<![endif]-->
+<head data-type="sassmaster">
+   <link rel="dns-prefetch" href="https://s.images-iherb.com/">
+   <script>
+        var iHerb_Protocol = location.protocol;
+        var iHerb_BaseUrl = location.host;
+        var iHerb_ActionHost = "//checkout.iherb.com";
+   </script>
+   <!-- CATWEB3FFV -->
+   <!-- BuildNumber: 1.1.98182 -->
+   <!--TranslationEnable:false-->
+   <title>iHerb.com - Terms of Use</title>
+   <meta name="format-detection" content="telephone=no">
+   <!-- build:css -->
+   <link href="https://s.images-iherb.com/css/app.desktop.min.catalog-optimized_16acc19e9fe568dafc34059ff5a65d1c.css"
+         rel="stylesheet" type="text/css"/><!-- endbuild -->
+
+   <link rel="stylesheet" href="{{ url_for('static', filename='semantic/dist/semantic.min.css') }}">
+   <script src="{{ url_for('static', filename='jquery/jquery-3.2.1.min.js') }}"></script>
+   <script src="{{ url_for('static', filename='semantic/dist/semantic.min.js') }}"></script>
+   <!-- build:cssie -->
+   <!--[if lte IE 9]>
+   <link href="https://s.images-iherb.com/css/app.desktop.min.catalog-optimized_16acc19e9fe568dafc34059ff5a65d1c_ie1.css"
+         rel="stylesheet" type="text/css"/>
+   <link href="https://s.images-iherb.com/css/app.desktop.min.catalog-optimized_16acc19e9fe568dafc34059ff5a65d1c_ie2.css"
+         rel="stylesheet" type="text/css"/>
+   <link href="https://s.images-iherb.com/css/app.desktop.min.catalog-optimized_16acc19e9fe568dafc34059ff5a65d1c_ie3.css"
+         rel="stylesheet" type="text/css"/>
+   <![endif]-->
+   <!-- endbuild -->
+
+
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width">
+   <meta name="google-site-verification" content="zBEQuibjR3T_pcVIOOVisw5Zm_nOvhR78nG0Qj4KJ5M"/>
+
+</head>
+<body>
+<!-- Google Tag Manager -->
+<script>
+        var dataLayer = [{ 'countryCode': 'WWW', 'currentDevice': '1' }];
+
+</script>
+<noscript>
+   <iframe src="//www.googletagmanager.com/ns.html?id=GTM-DVDM" height="0" width="0"
+           style="display:none;visibility:hidden"></iframe>
+</noscript>
+<script>
+            function loadGTM(w, d, s, l, i) {
+                w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+                var f = d.getElementsByTagName(s)[0], j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : '';
+                j.async = true; j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+            };
+
+            document.addEventListener('DOMContentLoaded', function() {
+                setTimeout(function() {
+                    loadGTM(window, document, 'script', 'dataLayer', 'GTM-DVDM')
+                }, 1);
+            });
+
+</script>
+<!-- End Google Tag Manager -->
+<script src="https://s.images-iherb.com/js/ga-pro7.min.js"></script>
+{% include 'layout/header/index.html' %}
+{% block main %}{% endblock %}
+<div class="live-container home-module" style="display: none;">
+   <div class="container-fluid">
+      <div class="row">
+         <div class="col-xs-24">
+            <div class="title-container">
+                    <span class="h4">
+                        <bdi>iHerb <strong class="text-uppercase title">Live</strong></bdi>
+                    </span>
+               <span class="subtitle">
+                        Check out what others are buying in real time!
+                    </span>
+               <div class="navigation-container">
+                        <span class="iherb-live-navigation scroll-left disable-navigation disabled-style">
+                                <i class="icon-rewind"></i>
+                        </span>
+                  <span class="iherb-live-navigation scroll-right">
+                            <i class="icon-pause"></i>
+                        </span>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="row row-buffer">
+         <div class="col-xs-24">
+            <div class="live-carousel">
+               <div class="row">
+                  <div class="col-xs-24">
+                     <div class="live-wrapper">
+                        <div class="live-scroller"></div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<div class="latest-blog-articles-container"
+     data-icon-url="https://s.images-iherb.com/i/footer/visit-our-blog/blog-icon-us-en.png" style="display: none;">
+   <div class="container-fluid">
+      <div class="flex-container">
+
+      </div>
+   </div>
+</div>
+
+{% include 'layout/footer.html' %}
+
+</body>
+
+</html>

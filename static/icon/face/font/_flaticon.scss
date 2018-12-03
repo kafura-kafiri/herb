@@ -1,0 +1,55 @@
+    /*
+    Flaticon icon font: Flaticon
+    Creation date: 24/11/2018 07:57
+    */
+
+    @font-face {
+  font-family: "Flaticon";
+  src: url("./Flaticon.eot");
+  src: url("./Flaticon.eot?#iefix") format("embedded-opentype"),
+       url("./Flaticon.woff") format("woff"),
+       url("./Flaticon.ttf") format("truetype"),
+       url("./Flaticon.svg#Flaticon") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "Flaticon";
+    src: url("./Flaticon.svg#Flaticon") format("svg");
+  }
+}
+
+    .fi:before{
+        display: inline-block;
+  font-family: "Flaticon";
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  line-height: 1;
+  text-decoration: inherit;
+  text-rendering: optimizeLegibility;
+  text-transform: none;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+    }
+
+    .flaticon-facial-recognition:before { content: "\f100"; }
+.flaticon-facial-recognition-2:before { content: "\f101"; }
+.flaticon-facial-recognition-4:before { content: "\f102"; }
+.flaticon-facial-recognition-5:before { content: "\f103"; }
+.flaticon-facial-recognition-6:before { content: "\f104"; }
+.flaticon-facial-recognition-8:before { content: "\f105"; }
+.flaticon-facial-recognition-7:before { content: "\f106"; }
+.flaticon-facial-recognition-3:before { content: "\f107"; }
+    
+    $font-Flaticon-facial-recognition: "\f100";
+    $font-Flaticon-facial-recognition-2: "\f101";
+    $font-Flaticon-facial-recognition-4: "\f102";
+    $font-Flaticon-facial-recognition-5: "\f103";
+    $font-Flaticon-facial-recognition-6: "\f104";
+    $font-Flaticon-facial-recognition-8: "\f105";
+    $font-Flaticon-facial-recognition-7: "\f106";
+    $font-Flaticon-facial-recognition-3: "\f107";

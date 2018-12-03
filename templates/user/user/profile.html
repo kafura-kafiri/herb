@@ -1,0 +1,200 @@
+{% extends "user/base.html" %}
+{% block container %}
+<input type="hidden" id="ProfileModelProperties" data-not-available="Not Available"/>
+<section id="Dashboard" class="col-xs-24 col-md-20 myaccount-container">
+   <section class="row">
+      <div class="col-xs-2 hidden-md hidden-lg hidden-xl myaccount-hamburger-menu">
+         <i class="icon-hamburgermenufat h-menu open-overlay"></i>
+      </div>
+      <div class="col-xs-11 col-md-12 breadcrumbs">
+         <div class="row">
+            <div class="col-xs-24">
+               <h1>{{ _('Orders') }}</h1>
+               <p><a href="/myaccount/profile">{{ _('My Account') }} </a> <span> {{ _('Orders') }}</span></p>
+            </div>
+         </div>
+      </div>
+      <div class="col-xs-11 col-md-12 survey-feedback-holder">
+         <section class="js-survey-feedback survey-feedback hide">
+            <input class="js-survey-location" type="hidden" name="pt"/>
+            <div class="link js-survey-link">
+               <a href="#">{{ _('Give us some feedback!') }}</a>
+               <i class="icon-contactform"></i>
+            </div>
+            <div class="popup-nub-container js-survey-container height-custom hide">
+               <div class="popup-close js-survey-hide"><i class="icon-exit"></i>
+               </div>
+               <div class="popup-content survey-feedback-body js-survey-body"></div>
+            </div>
+         </section>
+      </div>
+   </section>
+   <section id="DashboardCreditSection">
+      <section class="row">
+         <section id="DashboardInfo" class="module">
+            <article class="panel loyalty-section col-xs-12 col-md-10 col-md-offset-2">
+               <div class="panel-body text-center col-xs-24">
+
+                  <section class="row credit-section">
+                     <div class="col-xs-24">
+                        <div class="savings-info">
+                           <h4 class="h4">{{ _('Loyalty Credit') }}</h4>
+                           <div class="primary row-buffer-sm">
+                              <h1 class="h1 savings">{{ _('$') }}{{ _('0.00') }}</h1>
+                              <h3>{{ _('Available') }}</h3>
+                           </div>
+                           <div class="secondary row-buffer-sm">
+                              <span class="pending pending-loyalty-credit"></span>
+                              <span> {{ _('Pending') }}</span>
+                           </div>
+
+                           <div class="additional">
+                              <h5 class="h5">{{ _('Why zero? Simply place an order to earn Loyalty Credit.') }}</h5>
+                           </div>
+                        </div>
+                     </div>
+                  </section>
+                  <section class="row info-section">
+                     <div class="col-xs-24">
+                        <div class="credit-info">
+                           <p>{{ _('With every purchase you gain a credit of') }} <span class="rewards-savings">{{ _('5% of your order amount!') }}</span>
+                           </p>
+                           <span class="btn btn-link popup-modal">{{ _('Read More') }}</span> {{ _('about our Loyalty Program') }}
+
+                           <div id="read-more-message" class="popup-container">
+                              <p class="popup-title">{{ _('Loyalty Program') }}</p>
+                              <div class="popup-content">
+                                 <p>{{ _("- You earn loyalty credit for every order you place at iHerb!") }}</p>
+                                 <p>{{ _("-&nbsp;Loyalty credit is equal to 5% of the value of your order after discounts and credits applied, excluding shipping charges.") }}</p>
+                                 <p>{{ _("- Your loyalty credit will be applied towards your next order as soon asyour current order has shipped.") }}</p>
+                                 <p>{{ _("- Your loyalty credits are valid for up to 90 days from the date of your last purchase.") }}</p>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+
+                  </section>
+               </div>
+            </article>
+            <article class="panel rewards-section col-xs-12 col-md-10">
+               <div class="panel-body text-center col-xs-24">
+                  <section class="row credit-section">
+                     <div class="col-xs-24">
+                        <div class="savings-info">
+                           <h4 class="h4 col-xs-24">{{ _('Rewards Credit') }}</h4>
+                           <div class="primary row-buffer-sm">
+                              <h1 class="h1 savings">{{ _('$') }}{{ _(0.00) }}</h1>
+                              <h3>{{ _('Available') }}</h3>
+                           </div>
+                           <div class="secondary row-buffer-sm">
+                              <span class="pending pending-rewards-credit"></span>
+                              <span>{{ _('Pending') }}</span>
+                           </div>
+                           <div class="additional">
+                              <h5 class="h5">{{ _('Learn how to') }}
+                                 <a
+                                       href="https://secure.iherb.com/rewards/overview"
+                                       target="_blank">{{ _('earn Rewards Credit') }}
+                                 </a>
+                                 {{ _('and accept the Terms of Use.') }}</h5>
+                           </div>
+                        </div>
+                     </div>
+                  </section>
+                  <section class="row info-section">
+                     <div class="col-xs-24">
+                        <div class="credit-info">
+                           <p>{{ _('Share your ordered items with others to earn Rewards by clicking') }}
+                              <span class="share-order-btn">{{ _('Share') }}<i class="icon-sharefilled"></i></span>
+                              {{ _('in your Order History') }}</p>
+                        </div>
+                     </div>
+                  </section>
+               </div>
+            </article>
+         </section>
+      </section>
+   </section>
+   <section class="row">
+      <section class="module col-xs-24 row-buffer-lg" id="SpeedyReordering" data-emptyorders="No orders found">
+         <h1>{{ _('Speedy Reordering') }} <span class="light-title">{{ _('in 3 Simple Ways:') }}</span></h1>
+         <div class="simple-ways-list">
+            <ul>
+               <li>
+                  <div class="row">
+                     <div class="col-xs-13 col-md-13 col-lg-14 col-xl-15">
+                        <p>
+                           <strong>{{ _('Combine Carts:') }}</strong>
+                           {{ _('Add all items from your last 1-5 orders into your shopping cart all at once. Remove the items you do not wish to reorder.') }}</p>
+                     </div>
+                     <div class=" col-xs-8 col-xs-offset-3 col-md-6 reorder-actions">
+                        <form action="https://checkout.iherb.com/pro/addlisttocart" method="post"
+                              id="RMRIForm">
+                           <input type='hidden'
+                                  value="0XgNrS/mo9lqLzFhGsKiAyJuW+wyYlANCYn+8+u4AIK/gZF0g8DvXOfWwbMwspLBu8lDkAyL4ONK3eP8S5/+s2DdkYiURa0NB2f+BBTMjxLDxQyRLtuqeRedNouG7EuZ"
+                                  name="rftdatases"/>
+                           <div id="ROMRpids">
+                           </div>
+                           <select id="romr" name="romr" class="combineCartAmt dropdown-sort">
+                              <option value="1">{{ _(1) }}</option>
+                              <option value="2">{{ _(2) }}</option>
+                              <option value="3">{{ _(3) }}</option>
+                              <option value="4">{{ _(4) }}</option>
+                              <option value="5">{{ _(5) }}</option>
+                           </select>
+                           <button type="submit" id="RMRISubmit" class="btn btn-default"
+                                   data-ga-event="click"
+                                   data-ga-event-category="Speedy Reorder"
+                                   data-ga-event-action="Speedy Reorder"
+                                   data-ga-event-label="Click - combine carts add to cart"
+                                   data-ga-event-value="">{{ _('Add') }}
+                           </button>
+                        </form>
+                     </div>
+                  </div>
+               </li>
+               <li>
+                  <div class="row">
+                     <div class="col-xs-13 col-md-13 col-lg-14 col-xl-15">
+                        <p><strong>{{ _('Frequently Purchased Items:') }}</strong>
+                           {{ _('Add your top 1-5 products to the cart. Remove the items you do not wish to reorder.') }}</p>
+                     </div>
+                     <div class=" col-xs-8 col-xs-offset-3 col-md-6  reorder-actions">
+                        <form action="https://checkout.iherb.com/pro/addlisttocart" method="post"
+                              id="RFPIForm">
+                           <input type='hidden'
+                                  value="0XgNrS/mo9lqLzFhGsKiAyJuW+wyYlANCYn+8+u4AIK/gZF0g8DvXOfWwbMwspLBu8lDkAyL4ONK3eP8S5/+s2DdkYiURa0NB2f+BBTMjxLDxQyRLtuqeRedNouG7EuZ"
+                                  name="rftdatases"/>
+                           <div id="ROMPpids">
+                           </div>
+                           <select id="romp" name="romp" class="frequentlyPurchasedItems dropdown-sort">
+                              <option value="1">{{ _(1) }}</option>
+                              <option value="2">{{ _(2) }}</option>
+                              <option value="3">{{ _(3) }}</option>
+                              <option value="4">{{ _(4) }}</option>
+                              <option value="5">{{ _(5) }}</option>
+                           </select>
+                           <button type="submit" id="RFPISubmit" class="btn btn-default"
+                                   data-ga-event="click"
+                                   data-ga-event-category="Speedy Reorder"
+                                   data-ga-event-action="Speedy Reorder"
+                                   data-ga-event-label="Click - frequently purchased add to cart"
+                                   data-ga-event-value="">{{ _('Add') }}
+                           </button>
+                        </form>
+                     </div>
+                  </div>
+               </li>
+               <li>
+                  <p><strong>{{ _('Product Codes:') }}</strong>
+                     {{ _('If you know the product code, add them to the cart usingour') }}
+                     <a href="https://www.iherb.com/editcart/quickshop/">{{ _('Quickshop') }}</a> {{ _('feature.') }}</p>
+               </li>
+            </ul>
+         </div>
+      </section>
+   </section>
+   <section id="OrderHistorySection">
+   </section>
+</section>
+{% endblock %}

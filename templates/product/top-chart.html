@@ -1,0 +1,435 @@
+<div class="container">
+         <div id="pagetitlewrapper">
+            <div id="breadCrumbs">
+               <a href="/BrandsAZ">{{ _('Brands A-Z') }}</a>
+               <a href="/s/?kw=&category=&brand={{ pr.brand.title }}&page=1&pagesize=24" class="last">{{ pr.brand.title }}</a>
+               <br/>
+               <a href="https://www.iherb.com/c/Categories">{{ _('Categories') }}</a>
+               {% for _category in pr.categories %}
+                  {% for _title in _category.ancestors %}
+                     <a href="/s/?kw=&category={{ _title }}&brand=&page=1&pagesize=24">{{ _title }}</a>
+                  {% endfor %}
+                  <a href="/s/?kw=&category={{ _category.title }}&brand=&page=1&pagesize=24">{{ _category.title }}</a>
+               {% endfor %}
+               <br/>
+            </div>
+         </div>
+         <meta id="web-category" itemprop="category" content="Supplements"/>
+         <div class="product-detail-container ga-product clearfix">
+            <div class="full-image-container container" id="image-viewer">
+               <h1>{{ pr.title }}</h1>
+               <div>{{ _('By') }} <a href="{{ pr.brand.link }}">{{ pr.brand.title }}</a></div>
+               <div class="row">
+                  <div class="wrapper col-xs-20">
+                     <div id="" class="img-slider">
+                        <div class="img-slider-container">
+                           {% for img_link in img %}
+                              <div class="img-wrapper {{ 'active' if loop.index == 1 else '' }} popup-easyzoom easyzoom easyzoom--overlay">
+                                 <div class="slide">
+                                    <a href="/media/l/{{ pr.img.0 }}.jpg">
+                                       <img class="lazy img-responsive"
+                                            data-lazyload="/media/y/{{ pr.img.0 }}.jpg"/>
+                                    </a>
+                                 </div>
+                              </div>
+                           {% endfor %}
+                        </div>
+                     </div>
+                     <div class="img-slider-controls">
+                <span class="right controls">
+                    <i class="icon-recentlyviewedarrowright"></i>
+                </span>
+                        <span class="left controls">
+                    <i class="icon-recentlyviewedarrowleft"></i>
+                </span>
+                     </div>
+                  </div>
+                  <div class="thumbnails col-xs-4">
+                     <div class="img-slider-thumbnails">
+                     </div>
+                  </div>
+               </div>
+               <div class="full-image-close">
+                  <i class="icon-circlex"></i>
+               </div>
+            </div>
+
+            {% include 'product/order-card.html' %}
+
+
+            <section class="column image-fixed">
+               <section class="column fluid product-description-title visible-xs visible-sm">
+                  <div id="product-summary-header">
+                     <div class="product-past-purchased hide hidden-md hidden-lg hidden-xl">
+                        <p>{{ _('You purchased this item on') }} <span class="product-ordered-date"></span></p>
+                        <a href="" class="product-ordered-link">{{ _('View this order') }}</a>
+                     </div>
+
+
+                     <h1 itemprop="name" id="name">{{ pr.title }}</h1>
+                     <div itemscope itemprop="brand" itemtype="http://schema.org/Brand" id="brand">
+                        <bdi>{{ _('By') }}</bdi>
+                        <a href="{{ pr.brand.link }}">
+                           <span itemprop="name">
+                              <bdi>{{ pr.brand.title }}</bdi>
+                           </span>
+                        </a>
+                     </div>
+
+
+                     <div
+                           class='rating'
+                           itemscope
+                           itemtype='http://schema.org/AggregateRating'
+                           itemprop='aggregateRating'
+                     >
+                        <a
+                              class='stars'
+                              href='https://www.iherb.com/r/Thorne-Research-Basic-Nutrients-2-Day-60-Veggie-Caps/52954/?p=1'
+                              itemprop='ratingValue' content='4.7'
+                        >
+                           <i class='icon-stars_45 full' title='4.7/5 - 48 Reviews'></i>
+                           <i class='icon-stars_50 empty'></i>
+                        </a>
+                        <a
+                           class='rating-count'
+                           href='https://www.iherb.com/r/Thorne-Research-Basic-Nutrients-2-Day-60-Veggie-Caps/52954/?p=1'
+                           title='4.7/5 - 48 Reviews'
+                        >
+                           <span itemprop='reviewCount'>{{ _(48) }}</span>
+                           <span> {{ _('Reviews') }}</span>
+                        </a>
+                        <span class='product-write-review hide'>
+                           | <a href='' class='product-review-link'>{{ _('Write a Review') }}</a>
+                        </span>
+                     </div>
+                  </div>
+               </section>
+               <div class="image-container">
+                  <div id="product-image">
+                     <div class="product-summary-image product-easyzoom easyzoom easyzoom--adjacent">
+                        <a href="/media/l/{{ pr.img.0 }}.jpg">
+                           <img id="iherb-product-image" src="/media/v/{{ pr.img.0 }}.jpg"
+                                srcset="/media/w/{{ pr.img.0 }}.jpg 1x, /media/v/{{ pr.img.0 }}.jpg 1.5x"
+                                width="300" height="300"
+                                alt="Thorne Research, Basic Nutrients 2/Day, 60 Vegetarian Capsules"/>
+                        </a>
+                     </div>
+                     <div class="thumbnail-container">
+                        {% for _img in pr.img %}
+                        <img src="https://www.images-iherb.com/t/THR-00287-5.jpg"
+                             srcset="/media/b/{{ _img }}.jpg 1x, /media/t/{{ _img }}.jpg 1.5x"
+                             alt="{{ pr.title }}"
+                             width="50"
+                             height="50"
+                             data-large-img="/media/l/{{ _img }}.jpg"
+                             class="{{ 'selected' if loop.index == 1 else '' }}"/>
+                        {% endfor %}
+                     </div>
+                  </div>
+               </div>
+            </section>
+
+
+            <section class="column fluid product-description-title hidden-xs hidden-sm">
+
+
+               <div id="product-summary-header">
+
+                  <div class="product-past-purchased hide hidden-md hidden-lg hidden-xl">
+                     <p>{{ _('You purchased this item on') }} <span class="product-ordered-date"></span></p>
+                     <a href="" class="product-ordered-link">{{ _('View this order') }}</a>
+                  </div>
+
+
+                  <h1 itemprop="name" id="name">{{ pr.title }}</h1>
+                  <div itemscope itemprop="brand" itemtype="http://schema.org/Brand" id="brand">
+                     <bdi>{{ _('By') }}</bdi>
+                     <a href="{{ pr.brand.link }}">
+                        <span itemprop="name">
+                           <bdi>{{ pr.brand.title }}</bdi>
+                        </span>
+                     </a>
+                  </div>
+                  <div class='rating'>
+                     <a
+                           class='stars'
+                           href='https://www.iherb.com/r/Thorne-Research-Basic-Nutrients-2-Day-60-Veggie-Caps/52954/?p=1'
+                     >
+                        <i class='icon-stars_45 full' title='4.7/5 - 48 Reviews'></i>
+                        <i class='icon-stars_50 empty'></i>
+                     </a>
+                     <a
+                           class='rating-count'
+                           href='https://www.iherb.com/r/Thorne-Research-Basic-Nutrients-2-Day-60-Veggie-Caps/52954/?p=1'
+                           title='4.7/5 - 48 Reviews'
+                     ><span>{{ _(48) }}</span> {{ _('Reviews') }}</span>
+                  </a> <span class='product-write-review hide'>| <a href=''
+                                                                    class='product-review-link'>{{ _('Write a Review') }}</a></span>
+                  </div>
+               </div>
+            </section>
+
+            <section class="column fluid product-description-stock-status">
+               <div id="stock-status">
+                  <strong class="text-primary">
+                     {{ _('In Stock') }}
+                  </strong>
+               </div>
+            </section>
+
+            <section class="column fluid product-attribute-grouping"></section>
+            <section class="column fluid product-description-specifications">
+               <ul id="product-specs-list">
+                  <li>
+                     {{ _('Expiration Date') }}:
+                     <div id="expiration-message-link" class="question-mark popup-modal">?</div>
+                     {{ pr.exp }}
+                     <div class="popup-container">
+                        <div class="popup-title">
+                           {{ _('Expiration Date') }}
+                        </div>
+                        <div class="popup-content">
+                           {{ _('''<p>The length of time for the expiration date or &quot;best used before&quot; date depends on
+                              the type of product, as well as the brand.</p>
+                           <p>Perishable items (such as flax oils or certain probiotics) generally have shorter
+                              expiration dates. Although our warehouse is fully air-conditioned, these more fragile
+                              items are put in cold storage (freezer or refrigeration unit) for maximum freshness.</p>
+                           <p>Our receiving department does its best to verify and then enter the correct expiration
+                              dates for all incoming products. However, discrepancies do occur from time to time. This
+                              being said, the exceptionally high turnover at iHerb ensures that our inventory is among
+                              the freshest in the industry.</p>''') | safe }}
+                        </div>
+                     </div>
+                  </li>
+
+                  <li>
+                     {{ _('Shipping Weight') }}:
+                     <div id="shipping-weight-link" class="question-mark popup-modal-shipping">?</div>
+                     <div class="dimensions-popup-wrapper weight">
+                        <span class="product-weight">
+                           {{ pr.dimensions.weight.shipping }} {{ _('lbs') }}
+                        </span>
+                        <div class="dimensions-units-popup weight">{{ _('Switch to Metric units') }}</div>
+                     </div>
+                     <div id="shipping-weight-message" class="popup-container shipping-weight-message">
+                        <div class="popup-title">{{ _('lbs') }}</div>
+                        <div class="popup-content">
+                           {{ _('''The Shipping Weight includes the product, protective packaging
+                           material and the actual shipping box. In addition, the Shipping Weight may be adjusted for
+                           the Dimensional Weight (e.g. length, width &amp;amp; height) of a package. It is important to
+                           note that certain types of products (e.g. glass containers, liquids, fragile, refrigerated or
+                           ice packed) will often require protective packaging material. As such, these products will
+                           reflect a higher Shipping Weight compared to the unprotected product.''') | safe}}
+                        </div>
+                     </div>
+                  </li>
+                  <li>{{ _('Product Code') }}: <span itemprop="sku">{{ pr.code.pr }}</span></li>
+                  <li>{{ _('UPC Code') }}: <span itemprop="gtin12">{{ pr.code.upc }}</span></li>
+                  <li>{{ _('Package Quantity') }}: {{ pr.qnt }}</li>
+                  <li>
+                     {{ _('Dimensions') }}:
+                     <div class="dimensions-popup-wrapper dimensions">
+                        <span class="product-weight">
+                                <span id="dimensions">{{ pr.dimensions.x }} x {{ pr.dimensions.y }} x {{ pr.dimensions.z }} {{ _('in') }}</span>,
+                                <span id="actual-weight">{{ pr.dimensions.weight.pure }} {{ _('lbs') }}</span>
+                        </span>
+                        <div class="dimensions-units-popup dimensions">{{ _('Switch to Metric units') }}</div>
+                     </div>
+                  </li>
+               </ul>
+            </section>
+         </div>
+
+         <input type="hidden" class="model-properties-product-history"
+                data-product-isloggedin="False"
+                data-product-isAuthenticated="False"
+                data-product-ordered-url="https://custpurchhist-api.iherb.biz/PerHis/cph?"
+                data-product-ordered-customerid=""
+                data-product-ordered-id="52954"/>
+
+         <div class="cross-list-container">
+            <div class="cross-sell-list">
+               <input type="hidden"
+                      id="model-properties-add-both-to-cart"
+                      data-add-both-price-separate="$34.80"
+                      data-add-both-price-discount="$2.00"
+                      data-add-both-price-together="$32.80"/>
+               <div class="row row-header">
+                  <div class="col-sm-24">
+                     <div class="bundle-offer-container">
+                     {{ (lang.combo % (pr.combo.save, (pr.combo.value.our + pr.value.our - pr.combo.save))) | safe }}
+                     </div>
+                  </div>
+               </div>
+               <div class="row row-content">
+                  <div class="product-combo">
+                     <div class="product-left">
+                        <div class="product-image-container">
+                           <img
+                                 src="/media/m/{{ pr.img.0 }}"
+                                 srcset="/media/t/{{ pr.img.0 }} 1x, /media/m/{{ pr.img.0}} 1.5x"
+                                 class="img-responsive"
+                           />
+                        </div>
+                     </div>
+                     <div class="plus-sign">
+                        <i class="icon-plus"></i>
+                     </div>
+                     <div class="product-right">
+                        <div class="product-image-container">
+                           <a href="/pr/{{ pr.combo._id }}">
+                              <img
+                                    src="/media/m/{{ pr.combo.img.0 }}"
+                                    srcset="/media/t/{{ pr.combo.img.0 }} 1x, /media/m/{{ pr.combo.img.0 }} 1.5x"
+                                    class="img-responsive"
+                              />
+                           </a>
+                        </div>
+                     </div>
+                  </div>
+
+                  <div class="content">
+                     <ul>
+                        <li>
+                           <div>
+                              <a href="https://www.iherb.com/pr/Thorne-Research-Basic-Nutrients-2-Day-60-Veggie-Caps/52954">
+                                 <strong>{{ pr.title }}</strong>
+                              </a>
+                           </div>
+                           <span>
+                                {{ _('$') }}{{ pr.value.our }}
+                            </span>
+                        </li>
+                        <li>
+                           <div>
+                              <a href="https://www.iherb.com/pr/Madre-Labs-Omega-3-Premium-Fish-Oil-No-GMOs-No-Gluten-100-Fish-Gelatin-Softgels/62118">
+                                 <strong>{{ pr.combo.title }}</strong>
+                              </a>
+                           </div>
+                           <span>
+                                {{ _('$') }}{{ pr.combo.value.our }}
+                            </span>
+                        </li>
+                     </ul>
+                     <div class="together">
+                        <strong>
+                           Together:
+                        </strong>
+                        <span>
+                            <strong>{{ _('$') }}{{ pr.combo.value.our + pr.value.our - pr.combo.save }}</strong>
+                        </span>
+                     </div>
+                     <div class="add-both-to-cart-button">
+                        <form id="form-add-both-to-cart" action="https://checkout.iherb.com/pro/addbothtocart"
+                              method="post">
+                           <div class="out-of-stock-message-add-both info-popup">
+                              <p>{{ _('Sorry, this product is no longer in stock.') }}</p>
+                           </div>
+                           <button id="btn-add-both-to-cart" class="btn btn-primary" name="buy2">Add Both to Cart
+                           </button>
+                           <input type="hidden" name="pid1" value="52954" id="hidPid1"/>
+                           <input type="hidden" name="pid2" value="62118" id="hidPid2"/>
+                        </form>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div id="customer-related-products" class="carousel-container">
+            <div id="customer-related-products-tabs" class="section-title-border">
+               <div id="customer-also-bought" class="">{{ _('Customers Also Bought') }}</div>
+               <div id="related-products" class="">{{ _('Related Products') }}</div>
+            </div>
+            <div class="leaf-carousel-loader">
+               <figure class="spinner carousel-loader">
+                  <i class="icon-iherbleaf"></i>
+               </figure>
+            </div>
+            <div class="carousel-wrapper hide">
+               <div id="customer-also-bought-carousel">
+                  <div id="customer-also-bought-wrapper" class="carousel slide iherb-carousel-items"
+                       data-interval="false">
+                     <div id="customer-also-bought-inner" class="carousel-inner product-carousels" role="listbox">
+                     </div>
+                     <div id="customer-also-bought-module">
+                        <a class="carousel-control prevArrow" href="#customer-also-bought-wrapper" role="button"
+                           data-slide="prev" hidden="hidden">
+                           <span class="transitionIcon transitionLeft"><i
+                                 class="icon-recentlyviewedarrowleft"></i></span>
+                        </a>
+                        <div class="control-bar" hidden="hidden">
+                           <ol class="carousel-indicators" data-target="#customer-also-bought-wrapper"></ol>
+                        </div>
+                        <a class="carousel-control nextArrow" href="#customer-also-bought-wrapper" role="button"
+                           data-slide="next" hidden="hidden">
+                           <span class="transitionIcon transitionRight"><i
+                                 class="icon-recentlyviewedarrowright"></i></span>
+                        </a>
+                     </div>
+                  </div>
+               </div>
+
+
+               <div id="related-products-carousel" data-keyword="" data-category="" data-product="">
+                  <div id="related-products-wrapper" class="carousel slide iherb-carousel-items" data-interval="false">
+                     <div id="related-products-inner" class="carousel-inner product-carousels" role="listbox">
+                     </div>
+                     <div id="relatedModule">
+                        <a class="carousel-control prevArrow" href="#related-products-wrapper" role="button"
+                           data-slide="prev" hidden="hidden">
+                           <span class="transitionIcon transitionLeft"><i
+                                 class="icon-recentlyviewedarrowleft"></i></span>
+
+                        </a>
+                        <div class="control-bar" hidden="hidden">
+                           <ol class="carousel-indicators" data-target="#related-products-wrapper"></ol>
+                        </div>
+                        <a class="carousel-control nextArrow" href="#related-products-wrapper" role="button"
+                           data-slide="next" hidden="hidden">
+                           <span class="transitionIcon transitionRight"><i
+                                 class="icon-recentlyviewedarrowright"></i></span>
+                        </a>
+                     </div>
+                  </div>
+               </div>
+
+
+            </div>
+         </div>
+
+         <div id="featured-products-container" class="carousel-container">
+            <div class="leaf-carousel-loader">
+               <figure class="spinner carousel-loader">
+                  <i class="icon-iherbleaf"></i>
+               </figure>
+            </div>
+            <div class="featured-wrapper hide">
+               <div id="featured-title" class="section-title-border">
+                  <h2>Featured Products</h2>
+               </div>
+               <div id="featured-carousel" data-keyword="" data-category="" data-product="">
+                  <div id="featured-products-wrapper" class="carousel slide iherb-carousel-items" data-interval="false">
+                     <div id="featured-inner" class="carousel-inner product-carousels" role="listbox">
+                     </div>
+                     <div id="featuredModule">
+                        <a class="carousel-control prevArrow" href="#featured-products-wrapper" role="button"
+                           data-slide="prev" hidden="hidden">
+                           <span class="transitionIcon transitionLeft"><i
+                                 class="icon-recentlyviewedarrowleft"></i></span>
+
+                        </a>
+                        <div class="control-bar" hidden="hidden">
+                           <ol class="carousel-indicators" data-target="#featured-products-wrapper"></ol>
+                        </div>
+                        <a class="carousel-control nextArrow" href="#featured-products-wrapper" role="button"
+                           data-slide="next" hidden="hidden">
+                           <span class="transitionIcon transitionRight"><i
+                                 class="icon-recentlyviewedarrowright"></i></span>
+                        </a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>

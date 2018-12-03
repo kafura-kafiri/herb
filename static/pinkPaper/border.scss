@@ -1,0 +1,101 @@
+$thickness: 2px;
+$heavy-thickness: 5px;
+$pink: #FCB5B3;
+$purple: #340D5C;
+$green: #ABED83;
+
+$color_names: pink, purple, green;
+$color_codes: $pink, $purple, $green;
+
+div.frame {
+    position: absolute;
+}
+
+.frame.fill {
+    padding: 25px 15px;
+}
+
+span.frame {
+    padding: 10px;
+}
+
+.frame.border {
+    border: solid $thickness;
+}
+
+.frame.heavy.border {
+    border-bottom: solid $heavy-thickness;
+}
+
+@for $i from 1 through length($color_names) {
+    .frame.border.#{nth($color_names, $i)} {
+        border-color: nth($color_codes, $i);
+    }
+}
+
+.frame.fill {
+    height: 100%;
+    width: 100%;
+}
+
+@for $i from 1 through length($color_names) {
+    .frame.fill.#{nth($color_names, $i)} {
+        background-color: nth($color_codes, $i);
+    }
+}
+
+.bold {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.bold.empty {
+    font-size: calc(2em - 0px);
+}
+
+@for $i from 1 through length($color_names) {
+    .txt.#{nth($color_names, $i)} {
+        color: nth($color_codes, $i);
+    }
+}
+
+@for $i from 1 through length($color_names) {
+    .txt.empty.#{nth($color_names, $i)} > .txt{
+        text-shadow: -1px 0 nth($color_codes, $i),
+                     0 1px nth($color_codes, $i),
+                     1px 0 nth($color_codes, $i),
+                     0 -1px nth($color_codes, $i);
+    }
+}
+
+/*span.txt.border {
+    border: black solid 1px;
+}*/
+
+span.txt {
+    display: inline-flex;
+}
+
+span.txt.underline {
+    border-bottom: solid $thickness;
+}
+
+@for $i from 1 through length($color_names) {
+    .underline.txt.#{nth($color_names, $i)} {
+        border-color: nth($color_codes, $i);
+    }
+}
+
+.circular {
+    border-radius: 50%;
+}
+
+.circular > * {
+    border-radius: 50%;
+}
+
+.rotate {
+    -ms-transform: rotate(-45deg); /* IE 9 */
+    -webkit-transform: rotate(-45deg); /* Safari */
+    transform: rotate(-45deg);
+}

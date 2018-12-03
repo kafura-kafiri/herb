@@ -1,0 +1,173 @@
+{% extends "user/base.html" %}
+{% block container %}
+<div class="col-xs-24 col-md-20 myaccount-container" id="AccountSettings">
+   <section class="row">
+      <div class="col-xs-2 hidden-md hidden-lg hidden-xl myaccount-hamburger-menu">
+         <i class="icon-hamburgermenufat h-menu open-overlay"></i>
+      </div>
+      <div class="col-xs-22 col-md-24 breadcrumbs">
+         <div class="row">
+            <div class="col-xs-24">
+               <h1>{{ _('Account Information') }}</h1>
+               <p><a href="/myaccount/profile">{{ _('My Account') }} </a> <span> {{ _('Account Information') }}</span></p>
+            </div>
+         </div>
+      </div>
+   </section>
+   <section class="row">
+      <div id="AccountSettingsContainer" class="col-xs-24">
+         <div class="row personal-information-container change-name-container">
+            <input type="hidden"
+                   id="NameValidationProperties"
+                   data-name-empty-error="False"
+                   data-name-success-msg="Name Updated"/>
+            <div class="col-xs-24 account-panel">
+               <div class="col-xs-24 account-title-row">
+                  <h2>{{ _('Personal Information') }}</h2>
+               </div>
+               <div class="col-xs-24 name account-content-row">
+                  <form id="AccountNameForm" action="" method="post">
+                     <input id="node" name="node" type="hidden" value="name"/>
+                     <input id="Email" name="Email" type="hidden" value="kafura.kafiri@gmail.com"/>
+                     <input id="OldPassword" name="OldPassword" type="hidden" value=""/>
+                     <input id="NewPassword" name="NewPassword" type="hidden" value=""/>
+                     <input id="ConfirmPassword" name="ConfirmPassword" type="hidden" value=""/>
+                     <input Value="true" id="UpdateName" name="UpdateName" type="hidden" value="False"/>
+                     <div class="row">
+                        <div class="col-xs-6">
+                           <p><strong>{{ _('Full Name :') }}</strong></p>
+                        </div>
+                        <div class="col-xs-12">
+                           <p class="togglehide" data-hide="togglehide"></p>
+                           <div class="col-xs-24 col-md-16 hidden-input toggleshow" data-show="toggleshow"
+                                style="display: none;">
+                              <input class="form-control" id="json" name="json" type="text" value=""/>
+                              <div class="hidden-btns">
+                                 <button type="submit{#button#}" class="btn btn-primary btn-md save" name="updatename"
+                                         value="updatename">{{ _('Save') }}
+                                 </button>
+                                 <input class="btn btn-default btn-md cancel" type="button" value="{{ _('Cancel') }}"
+                                        data-show="toggleshow" data-hide="togglehide">
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                           <span class="toggle" data-show="toggleshow" data-hide="togglehide">{{ _('Edit') }}</span>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+               <input type="hidden"
+                      id="EmailValidationProperties"
+                      data-email-empty-error="False"
+                      data-email-duplicate-error="False"
+                      data-email-success-msg="Email Address Updated"/>
+               <div class="col-xs-24 email-address account-content-row">
+                  <form id="AccountEmailForm" action="" method="post">
+                     <input id="node" name="node" type="hidden" value="email"/>
+                     <input id="Name" name="Name" type="hidden" value=""/>
+                     <input id="OldPassword" name="OldPassword" type="hidden" value=""/>
+                     <input id="NewPassword" name="NewPassword" type="hidden" value=""/>
+                     <input id="ConfirmPassword" name="ConfirmPassword" type="hidden" value=""/>
+                     <input Value="true" id="UpdateEmail" name="UpdateEmail" type="hidden" value="False"/>
+                     <div class="row">
+                        <div class="col-xs-6">
+                           <p><strong>{{ _('Email Address:') }}</strong></p>
+                        </div>
+                        <div class="col-xs-12">
+                           <p class="togglehide1" data-hide="togglehide1"><a href="/cdn-cgi/l/email-protection"
+                                                                             class="__cf_email__"
+                                                                             data-cfemail="1972787f6c6b783772787f706b70597e74787075377a7674">[email&#160;protected]</a>
+                           </p>
+                           <div class="col-xs-24 col-md-16 hidden-input toggleshow1" data-show="toggleshow1"
+                                style="display: none;">
+                              <input class="form-control" id="json" name="json" type="text"
+                                     value="{{ current_user.email }}"/>
+                              <p class="email-note">
+                                 {{ _('You will receive a verification email from iHerb after an email change. Please follow the instructions to complete the update process.') }}
+                              </p>
+                              <div class="hidden-btns">
+                                 <button type="submit{#button#}" class="btn btn-primary btn-md save" name="updateemail">
+                                    {{ _('Save') }}
+                                 </button>
+                                 <input class="btn btn-default btn-md cancel" type="button" value="{{ _('Cancel') }}"
+                                        data-show="toggleshow1" data-hide="togglehide1">
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                           <span class="toggle" data-show="toggleshow1" data-hide="togglehide1">{{ _('Edit') }}</span>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div id="PasswordContainer" class="col-xs-24">
+         <div class="row personal-information-container pw-container">
+            <input type="hidden"
+                   id="PasswordValidationProperties"
+                   data-old-pw-empty-error="False"
+                   data-new-pw-empty-error="False"
+                   data-confirm-pw-empty-error="False"
+                   data-password-success-msg="Password Updated"/>
+            <div class="col-xs-24 account-panel">
+               <div class="col-xs-24 account-title-row">
+                  <h2>{{ _('Password') }}</h2>
+               </div>
+               <div class="col-xs-24 password account-content-row">
+                  <form id="AccountPasswordForm" action="" method="post">
+                     <input id="node" name="node" type="hidden" value="password"/>
+                     <input id="Name" name="Name" type="hidden" value=""/>
+                     <input id="Email" name="Email" type="hidden" value="kafura.kafiri@gmail.com"/>
+                     <input Value="true" id="UpdatePassword" name="UpdatePassword" type="hidden"
+                            value="False"/>
+                     <div class="row">
+                        <div class="col-xs-6">
+                           <p><strong>{{ _('Password') }}</strong></p>
+                        </div>
+                        <div class="col-xs-12">
+                           <p class="togglehide2" data-hide="togglehide2">
+                              <input id="PasswordMask" type="password" value="{{ '*' * (current_user.password | length) }}" readonly/>
+                           </p>
+                           <div class="col-xs-24 col-md-16 hidden-input toggleshow2" data-show="toggleshow2"
+                                style="display: none;">
+                              <input class="form-control" id="OldPassword" name="OldPassword"
+                                     placeholder="Old Password" type="password"/>
+                              <input class="form-control" id="NewPassword" name="json"
+                                     placeholder="New Password" type="password"/>
+                              <input class="form-control" id="ConfirmPassword" name="ConfirmPassword"
+                                     placeholder="Confirm New Password" type="password"/>
+                              <div class="hidden-btns">
+                                 <button type="submit{#button#}" class="btn btn-primary btn-md save" name="updatepw">
+                                    {{ _('Save') }}
+                                 </button>
+                                 <input class="btn btn-default btn-md cancel" type="button" value="{{ _('Cancel') }}"
+                                        data-show="toggleshow2" data-hide="togglehide2">
+                              </div>
+                           </div>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                           <span class="toggle" data-show="toggleshow2" data-hide="togglehide2">{{ _('Update') }}</span>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </div>
+      </div>
+   </section>
+</div>
+<script>
+   window.onload = function() {
+      $(function() {
+         $('span.toggle').click(function() {
+            $(this).closest('div').prev().children().each(function(idx, value) {
+               $(this).toggle();
+            });
+         });
+      });
+   };
+</script>
+{% endblock %}

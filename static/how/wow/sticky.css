@@ -1,0 +1,37 @@
+.section h2.sticking, .section h3.sticking, .tool div.sticking {
+    position: fixed;
+    top: 39px;
+    width: 728px;
+    left: auto;
+    z-index: 998;
+    border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0
+}
+
+.tool div.sticking {
+    margin-left: 0;
+    width: 697px
+}
+
+.steps.section .sticking .altblock, .qa.section .sticking .altblock {
+    border-radius: 4px;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    margin: 7px;
+    width: 52px;
+    height: 42px;
+    padding-top: 3px;
+    margin-right: 16px
+}
+
+
+
+/* other */
+.altblock {
+    float: right;
+}
+
+.mw-headline {
+    float: right;
+}

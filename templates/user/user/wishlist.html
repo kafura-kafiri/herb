@@ -1,0 +1,295 @@
+{% extends "user/base.html" %}
+{% block container %}
+<div id="WishList" class="col-xs-24 col-md-20 myaccount-container">
+
+   <section class="row row-buffer-md">
+      <div class="col-xs-2 hidden-md hidden-lg hidden-xl myaccount-hamburger-menu">
+         <i class="icon-hamburgermenufat h-menu open-overlay"></i>
+      </div>
+      <div class="col-xs-11 col-md-16 breadcrumbs">
+         <div class="row">
+            <div class="col-xs-24">
+               <h1>{{ _('Wish List') }}</h1>
+               <p><a class="breadcrumbs" href="/myaccount/profile">{{ _('My Account') }} </a> <span> {{ _('Wish List') }}</span>
+               </p>
+            </div>
+         </div>
+      </div>
+      <div class="col-xs-11 col-md-8 wishlist-search-container text-right">
+         <form action="/myaccount/orderhistory" class="form-horizontal form-inline js-wishlistSearch">
+            <div class="form-group wishlist-search-group">
+               <input type="text" class="form-control js-searchKey" name="kw" value=""
+                      placeholder="Search Products in Your Lists">
+               <button type="submit" class="search-btn btn btn-default" data-ga-event=""
+                       data-ga-event-category=""
+                       data-ga-event-action=""
+                       data-ga-event-label=""
+                       data-ga-event-value="">
+                  <i class="icon-search-button icon search"></i>
+               </button>
+            </div>
+         </form>
+      </div>
+   </section>
+   <div class="row" id="wishlist-container">
+      <div class="col-xs-24 wishlist-body">
+         <div class="col-xs-24 wishlist-header is-table-row">
+            <div class="col-xs-6 nopadding-left">
+
+            <span id="WishlistTitle">
+{{ _('My List') }}            </span>
+               <span> ({{ _('0') }})</span>
+
+            </div>
+            <div class="col-xs-18 wishlist-actions nopadding-right">
+
+               <select class="col-xs-6 form-control float-right list-dropdown" data-ga-event="change"
+                       data-ga-event-action="Wishlist" data-ga-event-category="Wishlist-Action"
+                       data-ga-event-label="Change - Change List" data-ga-event-value="My List" id="Folder"
+                       name="Folder">
+                  <option value="">{{ _('My List') }}</option>
+               </select>
+
+               <div class="share-your-list-container float-right inline-item disabled">
+                  <div class="share-link">
+                    <span class="share-text"
+                          data-ga-event="click"
+                          data-ga-event-category="Share"
+                          data-ga-event-action="Share"
+                          data-ga-event-label="Click - Share List"
+                          data-ga-event-value="">{{ _('Share') }}</span>
+                     <i class="icon-sharefilled"
+                        title="Share Your Wishlist"
+                        data-ga-event="click"
+                        data-ga-event-category="Share"
+                        data-ga-event-action="Share"
+                        data-ga-event-label="Click - Share List"
+                        data-ga-event-value=""></i>
+                  </div>
+                  <div id="" class="popup-nub-container">
+                     <div class="popup-close"><i class="icon-exit"></i></div>
+                     <div class="popup-content">
+                     </div>
+
+                  </div>
+               </div>
+
+               <div class="add-list-container float-right inline-item">
+                  <div class="add-list">
+                     <span class="as-links"></span><i class="icon-plus" title="New List"></i>
+                  </div>
+
+                  <div id="wishlist-create-list" class="popup-nub-container">
+                     <div class="popup-close"><i class="icon-exit"></i></div>
+                     <div class="popup-title">{{ _('New List') }}</div>
+                     <div class="popup-content">
+                        <form class="js-wishlistCreate">
+                           <p>{{ _('Enter a New List Name') }}:</p>
+                           <input type="text" name="folderName" class="form-control col-xs-24" id="folderName"
+                                  maxlength="20" value="" autocomplete="off" required/>
+                           <p class="error hide list-exist-error">{{ _('List already exists') }}.</p>
+                           <div class="popup-footer">
+                              <input class="btn btn-primary"
+                                     id="btnCreateFolder"
+                                     name="btnCreateFolder"
+                                     value="Create"
+                                     data-ga-event="click"
+                                     data-ga-event-category="Wishlist-Action"
+                                     data-ga-event-action="Wishlist"
+                                     data-ga-event-label="Click - Create a list"
+                                     data-ga-event-value="" type="submit" disabled/>
+                           </div>
+                        </form>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <input type="hidden"
+                id="multiSelectProperties"
+                data-multi-remove="Items Removed"
+                data-multi-add="Items Added to Cart"
+                data-multi-move="Moved to "
+                data-wishlist-url="https://www.iherb.com/myaccount/wishlist"
+                data-item-moved="List Saved"
+                data-item-in-cart="Already in the list"
+                data-created-list="Created"/>
+         <div class="row">
+            <div class="wishlist-sub-header col-xs-24">
+               <div class="actions row">
+                  <div class="col-xs-4 checkbox-col header">
+                     <label>
+                        <input id="wishlistCheckAll" type="checkbox" name="checkall" class="product-checkbox"
+                               data-cms-show="Select All" data-cms-hide="Deselect All"/>
+                        <span class="bold-blue" id="sel">{{ _('Select All') }}</span>
+                     </label>
+                  </div>
+                  <div class="col-xs-6 options-drop">
+                     <div id="multi-select-dropdown" class="custom-dropdown hide" tabindex="1">
+                        <span>{{ _('Options') }}</span>
+                        <ul class="dropdown multi-dropdown">
+                           <li class="default no-hover" value="-1">{{ _('Move to') }}:</li>
+                           <li class="multi-add-to-cart"
+                               value="1"
+                               data-ga-event="click"
+                               data-ga-event-category="Wishlist-Action"
+                               data-ga-event-action="Wishlist"
+                               data-ga-event-label="Click - Multi add selected to cart"
+                               data-ga-event-value="">{{ _('Add Selected to Cart') }}
+                           </li>
+
+                           <li class="multi-delete"
+                               value="2"
+                               data-ga-event="click"
+                               data-ga-event-category="Wishlist-Action"
+                               data-ga-event-action="Wishlist"
+                               data-ga-event-label="Click - Multi delete selected"
+                               data-ga-event-value="">{{ _('Delete Selected') }}
+                           </li>
+                        </ul>
+                     </div>
+                  </div>
+                  <div class="col-xs-5 float-right">
+                     <select class="form-control filter-dropdown"
+                             name="sr"
+                             id="wishlistFilter"
+                             data-ga-event="change"
+                             data-ga-event-category="Wishlist-Action"
+                             data-ga-event-action="Wishlist"
+                             data-ga-event-label="Change - Sort"
+                             data-ga-event-value="Sort">
+                        <option selected="selected" value="-1" selected=selected>
+                           -- {{ _('Sort Items') }} --
+                        </option>
+                        <option value="8">{{ _('Date Added') }}</option>
+                        <option value="4">{{ _('Price (Low to High)') }}</option>
+                        <option value="3">{{ _('Price (High to Low)') }}</option>
+                        <option value="6">{{ _('Product Name (A-Z)') }}</option>
+                        <option value="7">{{ _('Product Name (Z-A)') }}</option>
+                        <option value="2">{{ _('Highest Rated') }}</option>
+                        <option value="11">{{ _('Heaviest') }}</option>
+                        <option value="12">{{ _('Lightest') }}</option>
+                     </select>
+                  </div>
+               </div>
+            </div>
+
+
+         </div>
+         <div class="row">
+            {% if current_user.wish_list.products %}
+            <div class="wishlist-product-container col-xs-24">
+               <div class="title-row list-row">
+                  <span class="col-xs-1"></span>
+                  <span class="col-xs-4"></span>
+                  <span class="col-xs-7">{{ _('Items') }}</span>
+                  <span class="col-xs-3">{{ _('Price') }}</span>
+                  <span class="col-xs-6 col-xs-offset-3"></span>
+               </div>
+               {% for pr in current_user.wish_list.products %}
+               <div class="list-row" data-pid="68170">
+                  <div class="col-xs-2 col-md-1 checkbox-col nopadding-right">
+                     <label>
+                        <input type="checkbox" name="pid" id="ch68170" value="68170" class="product-checkbox">
+                        <span class="circlecheck"><i class="icon icon-circlecheck"></i></span>
+                     </label>
+                  </div>
+                  <div class="col-xs-4 col-md-4 wishlist-product-img">
+                     <a class="product-img"
+                        href="https://www.iherb.com/pr/California-Gold-Nutrition-CGN-Children-s-DHA-Strawberry-Lemon-Flavor-525-mg-Omega-3s-8-fl-oz-237-ml/68170">
+                        <img alt="Wishlist Product Image" src="/media/t/{{ pr.img.0 }}">
+                     </a>
+                  </div>
+                  <div class="col-xs-7 col-md-7 wishlist-product-desc">
+                     <div class="product-flag-container">
+                        <div class="product-flag product-flag-specials">
+                           <bdi>{{ _('Special') }}</bdi>
+                        </div>
+                     </div>
+                     <a href="https://www.iherb.com/pr/California-Gold-Nutrition-CGN-Children-s-DHA-Strawberry-Lemon-Flavor-525-mg-Omega-3s-8-fl-oz-237-ml/68170">
+                        <span>{{ pr.title }}</span>
+                     </a>
+                     <div class="rating"><a class="stars"
+                                            href="https://www.iherb.com/r/California-Gold-Nutrition-CGN-Children-s-DHA-Strawberry-Lemon-Flavor-525-mg-Omega-3s-8-fl-oz-237-ml/68170/?p=1"><i
+                           class="icon-stars_40 full" title="4.1/5 - 68 Reviews"></i><i class="icon-stars_50 empty"></i></a><a
+                           class="rating-count"
+                           href="https://www.iherb.com/r/California-Gold-Nutrition-CGN-Children-s-DHA-Strawberry-Lemon-Flavor-525-mg-Omega-3s-8-fl-oz-237-ml/68170/?p=1"
+                           title="4.1/5 - 68 Reviews"><span>68</span> Reviews</a></div>
+                     <div class="weight">
+                        Weight: 1.68 lbs
+                     </div>
+                     <div class="date">
+                        Added: October 29, 2017
+                     </div>
+                  </div>
+                  <div class="col-xs-3 col-md-3 wishlist-product-price">
+                     <p class="price discount-green">
+                        <bdi><b>$13.00</b></bdi>
+                     </p>
+                     <p class="price-olp">
+                        <bdi>$17.00</bdi>
+                     </p>
+                  </div>
+                  <div class="col-xs-5 col-xs-offset-3 col-md-offset-4 col-md-5 wishlist-product-action">
+                     <input class="wl-add-to-cart btn btn-md btn-primary btn-block" type="submit" value="Add to Cart"
+                            data-pid="68170" name="pid68170" data-msg="Item Added to Cart"
+                            data-na-msg="Sorry, this product is no longer in stock." data-ga-event="click"
+                            data-ga-event-category="Wishlist-Action" data-ga-event-action="Wishlist"
+                            data-ga-event-label="Click - Add product to cart" data-ga-event-value="pid68170">
+                     <input value="68170" name="pid" type="hidden">
+
+                     <select class="form-control moveto-dropdown" id="moveto_68170" data-pid="68170"
+                             data-msg="Item moved to " data-ga-event="change" data-ga-event-category="Wishlist-Action"
+                             data-ga-event-action="Wishlist" data-ga-event-label="Change - Individual Move to"
+                             data-ga-event-value="68170">
+                        <option value="0">Move to:</option>
+                     </select>
+
+                     <p class="remove link blue-link text-center" id="remove_68170" data-pid="68170"
+                        data-msg="Item Removed" data-ga-event="click" data-ga-event-category="Wishlist-Action"
+                        data-ga-event-action="Wishlist" data-ga-event-label="Click - Remove product"
+                        data-ga-event-value="pid68170">Remove</p>
+                  </div>
+               </div>
+               {% endfor %}
+               <div id="pagination" class="row">
+                  <div class="col-xs-24">
+                     <div class="text-center">
+
+
+                     </div>
+                  </div>
+               </div>
+            </div>
+            {% else %}
+            <div class="wishlist-product-container col-xs-24">
+               <div class="empty-wishlist">
+                  <i class="icon-heart-line-thick"></i>
+                  <h4>{{ _('Your List is Empty') }}</h4>
+                  <p>{{ _('Shop 35,000+ Top Brand Healthy Products and receive Best Overall Savings for Orders over
+                     $40 USD.') }}</p>
+                  <a href="/">{{ _('Start Browsing') }}</a>
+               </div>
+            </div>
+            {% endif %}
+         </div>
+         <form action="https://checkout.iherb.com/pro/addlisttocart" method="POST" id="frm-cart">
+            <input type='hidden'
+                   value="0XgNrS/mo9lqLzFhGsKiAyJuW+wyYlANCYn+8+u4AIK/gZF0g8DvXOfWwbMwspLBu8lDkAyL4ONK3eP8S5/+s2DdkYiURa0NB2f+BBTMjxLDxQyRLtuqeRedNouG7EuZ"
+                   name="rftdatases"/>
+         </form>
+
+         <form action="/myaccount/wishlist/" method="POST" id="frmWishListAct">
+            <input type="hidden" name="hidaction" id="hidactionItems"/>
+            <input type="hidden" name="hidItems" id="hidItems"/>
+            <input type="hidden" name="DestfolderID" id="DestfolderID"/>
+            <input type="hidden" name="totalPages" id="totalPages" value="0"/>
+            <input type="hidden" name="totalItemsOnPage" id="totalItemsOnPage" value="0"/>
+         </form>
+
+
+      </div>
+   </div>
+
+</div>
+{% endblock %}

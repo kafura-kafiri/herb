@@ -1,0 +1,46 @@
+.footer {
+  position: fixed;
+  bottom: -50px;
+  height: 44px;
+  width: 100%;
+  background-color: #c6c6c6;
+  border-top: 1px green solid;
+  padding: 5px;
+  padding-right: 11px;
+  padding-left: 11px;
+  z-index: 89; }
+
+.btn {
+  border-radius: 500px;
+  border: 1px green solid;
+  padding: 4px 8px; }
+
+.footer input {
+  border: 1px solid green;
+  margin-right: 24px;
+  border-radius: 500px;
+  padding: 4px; }
+
+.footer::before {
+  content: '';
+  position: absolute;
+  height: 16px;
+  width: 52px;
+  background-color: green;
+  z-index: 99;
+  left: 343px;
+  top: -15px;
+  border-radius: 5px; }
+
+.footer :after {
+  content: '';
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  background-color: white;
+  z-index: 99;
+  left: 344px;
+  top: -14px;
+  border-radius: 4px; }
+
+/*# sourceMappingURL=static.css.map */

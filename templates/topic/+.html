@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Title</title>
+</head>
+<body>
+   <form action="/reviews/+" method="post">
+      <input type="hidden" name="json" value="{{ request.values.json }}"/>
+      <div>
+         title
+         <input name="json.title">
+      </div>
+      <div>
+         body
+         <input name="json.body">
+      </div>
+      <div>
+         score
+         <input name="json.score">
+      </div>
+      <button type="submit">submit</button>
+   </form>
+</body>
+</html>

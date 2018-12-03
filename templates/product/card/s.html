@@ -1,0 +1,72 @@
+{% macro ins(pr, lang) -%}
+<div class="product ga-product col-xs-12 col-sm-12 col-md-8 col-lg-6" itemscope itemtype="http://schema.org/Product" itemid="pid_51581" id="pid_51581">
+        <a href="/pr/{{ pr._id }}" title="{{ pr.title }}"></a>
+        <div class="product-flag-container"></div> <!-- legend wait for it, dary -->
+        <div class="product-inner product-inner-wide">
+                <a href="/pr/{{ pr._id }}"
+                   title="{{ pr.title }}"
+                   itemprop="url"
+                   content="/pr/{{ pr._id }}"
+                   class="product-image"
+                   data-ga-event="click"
+                   data-ga-event-category="Ecommerce"
+                   data-ga-event-action="productClick"
+                   data-ga-event-label="Product List_ListView">
+                        <img src="/media/r/{{ pr.img.0 }}"
+                             srcset="/media/k/{{ pr.img.0 }} 1x, /media/r/{{ pr.img.0 }} 1.5x"
+                             alt="{{ pr.title }}" itemprop="image" width="120" height="120" />
+                </a>
+            <a href="/pr/{{ pr._id }}"
+               title="{{ pr.title }}"
+               data-ga-event="click"
+               data-ga-event-category="Ecommerce"
+               data-ga-event-action="productClick"
+               data-ga-event-label="Product List_ListView">
+                <span itemprop="name" class="product-title">
+                    <bdi>{{ pr.title }}</bdi>
+                </span>
+            </a>
+            <div class='rating'>
+               <a class='stars' href = 'https://www.iherb.com/r/E-L-F-Cosmetics-Mineral-Infused-Mascara-Black-0-28-oz-8-g/51581/?p=1'>
+                  <i class='icon-stars_40 full' title='{{ pr.reviews.score.value }}/5 - {{ pr.reviews.score.size }} Reviews'></i>
+                  <i class='icon-stars_50 empty'></i>
+               </a>
+               <a
+                     class='rating-count'
+                     href = '/reviews/{{ pr._id }}'
+                     title='{{ pr.reviews.score.value }}/5 - {{ pr.reviews.score.size }} Reviews'
+               ><span>{{ pr.reviews.score.size }}</span></a>
+            </div>
+            <div class="product-price text-nowrap">
+                    <span class="price ">
+                        <bdi>{{ lang.dimensions.currency }}{{ pr.value.our }}</bdi>
+                    </span>
+                <div class="product-discount-container">
+                </div>
+                    <div class="shipping-container">
+                            <i class="icon-shipping-saver-thick"></i>
+                            <span class="shipping-saver">
+                                {{ _('Shipping Saver') }}
+                            </span>
+                            <span class="question-mark popup-shipping-saver">{{ _('?') }}</span>
+                </div>
+                <div class="status-container">
+                   <form class="form-add-to-cart" action="https://checkout.iherb.com/pro/addtocart" method="post">
+                      <div id="out-of-stock-message-added" class="out-of-stock-message info-popup"><p>Sorry, this product is no longer in stock.</p></div>
+                      <button class="btn btn-primary btn-block btn-xs-slim btn-add-to-cart gtm-add-to-cart"
+                              name="AddToCart"
+                              data-product-id="51581"
+                              data-ga-event="click"
+                              data-ga-event-category="Ecommerce"
+                              data-ga-event-action="addToCart"
+                              data-ga-event-label="Product List_ListView">
+                         <bdi>{{ _('Add to Cart') }}</bdi>
+                      </button>
+                      <input type="hidden" name="pid" value="{{ pr._id }}" />
+                      <input type="hidden" name="part" value="ELF-81411" />
+                   </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endmacro %}

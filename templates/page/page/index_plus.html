@@ -1,0 +1,61 @@
+{% extends 'page/base.html' %}
+{% block main %}
+<style>
+.divtext {
+    border: ridge 2px;
+    padding: 5px;
+    width: 100%;
+    min-height: 5em;
+    overflow: auto;
+}
+[contenteditable]:empty:before{
+  content: attr(placeholder);
+  /* display: block;  For Firefox */
+  color: grey;
+}
+</style>
+<div class="ui container">
+   <br>
+   <h1>
+      title:
+      <span style="display: inline-block; min-width: 150px; border-bottom: solid 2px black">
+         <span id="name" contenteditable placeholder="enter a good memorable unique Name"></span>
+      </span>
+   </h1>
+   <div id="editor" class="ui segment divtext editor" contentEditable="true">{{ '<div>Hello World</div>' }}</div>
+   <button id="submit" class="ui button green fluid">Save</button>
+   <br>
+</div>
+<script>
+   document.addEventListener('DOMContentLoaded', function() {
+      $(function() {
+         $('[contenteditable]').on('keydown', function(e){
+            if(e.keyCode == 9){
+                e.preventDefault();
+                document.execCommand('insertHTML', false, '&#009');
+                document.execCommand('indent',true,null);
+                document.execCommand('styleWithCSS',true,null);
+            }
+         }).css('white-space', 'pre-wrap');
+
+         $('#submit').click(function() {
+            var name = $('span#name').html();
+            var html = $('div#editor').html();
+            $.post({
+               url: "",
+               data: {
+                  json: JSON.stringify({
+                     name: name,
+                     html: html,
+                  })
+               },
+            }).done(function() {
+               var location = String(window.location.href);
+               location = location.substring(0, location.length - 1);
+               window.location.href = location;
+            });
+         })
+      });
+   });
+</script>
+{% endblock %}

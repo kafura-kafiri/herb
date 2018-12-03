@@ -1,0 +1,41 @@
+{% if banner %}
+<div class="row">
+    <div class="col-xs-24 col-buffer-lg">
+        <div class="featured-article col-buffer-lg">
+            <div class="row">
+                <div class="col-xs-8">
+                    <div class="content">
+                        <h5 class="underscore">
+                            {{ _('What&#39;s New:') }}
+                        </h5>
+                        <h2>{{ banner.meta.title }}</h2>
+                        <div class="text-primary col-buffer">
+                            <strong>{{ banner._date }}</strong>
+                        </div>
+                        <div class="text-container hidden-xs hidden-sm col-buffer-lg">
+                            <p>{{ banner.meta.intro }}
+                            </p>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-16 col-md-10">
+                                <a href="/hows/{{ banner._id }}"
+                                   class="btn btn-block btn-primary"
+                                   data-ga-event="click"
+                                   data-ga-event-category="Blog"
+                                   data-ga-event-action="Blog Homepage"
+                                   data-ga-event-label="Read More"
+                                >{{ _('Read More') }}</a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-xs-16">
+                    <img src="https://s.images-iherb.com/blog/uploads/teas-for-cold-and-flu-support-large.jpg"
+                         class="img-responsive">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}

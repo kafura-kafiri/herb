@@ -1,0 +1,26 @@
+<div class="homepage-banner">
+   <div id="carousel-main-banner" class="img-slider">
+      <div class="img-slider-container">
+         {% for slide in banner %}
+            <div class="img-wrapper {{ 'active' if loop.index == 1 else '' }}" id="slide-{{ loop.index }}">
+               <div class="slide">
+                  <a href="{{ slide.link }}" data-ga-event="click" data-ga-event-category="Ecommerce"
+                     data-ga-event-action="Clicks Homepage Banner" data-ga-event-label="Pos{{ loop.index }}">
+                     <img {{ 'src' if loop.index == 1 else 'class="js-defer-image" src="" data-image-retina-src' | safe }}="{{ slide.img }}"/>
+                  </a>
+               </div>
+            </div>
+         {% endfor %}
+      </div>
+      <div class="img-slider-controls">
+         <span class="right controls">
+            <i class="icon-recentlyviewedarrowright"></i>
+         </span>
+         <span class="left controls">
+            <i class="icon-recentlyviewedarrowleft"></i>
+         </span>
+      </div>
+      <div class="img-slider-indicators">
+      </div>
+   </div>
+</div>

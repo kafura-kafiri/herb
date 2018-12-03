@@ -1,0 +1,35 @@
+<section id="related-blog-articles-container"
+         data-keyword="chamomile"
+         data-articles-link="Read More"
+         hidden="hidden"
+         style="display: block;">
+   <div class="offset-blog-container">
+      <div class="blog-header">
+         Results for <span class="search-keyword">"chamomile"</span> in the iHerb Blog
+      </div>
+      <div class="blog-articles-container">
+         <div class="row">
+            <div class="blog-articles clearfix">
+               {% for how in hows %}
+                  <div class="blog-card col-xs-12 col-md-8 col-lg-6
+                     {{ 'hidden-xs' if loop.index > 2 else '' }}
+                     {{ 'hidden-sm hidden-md' if loop.index > 3 else '' }}
+                  ">
+                     <div class="link-overlay-container">
+                        <a href="/hows/{{ how._id }}" class="link-overlay"></a>
+                        <img src="/media/n/{{ how.meta.img }}"
+                             alt="{{ how.meta.title }}" class="rounded-top img-responsive">
+                        <div class="content">
+                           <div class="h4 text-ellipsis">{{ how.meta.title }}</div>
+                           <p class="p line-clamp-2">{{ how.meta.intro }}</p>
+                           <a href="/hows/{{ how._id }}" class="link">Read More »</a>
+                        </div>
+                     </div>
+                  </div>
+               {% endfor %}
+            </div>
+         </div>
+      </div>
+      <div class="blog-footer"></div>
+   </div>
+</section>

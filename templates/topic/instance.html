@@ -1,0 +1,137 @@
+<div class="row review-row">
+   <div class="col-sm-24 col-md-15 col-lg-16 review-content">
+      <div class='rating'>
+         <a class='stars'>
+            <i class='icon-stars_{{ review.score }}0 full'></i>
+            <i class='icon-stars_50 empty'></i>
+         </a>
+      </div>
+      <div class="review-headline">
+         <h3>{{ review.title | safe }}</h3>
+      </div>
+      <div class="posted-by">
+         <p>
+            {{ _('Posted by') }}
+            <a href="/me/{{ review._author }}">
+               {{ _('iHerb Customer') }}
+            </a> {{ _('on') }} {{ review.date }}
+            <span class="verified-purchase"> | <i class="icon-addedtocartcheck"></i>{{ _('Verified Purchase') }}</span>
+         </p>
+      </div>
+      <div>
+         <bdi><p class="review-text">{{ review.body | safe }}</p></bdi>
+      </div>
+   </div>
+   <div class="col-sm-24 col-md-offset-2 col-md-7 col-lg-offset-2 col-lg-6 helpful">
+      <div id="divyesno2743694" class="textcontainer question" data-review-id="2743694">
+         <div class="question-action share-review">
+            <div class="share-this-review">
+               <div class="share-icon">
+                            <span class="btn-share-review"
+                                  title="Sharing this review may save you more! Login or See More.">
+                                <span class="text-secondary-darker" data-ga-event="click"
+                                      data-ga-event-category="Ecommerce" data-ga-event-action="Social Media CTA"
+                                      data-ga-event-label="Share-Review">
+                                    <strong>
+                                        <bdi>
+                                            {{ _('Share') }}
+                                        </bdi>
+                                    </strong>
+                                </span>
+                                <span>
+                                    <i class="icon-sharefilled" data-ga-event="click" data-ga-event-category="Ecommerce"
+                                       data-ga-event-action="Social Media CTA" data-ga-event-label="Share-Review"></i>
+                                </span>
+                            </span>
+                  <div class="share-review-container">
+                     <div class="row row-buffer-sm">
+                        <div class="col-xs-24">
+                           <i class="icon-circlex pull-right"></i>
+                           <div class="title-text">
+                              {{ _('Copy and share this product review') }}
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row row-buffer-sm">
+                        <div class="col-xs-16">
+                           <input class="input-field"/>
+                        </div>
+                        <div class="col-xs-8">
+                           <button class="btn btn-primary btn-block copy-link">{{ _('Copy') }}</button>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-xs-24">
+                           <div class="shortener-wrapper">
+                              <label>
+                                 <input type="checkbox" class="shortener"/>
+                                 {{ _('Shorten URL') }}
+                              </label>
+                           </div>
+                           <div class="share-social">
+                              <ul>
+                                 <li>
+                                    <i class="icon-facebook facebook-review"></i>
+                                 </li>
+                                 <li>
+                                    <i class="icon-twitter twitter-review"></i>
+                                 </li>
+                                 <li>
+                                    <i class="icon-googleplus gplus-review"></i>
+                                 </li>
+                                 <li>
+                                    <i class="icon-pinterest pinterest-review"></i>
+                                 </li>
+                              </ul>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="col-xs-24">
+                           <div class="spacer"></div>
+                        </div>
+                     </div>
+                     <div class="row">
+                        <div class="review-footer">
+                           <div class="col-xs-9">
+                              <i class="green icon-iherblogo"></i>
+                              <i class="icon-rewardslogo"></i>
+                           </div>
+                           <div class="col-xs-15">
+                              {{ _('Share this review with others and save even more!') }} <a
+                                 href="https://checkout.iherb.com/account/login/?referrerRedirect=true"
+                                 title="Sign In">{{ _('Sign in') }}</a> {{ _('or') }} <a
+                                 href="https://www.iherb.com/info/rewards" title="Read More">{{ _('Read More') }}</a>
+                           </div>
+                        </div>
+                     </div>
+                     <input id="shareProperties" class="hidden"
+                            data-product-page="https://www.iherb.com/pr/Thorne-Research-Basic-Nutrients-2-Day-60-Veggie-Caps/52954"
+                            data-product-image=""
+                            data-checkout-review="Check out this review:"/>
+                  </div>
+               </div>
+            </div>
+            <p>{{ _('Was this review helpful to you?') }}</p>
+            <div class="helpful-btn-container">
+               <button class="helpfulness btn btn-default btn-xs" data-type="1"
+                       data-helpful=true>
+                  {{ _('Yes') }}
+                  {{ _(review.helpful | length) }}
+               </button>
+            </div>
+            <div class="helpful-btn-container">
+               <button class="helpfulness btn btn-default btn-xs" data-type="1"
+                       data-helpful=false>
+                  {{ _('No') }}
+                  {{ _(review.unhelpful | length) }}
+               </button>
+            </div>
+            <div class="report-abuse-container">
+               <a class="helpfulness" data-type="2" data-helpful="-1">{{ _('Report Abuse') }}</a>
+            </div>
+         </div>
+      </div>
+      <div id="feedback-message" class="color-primary hide">{{ _('Thanks for your feedback!') }}</div>
+   </div>
+</div>

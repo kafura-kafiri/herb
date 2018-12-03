@@ -1,0 +1,167 @@
+<div class="container">
+   <a id="product-detail-reviews"></a>
+   <div class="content-frame product-details-reviews">
+      <section class="content-wrapper">
+         <div class="title-bar">
+            <div class="row">
+               <div class="col-xs-24">
+                  <strong>{{ _('iHerb Customer Reviews') }}</strong>
+               </div>
+            </div>
+         </div>
+         <div class="inner-content">
+            <div class="row item-row">
+               <div class="featured-reviews">
+                  <div class="col-xs-12 col-md-8">
+                     <div class="customer-review-block">
+                        <div class="row">
+                           <div class="col-xs-24 stars-review-count-container">
+                              <div class="row">
+                                 <div class="col-xs-24">
+                                    <span class="rating-average">{{ _(pr.reviews.score.value) }}</span>
+                                    <div class='rating'><a class='stars'><i class='icon-stars_45 full'></i><i
+                                          class='icon-stars_50 empty'></i></a></div>
+                                    <span class="customer-rating">
+                                {{ _(pr.reviews.score.population.total) }}
+                            </span>
+                                 </div>
+                              </div>
+                           </div>
+                           <div class="col-xs-24">
+                              <figure class="ratings-graph-container">
+                                 {% for score in ['5' ,'4', '3', '2', '1'] %}
+                                    <div class="graph-row" data-percent="{{ pr.reviews.score.population[score] / pr.reviews.score.population.total * 100 | int }}">
+                                       <div class="left-container">
+                                          <a href="https://www.iherb.com/r/Thorne-Research-Basic-Nutrients-2-Day-60-Veggie-Caps/52954/?p=1&amp;fr=5"
+                                             class="left-inner-container">
+                                             <div class="title" data-review-rating="5">{{ _(score) }} {{ _('Star') }}</div>
+                                             <div class="bar-container" title="Click to filter by 5 star reviews">
+                                                <div class="bar"></div>
+                                             </div>
+                                          </a>
+                                       </div>
+                                       <div class="right-container">
+                                          <a href="https://www.iherb.com/r/Thorne-Research-Basic-Nutrients-2-Day-60-Veggie-Caps/52954/?p=1&amp;fr={{ score }}">
+                                             <span>0%</span>
+                                          </a>
+                                          <div>(<a
+                                                href="https://www.iherb.com/r/Thorne-Research-Basic-Nutrients-2-Day-60-Veggie-Caps/52954/?p=1&amp;fr={{ score }}">{{ _(pr.reviews.score.population[score]) }}</a>)
+                                          </div>
+                                       </div>
+                                    </div>
+                                 {% endfor %}
+                              </figure>
+                           </div>
+                           <div class="col-xs-24 see-all-reviews">
+                              <a class="link-lg"
+                                 href="https://www.iherb.com/r/Thorne-Research-Basic-Nutrients-2-Day-60-Veggie-Caps/52954/?p=1">
+                                 <strong>{{ _('See All Reviews') }}</strong>
+                              </a>
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-xs-12 col-md-8   ">
+                     <div class="featured-review popup-modal">
+                        <div class="featured-title">
+                           {{ _('Top Positive Review') }}
+                        </div>
+                        <div class='rating'><a class='stars'><i class='icon-stars_50 full'></i><i
+                              class='icon-stars_50 empty'></i></a></div>
+                        <h3>
+                           {{ pr.reviews.top_review.title | safe }}
+                        </h3>
+                        <div class="featured-reviewer">
+                           {{ _('Posted by') }} <a href="https://www.iherb.com/me/5680244445204684826">{{ _('iHerb Customer') }}</a> {{ _('on') }} {{ pr.reviews.top_review.date }}
+                        </div>
+                        <div class="review-text line-clamp">
+                        <span>
+                            It&#39;s so hard to find a multi-vitamin/mineral supplement that uses BIO-AVAILABLE as well as non-harmful and relevant forms of EVERY vitamin and mineral they are combining into their supplement. This one does it! I love that Thorne Research specifically uses Vitamin D3 (not D or D2), a balance of K1 and K2, mixed carotenes as well as Palmitate for Vitamin A to avoid the possibility of reaching toxic levels while also giving your liver a break from having to convert it all, Folate instead of Folic Acid (which is harmful), Selenomethionine for Selenium, and d-Alpha Tocopheryl Acid Succinate for Vitamin E as well as d-Gamma Tocopherol from Mixed Tocopherols. All of their minerals are also in excellent bio-available forms - no cheap fillers. I also love that they have minimized the amount of calcium and magnesium, and removed iron, so that people of different ages, with different needs, can use additional supplements as needed. I searched a long time for a vitamin supplement that covered all the bases with quality components - and this one&#39;s a WINNER!
+                        </span>
+                        </div>
+                        <div class="featured-review-helpfulness">
+                           {{ _(pr.reviews.top_review.helpful | length) }} {{ _('people found this helpful') }}
+                        </div>
+                     </div>
+                     <div class="popup-container featured-review-popup">
+                        <div class="popup-title">
+                           {{ _('Top Positive Review') }}
+                        </div>
+                        <div class="popup-content">
+                           <p class="verified-purchase"><i class="icon-addedtocartcheck"></i>{{ _('Verified Purchase') }}</p>
+                           <div class='rating'><a class='stars'><i class='icon-stars_50 full'></i><i
+                                 class='icon-stars_50 empty'></i></a></div>
+                           <h3>{{ pr.reviews.top_review.title | safe }}</h3>
+                           <div class="featured-reviewer">
+                              {{ _('Posted by') }} <a href="https://www.iherb.com/me/5680244445204684826">{{ _('iHerb Customer') }}</a>
+                              {{ _('on') }} {{ pr.reviews.top_review.date }}
+                           </div>
+                           <p class="featured-review-text">
+                              It&#39;s so hard to find a multi-vitamin/mineral supplement that uses BIO-AVAILABLE
+                              as well as non-harmful and relevant forms of EVERY vitamin and mineral they are
+                              combining into their supplement. This one does it! I love that Thorne Research
+                              specifically uses Vitamin D3 (not D or D2), a balance of K1 and K2, mixed carotenes
+                              as well as Palmitate for Vitamin A to avoid the possibility of reaching toxic levels
+                              while also giving your liver a break from having to convert it all, Folate instead
+                              of Folic Acid (which is harmful), Selenomethionine for Selenium, and d-Alpha
+                              Tocopheryl Acid Succinate for Vitamin E as well as d-Gamma Tocopherol from Mixed
+                              Tocopherols. All of their minerals are also in excellent bio-available forms - no
+                              cheap fillers. I also love that they have minimized the amount of calcium and
+                              magnesium, and removed iron, so that people of different ages, with different needs,
+                              can use additional supplements as needed. I searched a long time for a vitamin
+                              supplement that covered all the bases with quality components - and this one&#39;s a
+                              WINNER!
+                           </p>
+                           <div id="divyesno1283911" class="question" data-review-id="1283911">
+                              <h4>{{ _('Was this review helpful to you?') }}</h4>
+                              <div class="question-action">
+                                 <div class="helpful-btn-container">
+                                    <button class="helpfulness btn btn-default btn-xs" data-type="1"
+                                            data-helpful=true>
+                                       {{ _('Yes') }}
+                                       {{ _(pr.reviews.top_review.helpful | length) }}
+                                    </button>
+                                 </div>
+                                 <div class="helpful-btn-container">
+                                    <button class="helpfulness btn btn-default btn-xs" data-type="1"
+                                            data-helpful=false>
+                                       {{ _('No') }}
+                                       {{ _(pr.reviews.top_review.unhelpful | length) }}
+                                    </button>
+                                 </div>
+                                 <div class="report-abuse-container">
+                                    <a class="helpfulness" data-type="2" data-helpful="-1">{{ _('Report Abuse') }}</a>
+                                 </div>
+                              </div>
+                           </div>
+                           <div id="feedback-message" class="color-primary hide">{{ _('Thanks for your feedback!') }}</div>
+                        </div>
+                     </div>
+                  </div>
+               </div>
+               <div class="col-xs-24">
+                  <div class="bottom-border">&nbsp;</div>
+                  <div class="recent-reviews">
+                     {% for review in pr.reviews.reviews %}
+                        {% include 'review/instance.html' %}
+                     {% endfor %}
+                     <input id="reviewProperties" class="hidden"
+                            data-pid="52954" ;
+                            data-login-url="https://www.iherb.com/pro/checklogin"
+                            data-submit-feedback="//secure.iherb.com/pro/reviewfeedback"
+                            data-report-abuse="//secure.iherb.com/pro/reportabuse"/>
+                  </div>
+                  <div class="row">
+                     <div class="col-xs-24">
+                        <a class="link-lg"
+                           href="https://www.iherb.com/r/Thorne-Research-Basic-Nutrients-2-Day-60-Veggie-Caps/52954/?p=1">
+                           <strong>{{ _('See All Reviews') }}</strong>
+                        </a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </section>
+   </div>
+</div>

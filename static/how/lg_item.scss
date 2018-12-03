@@ -1,0 +1,99 @@
+$ratio: .45;
+$height: 150px;
+$width: $height / (1 - $ratio);
+$border-top: $height / 4;
+$border-left: 17px;
+$title-background: white;
+$inset: 4px;
+$inset-color: grey;
+
+$blur: 10px;
+$spread: 3px;
+
+.lg.item, .lg.item > .title, .lg.item > .img, .lg.item > .title::before, .lg.item > .img::before , .lg.item > .img::after {
+  position: absolute;
+}
+
+.lg.item {
+  left: 100px;
+  top: 100px;
+
+  height: $height;
+  width: $width;
+
+  background-color: #d8d8d8;
+  border-radius: 1px;
+  overflow: hidden;
+  box-shadow: 0px 2px 15px -5px black;
+}
+
+.lg.item:hover {
+  cursor: pointer;
+  box-shadow: 0px 3px 20px -4px black;
+}
+
+.lg.item > .title {
+  width: 100% * (1 - $ratio);
+  background-color: $title-background;
+
+  box-shadow: inset 0px 0px $blur (-$spread) black;
+}
+
+.lg.item > .img {
+  width: 100% * $ratio;
+  background-image: url("img/anar.jpg");
+  background-size: cover;
+}
+
+.lg.item > .img, .lg.item > .title {
+  height: 100%;
+}
+
+.lg.item > .title::before {
+  content: '';
+  border-left: ($border-left + 6px) solid transparent;
+  border-right: ($border-left + 6px) solid $title-background;
+  border-top: ($border-top + 12px) solid transparent;
+  border-bottom: ($border-top + 12px) solid transparent;
+
+  left: -($border-left + 3px) * 2;
+  top: ($border-top - 11px) ;
+
+  z-index: 3;
+}
+
+.lg.item > .img::before {
+  content: '';
+
+  top: $border-top - 20px;
+
+  transform: rotate(25deg);
+}
+
+.lg.item > .img::after {
+  content: '';
+
+  bottom: $border-top - 20px;
+  transform: rotate(-25deg);
+}
+
+.lg.item > .img::before, .lg.item > .img::after {
+  background-color: transparent;
+  width: $border-top + 16px;
+  height: $border-top + 16px;
+  z-index: 4;
+  right: 6px;
+  box-shadow: 9px 0px $blur -8px black;
+}
+
+.lg.item.right > .img, .lg.item.left > .title {
+  left: 0;
+}
+
+.lg.item.left > .img, .lg.item.right > .title {
+  right: 0;
+}
+
+body {
+  background-color: #d9d9d9;
+}

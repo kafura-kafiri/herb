@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!--[if IE 9 ]><html class="ie9 en home index " dir="ltr"> <![endif]-->
+<!--[if IE 10 ]><html class="ie10 en home index " dir="ltr"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html class="en home index  " dir="ltr">
+<!--<![endif]-->
+<head>
+   {% include 'layout/resources.html' %}
+   <title>{{ _('iHerb.com - Vitamins, Supplements &amp; Natural Health Products') }}</title>
+   <meta name="format-detection" content="telephone=no">
+   <input type="hidden" id="welcomeName" name="welcomeName" value="" data-share-code="">
+</head>
+<body>
+<!-- Google Tag Manager -->
+{% import 'homepage/scripts.html' as scripts %}
+{{ scripts.layer_variable() }}
+{{ scripts.no_script() }}
+{{ scripts.gtm() }}
+<!-- End Google Tag Manager -->
+<script src="https://s.images-iherb.com/js/ga-pro6.min.js"></script>
+{{ scripts.ga() }}
+
+<div id="transBG" class="transparency hide"></div>
+<div id="toaster"></div>
+
+{{ scripts.variables() }}
+
+{% include 'layout/header/index.html' %}
+<div class="iherb-header-threshold"></div>
+<div class="iherb-header-overlay transparency hide"></div>
+<input type="hidden" id="domainHelper" value="https://checkout.iherb.com/account/login/"/>
+<input type="hidden" id="nav-language" value="en"/>
+<input type="hidden" id="nav-language-code" value="en-US"/>
+<input type="hidden" id="curr-device"/>
+<input type="hidden" id="curr-customer"/>
+<input type="hidden" id="curr-token"/>
+<input type="hidden" id="nav-share"/>
+
+{% include 'homepage/main/index.html' %}
+
+{% include 'live/index.html' %}
+
+{% include 'how/latest/index.html' %}
+
+{{ scripts.jquery() }}
+
+{{ scripts.promo() }}
+
+{% include 'layout/footer.html' %}
+
+{{ scripts.gts() }}
+
+<script type="text/javascript">
+        (() => {
+            (function (d, s, id) {
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) { return; }
+                js = d.createElement(s); js.id = id;
+                js.src = "//connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
+
+            window.fbAsyncInit = function () {
+                FB.init({
+                    appId: '275572386185529',
+                    //appId: '233374750478668', //test app id
+                    xfbml: true,
+                    version: 'v2.9'
+                });
+            };
+        })();
+
+</script>
+</body>
+</html>

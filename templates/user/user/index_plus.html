@@ -1,0 +1,925 @@
+{% extends "user/base.html" %}
+{% block container %}
+<div class="col-xs-24 col-md-20 myaccount-container" id="MyIherbPage">
+   <section class="row">
+      <div class="col-xs-2 hidden-md hidden-lg hidden-xl myaccount-hamburger-menu">
+         <i class="icon-hamburgermenufat h-menu open-overlay"></i>
+      </div>
+      <div class="col-xs-22 col-md-24 breadcrumbs">
+         <div class="row">
+            <div class="col-xs-24">
+               <h1>{{ _('My Page') }}</h1>
+               <p><a href="/myaccount/profile">{{ _('My Account') }} </a> <span> {{ _('My Page') }}</span></p>
+            </div>
+         </div>
+      </div>
+   </section>
+   <section class="row">
+      <section id="publicProfile" class="col-xs-24">
+         <section class="row">
+            <div class="col-xs-24 col-md-18">
+               <p>
+                  {{ _('Here you can create your own personalized iHerb Page! Share all your reviews, social media handles and favorite products.') }}
+               </p>
+            </div>
+         </section>
+         <section class="row">
+            <div class="col-xs-24 col-md-18">
+               <hr class="hr"/>
+            </div>
+         </section>
+         <div id="fixedTransBckrnd" class="transparencyFixed hide"></div>
+         <!----------------create your own unique web address and user name---------------->
+         <section class="row create-web-and-name">
+            <div class="col-xs-24 col-md-18 my-iherb-options">
+               <!----------------url update messages---------------->
+               <section class="row">
+                  <div class="col-xs-24">
+                     <ul class="js-messages js-urlMesssages js-allmessages">
+                        <li class="{{ '' if messages.saved else 'hide' }}">
+                           <div class="success-msg">
+                              <i class="icon-addedtocartcheck"></i>
+                              <span>{{ _('URL saved successfully.') }}</span>
+                           </div>
+                        </li>
+                        <li class="{{ '' if messages.required else 'hide' }}">
+                           <div class="error-msg">
+                              <i class="icon-disclaimer"></i>
+                              <span>{{ _('URL is required.') }}</span>
+                           </div>
+                        </li>
+                        <li class="{{ '' if messages.segment else 'hide' }}">
+                           <div class="error-msg">
+                              <i class="icon-disclaimer"></i>
+                              <span>{{ _('Url must be between 6 and 25 characters.') }}</span>
+                           </div>
+                        </li>
+                        <li class="{{ '' if messages.invalid else 'hide' }}">
+                           <div class="error-msg">
+                              <i class="icon-disclaimer"></i>
+                              <span>{{ _('Your url contains some invalid word(s) or character(s).') }}</span>
+                           </div>
+                        </li>
+                        <li class="{{ '' if messages.already else 'hide' }}">
+                           <div class="error-msg">
+                              <i class="icon-disclaimer"></i>
+                              <span>{{ _('Someone already has the URL.') }}</span>
+                           </div>
+                        </li>
+                        <li class="hide">
+                           <div class="error-msg">
+                              <i class="icon-disclaimer"></i>
+                              <span>{{ _('Only A-Z, 0-9 and - characters are allowed.') }}</span>
+                           </div>
+                        </li>
+                        <li class="hide">
+                           <div class="error-msg">
+                              <i class="icon-disclaimer"></i>
+                              <span>{{ _('Your URL may only contain two numbers in a row.') }}</span>
+                           </div>
+                        </li>
+                        <li class="hide">
+                           <div class="error-msg">
+                              <i class="icon-disclaimer"></i>
+                              <span>{{ _('Your iHerb page may contain abusive or offensive wording. Please check: New URL') }}</span>
+                           </div>
+                        </li>
+                     </ul>
+                  </div>
+               </section>
+               <!----------------unique web address --------------->
+               <section class="row unique-web-address-module">
+                  <div class="col-xs-24">
+                     <!----------------rules pop up --------------->
+                     <div class="my-iherb-web-address-rules">
+                        <div class="unique-note">
+                           <h2 class="h2">{{ _('Create your own unique web address and user name') }}</h2>
+                           <i data-show="myIherbInfo" class="icon-informationnote js-popshow"></i>
+                           <div id="myIherbInfo" class="popup-nub-container">
+                              <div class="popup-close"><i class="icon-circlex"></i></div>
+                              <div class="popup-content">
+                                 <p>
+                                    {{ _('Names should be 6 letters/ digits or longer, with no space between them.
+                                    Please note that if you decide to change from the name you have chosen to a
+                                    different one, updating it could take us up to 24 hrs.') }}
+                                 </p>
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <!----------------current url--------------->
+                     <p class="unique-web-address">{{ request.host }}/users/<span class="green bold js-newPageURL">{{ user._id }}</span>
+                     </p>
+                     <!----------------updateURL form---------------->
+                     <form id="updateUrl" class="form-horizontal form-inline js-updateURL"
+                           action="" method="post">
+                        <input type="hidden" name="url" value=""/>
+                        <input type="hidden" name="node" value="address"/>
+                        <div class="form-group">
+                           <div class="my-iherb-url">
+                              <input type="text" class="form-control input-field input-field-md"
+                                     placeholder="Enter web address name" id="urlname" name="urlname"/>
+                              <button type="submit" id="updateUrlBtn" class="btn btn-default btn-lg bold"
+                                      name="btnUpdateURL">{{ _('Update Web URL') }}
+                              </button>
+                           </div>
+                           <div class="my-iherb-view-url">
+                              <a class="view-web-page" target="_blank" href="{{ request.url[:-1] }}">
+                                 {{ _('View Web Page') }}
+                              </a></div>
+                        </div>
+                        <div class="form-group">
+                           <p><span class="black bold">{{ _('Note:') }}</span>
+                              {{ _('Your web address must be between 6 and 25 characters.') }}
+                           </p>
+                        </div>
+                     </form>
+                  </div>
+               </section>
+               <!----------------show user popup if we changed their name ---------------->
+               <!----------------user name messages---------------->
+               <section class="row">
+                  <div class="col-xs-24 my-iherb-messages">
+                     <ul class="js-nicknamemessages js-allmessages username-messages">
+                        <li class="{{ '' if messages.saved else 'hide' }}">
+                           <div class="success-msg">
+                              <i class="icon-addedtocartcheck"></i>
+                              <span>{{ _('User Name saved successfully.') }}</span>
+                           </div>
+                        </li>
+                        <li class="{{ '' if messages.required else 'hide' }}">
+                           <div class="error-msg">
+                              <i class="icon-disclaimer"></i>
+                              <span>{{ _('User Name is required.') }}</span>
+                           </div>
+                        </li>
+                        <li class="{{ '' if messages.segment else 'hide' }}">
+                           <div class="error-msg">
+                              <i class="icon-disclaimer"></i>
+                              <span>{{ _('User Name cannot be longer than 25 characters.') }}</span>
+                           </div>
+                        </li>
+                        <li class="hide">
+                           <div class="error-msg">
+                              <i class="icon-disclaimer"></i>
+                              <span>{{ _('User Name contains some invalid words.') }}</span>
+                           </div>
+                        </li>
+                        <li class="{{ '' if messages.character else 'hide' }}">
+                           <div class="error-msg">
+                              <i class="icon-disclaimer"></i>
+                              <span>{{ _('Only A-Z, 0-9 and - characters are allowed.') }}</span>
+                           </div>
+                        </li>
+                        <li class="hide">
+                           <div class="error-msg">
+                              <i class="icon-disclaimer"></i>
+                              <span>{{ _('Your iHerb page may contain abusive or offensive wording. Please check: User Name') }}</span>
+                           </div>
+                        </li>
+                        <li class="hide">
+                           <div class="error-msg">
+                              <i class="icon-disclaimer"></i>
+                              <span>{{ _('User name may contain rewards code or coupon sharing information. Please check it and try again.') }}</span>
+                           </div>
+                        </li>
+                     </ul>
+                  </div>
+               </section>
+               <!----------------update user name form---------------->
+               <div class="my-iherb-options user-name">
+                  <form id="updateNickName" class="form-horizontal form-inline"
+                        action="" method="post">
+                     <input type="hidden" name="node" value="username"/>
+                     <input type="hidden" name="nickName" value=""/>
+                     <div class="form-group">
+                        <input id="json" type="text" class="form-control input-field input-field-md"
+                               name="json" placeholder="Enter user name"/>
+                        <button id="updateUrlBtn" class="btn btn-default bold btn-lg" name="btnUpdateURL">
+                           {{ _('Update User Name') }}
+                        </button>
+                     </div>
+                     <div class="form-group my-iherb-options">
+                        <p><span class="black bold">{{ _('Note:') }}</span>
+                           {{ _('This name will be displayed on your iHerb Page and in product reviews. User Names may not contain three characters followed by three or more numbers.') }}</p>
+                     </div>
+                  </form>
+               </div>
+            </div>
+         </section>
+         <!----------------end create your own unique web address and user name---------------->
+         <!----------------update profile---------------->
+         <section class="row">
+            <div class="col-xs-24 col-md-18">
+               {% include 'user/__form.html' %}
+            </div>
+         </section>
+         <section class="row">
+            <div class="col-xs-24">
+               <!----------------favorite product messages---------------->
+               <h4 class="h4 orange">{{ _('My Favorite Products') }}</h4>
+               <div class="row">
+                  <div class="col-xs-18 js-favoriteProductsText"
+                       data-drag="Add your favorite products to display on your My iHerb Page profile by entering Product Code or URL. Drag each product to categorize your favorite by numeral ranking.">
+                     <p>
+                        {{ _('Add up to 8 of your favorite products to display on your My iHerb Page profile. Enter
+                        Product Code or URL.') }}
+                     </p>
+                  </div>
+               </div>
+               <section class="row">
+                  <div class="col-xs-24 col-md-18 my-iherb-messages-favs">
+                     <ul class="js-favupdatemessage js-allmessages">
+                        <li class="{{ '' if messages.updated else 'hide' }}">
+                           <div class="success-msg">
+                              <i class="icon-disclaimer"></i>
+                              <span>{{ _('Your favorite product ranks have been updated.') }}</span>
+                           </div>
+                        </li>
+                        <li class="{{ '' if messages.removed else 'hide' }}">
+                           <div class="success-msg">
+                              <i class="icon-disclaimer"></i>
+                              <span>{{ _('Product has been removed.') }}</span>
+                           </div>
+                        </li>
+                        <li class="{{ '' if messages.not_saved else 'hide' }}">
+                           <div class="error-msg">
+                              <i class="icon-disclaimer"></i>
+                              <span>{{ _('We could not save your new favorite product ranks. Please try again later. &lt;br /&gt; If the problem persists, please contact customer service.') }}</span>
+                           </div>
+                        </li>
+                        <li class="{{ '' if messages.not_removed else 'hide' }}">
+                           <div class="error-msg">
+                              <i class="icon-disclaimer"></i>
+                              <span>{{ _('We could not remove product. Please try again later. &lt;br /&gt; If the problem persists, please contact customer service.') }}</span>
+                           </div>
+                        </li>
+                        <li class="{{ '' if messages.saved else 'hide' }}">
+                           <div class="success-msg">
+                              <i class="icon-disclaimer"></i>
+                              <span>{{ _('Product has been successfully added to your favorite products.') }}</span>
+                           </div>
+                        </li>
+                     </ul>
+                  </div>
+               </section>
+            </div>
+         </section>
+         <!----------------favorite products---------------->
+         <section class="row">
+            <div class="js-returnFavorites col-xs-24 col-md-19">
+
+
+               <section class="my-iherb-favorite-products">
+                  <div id="favoriteProd">
+                     <form class="favorite-form js-editFavoriteProducts"
+                           action="/myaccount/editfavoriteproducts" method="post">
+                     </form>
+                     <article class="favorite-product-item">
+                        <div class="favorite-product-rank"></div>
+                        <div class="favorite-product-action js-addNewFavoriteProduct">
+                           <article class="product action-box">
+                              <div class="action js-popshow">
+                                 <div class="add"><i class="icon-add"></i> Add a New Product</div>
+                              </div>
+                              <div class="popup-nub-container add-container">
+                                 <div class="popup-close"><i class="icon-circlex"></i></div>
+                                 <div class="popup-content">
+                                    <form class="js-addFavorite" data-action="/myaccount/addfavorite"
+                                          method="post">
+
+
+                                       <section class="row">
+                                          <div class="col-xs-24 my-iherb-messages-favs">
+                                             <ul class="js-favmessages js-allmessages">
+                                                <li class="hide">
+                                                   <div class="success-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>Product has been successfully added to your favorite products.</span>
+                                                   </div>
+                                                </li>
+                                                <li class="hide">
+                                                   <div class="error-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>Please enter product code or URL.</span>
+                                                   </div>
+                                                </li>
+                                                <li class="hide">
+                                                   <div class="error-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>This product is already in your favorites list.</span>
+                                                   </div>
+                                                </li>
+                                                <li class="hide">
+                                                   <div class="error-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>The product code or URL is invalid.</span>
+                                                   </div>
+                                                </li>
+                                                <li class="hide">
+                                                   <div class="error-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>Your favorite products list has reached the maximum of 8 items. Please remove an item before adding a new one.</span>
+                                                   </div>
+                                                </li>
+                                             </ul>
+                                          </div>
+                                       </section>
+
+
+                                       <div class="row">
+                                          <div class="col-xs-24">
+
+                                             <div class="form-group">
+                                                <p>Add your favorite products to display on your My iHerb Page
+                                                   profile by entering Product Code or URL.</p>
+                                             </div>
+
+
+                                             <div class="form-group">
+
+                                                <input name="productURLOrID" class="form-control" type="text"
+                                                       id="productURLOrID"
+                                                       placeholder="Enter Product Code or URL"/>
+                                             </div>
+
+                                             <input class="btn btn-default" type="submit" name="btnAddFavorite"
+                                                    value="Add" id="btnAddFavorite"/>
+
+                                          </div>
+                                       </div>
+
+                                    </form>
+                                 </div>
+                              </div>
+                           </article>
+                        </div>
+                     </article>
+                     <article class="favorite-product-item">
+                        <div class="favorite-product-rank"></div>
+                        <div class="favorite-product-action js-addNewFavoriteProduct">
+                           <article class="product action-box">
+                              <div class="action js-popshow">
+                                 <div class="add"><i class="icon-add"></i> Add a New Product</div>
+                              </div>
+                              <div class="popup-nub-container add-container">
+                                 <div class="popup-close"><i class="icon-circlex"></i></div>
+                                 <div class="popup-content">
+                                    <form class="js-addFavorite" data-action="/myaccount/addfavorite"
+                                          method="post">
+
+
+                                       <section class="row">
+                                          <div class="col-xs-24 my-iherb-messages-favs">
+                                             <ul class="js-favmessages js-allmessages">
+                                                <li class="hide">
+                                                   <div class="success-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>Product has been successfully added to your favorite products.</span>
+                                                   </div>
+                                                </li>
+                                                <li class="hide">
+                                                   <div class="error-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>Please enter product code or URL.</span>
+                                                   </div>
+                                                </li>
+                                                <li class="hide">
+                                                   <div class="error-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>This product is already in your favorites list.</span>
+                                                   </div>
+                                                </li>
+                                                <li class="hide">
+                                                   <div class="error-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>The product code or URL is invalid.</span>
+                                                   </div>
+                                                </li>
+                                                <li class="hide">
+                                                   <div class="error-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>Your favorite products list has reached the maximum of 8 items. Please remove an item before adding a new one.</span>
+                                                   </div>
+                                                </li>
+                                             </ul>
+                                          </div>
+                                       </section>
+
+
+                                       <div class="row">
+                                          <div class="col-xs-24">
+
+                                             <div class="form-group">
+                                                <p>Add your favorite products to display on your My iHerb Page
+                                                   profile by entering Product Code or URL.</p>
+                                             </div>
+
+
+                                             <div class="form-group">
+
+                                                <input name="productURLOrID" class="form-control" type="text"
+                                                       id="productURLOrID"
+                                                       placeholder="Enter Product Code or URL"/>
+                                             </div>
+
+                                             <input class="btn btn-default" type="submit" name="btnAddFavorite"
+                                                    value="Add" id="btnAddFavorite"/>
+
+                                          </div>
+                                       </div>
+
+                                    </form>
+                                 </div>
+                              </div>
+                           </article>
+                        </div>
+                     </article>
+                     <article class="favorite-product-item">
+                        <div class="favorite-product-rank"></div>
+                        <div class="favorite-product-action js-addNewFavoriteProduct">
+                           <article class="product action-box">
+                              <div class="action js-popshow">
+                                 <div class="add"><i class="icon-add"></i> Add a New Product</div>
+                              </div>
+                              <div class="popup-nub-container add-container">
+                                 <div class="popup-close"><i class="icon-circlex"></i></div>
+                                 <div class="popup-content">
+                                    <form class="js-addFavorite" data-action="/myaccount/addfavorite"
+                                          method="post">
+
+
+                                       <section class="row">
+                                          <div class="col-xs-24 my-iherb-messages-favs">
+                                             <ul class="js-favmessages js-allmessages">
+                                                <li class="hide">
+                                                   <div class="success-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>Product has been successfully added to your favorite products.</span>
+                                                   </div>
+                                                </li>
+                                                <li class="hide">
+                                                   <div class="error-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>Please enter product code or URL.</span>
+                                                   </div>
+                                                </li>
+                                                <li class="hide">
+                                                   <div class="error-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>This product is already in your favorites list.</span>
+                                                   </div>
+                                                </li>
+                                                <li class="hide">
+                                                   <div class="error-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>The product code or URL is invalid.</span>
+                                                   </div>
+                                                </li>
+                                                <li class="hide">
+                                                   <div class="error-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>Your favorite products list has reached the maximum of 8 items. Please remove an item before adding a new one.</span>
+                                                   </div>
+                                                </li>
+                                             </ul>
+                                          </div>
+                                       </section>
+
+
+                                       <div class="row">
+                                          <div class="col-xs-24">
+
+                                             <div class="form-group">
+                                                <p>Add your favorite products to display on your My iHerb Page
+                                                   profile by entering Product Code or URL.</p>
+                                             </div>
+
+
+                                             <div class="form-group">
+
+                                                <input name="productURLOrID" class="form-control" type="text"
+                                                       id="productURLOrID"
+                                                       placeholder="Enter Product Code or URL"/>
+                                             </div>
+
+                                             <input class="btn btn-default" type="submit" name="btnAddFavorite"
+                                                    value="Add" id="btnAddFavorite"/>
+
+                                          </div>
+                                       </div>
+
+                                    </form>
+                                 </div>
+                              </div>
+                           </article>
+                        </div>
+                     </article>
+                     <article class="favorite-product-item">
+                        <div class="favorite-product-rank"></div>
+                        <div class="favorite-product-action js-addNewFavoriteProduct">
+                           <article class="product action-box">
+                              <div class="action js-popshow">
+                                 <div class="add"><i class="icon-add"></i> Add a New Product</div>
+                              </div>
+                              <div class="popup-nub-container add-container">
+                                 <div class="popup-close"><i class="icon-circlex"></i></div>
+                                 <div class="popup-content">
+                                    <form class="js-addFavorite" data-action="/myaccount/addfavorite"
+                                          method="post">
+
+
+                                       <section class="row">
+                                          <div class="col-xs-24 my-iherb-messages-favs">
+                                             <ul class="js-favmessages js-allmessages">
+                                                <li class="hide">
+                                                   <div class="success-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>Product has been successfully added to your favorite products.</span>
+                                                   </div>
+                                                </li>
+                                                <li class="hide">
+                                                   <div class="error-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>Please enter product code or URL.</span>
+                                                   </div>
+                                                </li>
+                                                <li class="hide">
+                                                   <div class="error-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>This product is already in your favorites list.</span>
+                                                   </div>
+                                                </li>
+                                                <li class="hide">
+                                                   <div class="error-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>The product code or URL is invalid.</span>
+                                                   </div>
+                                                </li>
+                                                <li class="hide">
+                                                   <div class="error-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>Your favorite products list has reached the maximum of 8 items. Please remove an item before adding a new one.</span>
+                                                   </div>
+                                                </li>
+                                             </ul>
+                                          </div>
+                                       </section>
+
+
+                                       <div class="row">
+                                          <div class="col-xs-24">
+
+                                             <div class="form-group">
+                                                <p>Add your favorite products to display on your My iHerb Page
+                                                   profile by entering Product Code or URL.</p>
+                                             </div>
+
+
+                                             <div class="form-group">
+
+                                                <input name="productURLOrID" class="form-control" type="text"
+                                                       id="productURLOrID"
+                                                       placeholder="Enter Product Code or URL"/>
+                                             </div>
+
+                                             <input class="btn btn-default" type="submit" name="btnAddFavorite"
+                                                    value="Add" id="btnAddFavorite"/>
+
+                                          </div>
+                                       </div>
+
+                                    </form>
+                                 </div>
+                              </div>
+                           </article>
+                        </div>
+                     </article>
+                     <article class="favorite-product-item">
+                        <div class="favorite-product-rank"></div>
+                        <div class="favorite-product-action js-addNewFavoriteProduct">
+                           <article class="product action-box">
+                              <div class="action js-popshow">
+                                 <div class="add"><i class="icon-add"></i> Add a New Product</div>
+                              </div>
+                              <div class="popup-nub-container add-container">
+                                 <div class="popup-close"><i class="icon-circlex"></i></div>
+                                 <div class="popup-content">
+                                    <form class="js-addFavorite" data-action="/myaccount/addfavorite"
+                                          method="post">
+
+
+                                       <section class="row">
+                                          <div class="col-xs-24 my-iherb-messages-favs">
+                                             <ul class="js-favmessages js-allmessages">
+                                                <li class="hide">
+                                                   <div class="success-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>Product has been successfully added to your favorite products.</span>
+                                                   </div>
+                                                </li>
+                                                <li class="hide">
+                                                   <div class="error-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>Please enter product code or URL.</span>
+                                                   </div>
+                                                </li>
+                                                <li class="hide">
+                                                   <div class="error-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>This product is already in your favorites list.</span>
+                                                   </div>
+                                                </li>
+                                                <li class="hide">
+                                                   <div class="error-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>The product code or URL is invalid.</span>
+                                                   </div>
+                                                </li>
+                                                <li class="hide">
+                                                   <div class="error-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>Your favorite products list has reached the maximum of 8 items. Please remove an item before adding a new one.</span>
+                                                   </div>
+                                                </li>
+                                             </ul>
+                                          </div>
+                                       </section>
+
+
+                                       <div class="row">
+                                          <div class="col-xs-24">
+
+                                             <div class="form-group">
+                                                <p>Add your favorite products to display on your My iHerb Page
+                                                   profile by entering Product Code or URL.</p>
+                                             </div>
+
+
+                                             <div class="form-group">
+
+                                                <input name="productURLOrID" class="form-control" type="text"
+                                                       id="productURLOrID"
+                                                       placeholder="Enter Product Code or URL"/>
+                                             </div>
+
+                                             <input class="btn btn-default" type="submit" name="btnAddFavorite"
+                                                    value="Add" id="btnAddFavorite"/>
+
+                                          </div>
+                                       </div>
+
+                                    </form>
+                                 </div>
+                              </div>
+                           </article>
+                        </div>
+                     </article>
+                     <article class="favorite-product-item">
+                        <div class="favorite-product-rank"></div>
+                        <div class="favorite-product-action js-addNewFavoriteProduct">
+                           <article class="product action-box">
+                              <div class="action js-popshow">
+                                 <div class="add"><i class="icon-add"></i> Add a New Product</div>
+                              </div>
+                              <div class="popup-nub-container add-container">
+                                 <div class="popup-close"><i class="icon-circlex"></i></div>
+                                 <div class="popup-content">
+                                    <form class="js-addFavorite" data-action="/myaccount/addfavorite"
+                                          method="post">
+
+
+                                       <section class="row">
+                                          <div class="col-xs-24 my-iherb-messages-favs">
+                                             <ul class="js-favmessages js-allmessages">
+                                                <li class="hide">
+                                                   <div class="success-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>Product has been successfully added to your favorite products.</span>
+                                                   </div>
+                                                </li>
+                                                <li class="hide">
+                                                   <div class="error-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>Please enter product code or URL.</span>
+                                                   </div>
+                                                </li>
+                                                <li class="hide">
+                                                   <div class="error-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>This product is already in your favorites list.</span>
+                                                   </div>
+                                                </li>
+                                                <li class="hide">
+                                                   <div class="error-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>The product code or URL is invalid.</span>
+                                                   </div>
+                                                </li>
+                                                <li class="hide">
+                                                   <div class="error-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>Your favorite products list has reached the maximum of 8 items. Please remove an item before adding a new one.</span>
+                                                   </div>
+                                                </li>
+                                             </ul>
+                                          </div>
+                                       </section>
+
+
+                                       <div class="row">
+                                          <div class="col-xs-24">
+
+                                             <div class="form-group">
+                                                <p>Add your favorite products to display on your My iHerb Page
+                                                   profile by entering Product Code or URL.</p>
+                                             </div>
+
+
+                                             <div class="form-group">
+
+                                                <input name="productURLOrID" class="form-control" type="text"
+                                                       id="productURLOrID"
+                                                       placeholder="Enter Product Code or URL"/>
+                                             </div>
+
+                                             <input class="btn btn-default" type="submit" name="btnAddFavorite"
+                                                    value="Add" id="btnAddFavorite"/>
+
+                                          </div>
+                                       </div>
+
+                                    </form>
+                                 </div>
+                              </div>
+                           </article>
+                        </div>
+                     </article>
+                     <article class="favorite-product-item">
+                        <div class="favorite-product-rank"></div>
+                        <div class="favorite-product-action js-addNewFavoriteProduct">
+                           <article class="product action-box">
+                              <div class="action js-popshow">
+                                 <div class="add"><i class="icon-add"></i> Add a New Product</div>
+                              </div>
+                              <div class="popup-nub-container add-container">
+                                 <div class="popup-close"><i class="icon-circlex"></i></div>
+                                 <div class="popup-content">
+                                    <form class="js-addFavorite" data-action="/myaccount/addfavorite"
+                                          method="post">
+
+
+                                       <section class="row">
+                                          <div class="col-xs-24 my-iherb-messages-favs">
+                                             <ul class="js-favmessages js-allmessages">
+                                                <li class="hide">
+                                                   <div class="success-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>Product has been successfully added to your favorite products.</span>
+                                                   </div>
+                                                </li>
+                                                <li class="hide">
+                                                   <div class="error-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>Please enter product code or URL.</span>
+                                                   </div>
+                                                </li>
+                                                <li class="hide">
+                                                   <div class="error-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>This product is already in your favorites list.</span>
+                                                   </div>
+                                                </li>
+                                                <li class="hide">
+                                                   <div class="error-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>The product code or URL is invalid.</span>
+                                                   </div>
+                                                </li>
+                                                <li class="hide">
+                                                   <div class="error-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>Your favorite products list has reached the maximum of 8 items. Please remove an item before adding a new one.</span>
+                                                   </div>
+                                                </li>
+                                             </ul>
+                                          </div>
+                                       </section>
+
+
+                                       <div class="row">
+                                          <div class="col-xs-24">
+
+                                             <div class="form-group">
+                                                <p>Add your favorite products to display on your My iHerb Page
+                                                   profile by entering Product Code or URL.</p>
+                                             </div>
+
+
+                                             <div class="form-group">
+
+                                                <input name="productURLOrID" class="form-control" type="text"
+                                                       id="productURLOrID"
+                                                       placeholder="Enter Product Code or URL"/>
+                                             </div>
+
+                                             <input class="btn btn-default" type="submit" name="btnAddFavorite"
+                                                    value="Add" id="btnAddFavorite"/>
+
+                                          </div>
+                                       </div>
+
+                                    </form>
+                                 </div>
+                              </div>
+                           </article>
+                        </div>
+                     </article>
+                     <article class="favorite-product-item">
+                        <div class="favorite-product-rank"></div>
+                        <div class="favorite-product-action js-addNewFavoriteProduct">
+                           <article class="product action-box">
+                              <div class="action js-popshow">
+                                 <div class="add"><i class="icon-add"></i> Add a New Product</div>
+                              </div>
+                              <div class="popup-nub-container add-container">
+                                 <div class="popup-close"><i class="icon-circlex"></i></div>
+                                 <div class="popup-content">
+                                    <form class="js-addFavorite" data-action="/myaccount/addfavorite"
+                                          method="post">
+
+
+                                       <section class="row">
+                                          <div class="col-xs-24 my-iherb-messages-favs">
+                                             <ul class="js-favmessages js-allmessages">
+                                                <li class="hide">
+                                                   <div class="success-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>Product has been successfully added to your favorite products.</span>
+                                                   </div>
+                                                </li>
+                                                <li class="hide">
+                                                   <div class="error-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>Please enter product code or URL.</span>
+                                                   </div>
+                                                </li>
+                                                <li class="hide">
+                                                   <div class="error-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>This product is already in your favorites list.</span>
+                                                   </div>
+                                                </li>
+                                                <li class="hide">
+                                                   <div class="error-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>The product code or URL is invalid.</span>
+                                                   </div>
+                                                </li>
+                                                <li class="hide">
+                                                   <div class="error-msg">
+                                                      <i class="icon-disclaimer"></i>
+                                                      <span>Your favorite products list has reached the maximum of 8 items. Please remove an item before adding a new one.</span>
+                                                   </div>
+                                                </li>
+                                             </ul>
+                                          </div>
+                                       </section>
+
+
+                                       <div class="row">
+                                          <div class="col-xs-24">
+
+                                             <div class="form-group">
+                                                <p>Add your favorite products to display on your My iHerb Page
+                                                   profile by entering Product Code or URL.</p>
+                                             </div>
+
+
+                                             <div class="form-group">
+
+                                                <input name="productURLOrID" class="form-control" type="text"
+                                                       id="productURLOrID"
+                                                       placeholder="Enter Product Code or URL"/>
+                                             </div>
+
+                                             <input class="btn btn-default" type="submit" name="btnAddFavorite"
+                                                    value="Add" id="btnAddFavorite"/>
+
+                                          </div>
+                                       </div>
+
+                                    </form>
+                                 </div>
+                              </div>
+                           </article>
+                        </div>
+                     </article>
+                  </div>
+               </section>
+            </div>
+         </section>
+      </section>
+   </section>
+</div>
+{% endblock %}

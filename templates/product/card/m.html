@@ -1,0 +1,110 @@
+{% macro active_ins(pr) -%}
+<div id="product_{{ pr._id }}" class="product col-xs-8 col-sm-6 col-md-6 col-lg-5th">
+   <div class="product-inner">
+      <a
+            class="product-image"
+            data-prodhref="prodHref"
+            href="/pr/{{ pr._id }}"
+            data-ga-event="click"
+            data-ga-event-category="Ecommerce"
+            data-ga-event-action="Clicks Homepage trending"
+            data-ga-event-label="Product Click-image"
+      >
+         <img src="/media/r/{{ pr.img.0 }}"
+              srcset="/media/k/{{ pr.img.0 }} 1x, /media/r/{{ pr.img.0 }} 1.5x"
+              alt="{{ pr.title }}"
+              itemprop="image" data-img="img" data-imgtitle="title"
+              title="{{ pr.title }}"
+              width="120" height="120"/>
+      </a>
+
+      <a
+            data-content="title"
+            data-prodhref="prodHref"
+            href="/pr/{{ pr._id }}"
+            data-ga-event="click"
+            data-ga-event-category="Ecommerce"
+            data-ga-event-action="Clicks Homepage trending"
+            data-ga-event-label="Product Click-label"
+      >
+         <span itemprop="name" class="product-title">
+            <bdi>{{ pr.title }}</bdi>
+         </span>
+      </a>
+
+      <star-font ,>
+         <div class='rating'>
+            <a class='stars' href='/pr/{{ pr._id }}#product-detail-reviews'>
+               <i class='icon-stars_40 full' title='4.1/5 - 1286 Reviews'></i>
+               <i class='icon-stars_50 empty'></i>
+            </a>
+            <a
+                  class='rating-count'
+                  href='/pr/{{ pr._id }}#product-detail-reviews'
+                  title='4.1/5 - 1286 Reviews'
+            >
+               <span>{{ pr.reviews.score.population.total }}</span>
+            </a>
+         </div>
+      </star-font>
+
+      <div class="product-price">
+         <span class="price ">
+            <bdi>{{ pr.value.our }}</bdi>
+         </span>
+      </div>
+   </div>
+</div>
+{%- endmacro %}
+
+{% macro passive_ins(pr) -%}
+<div id="product_{{ pr._id }}" class="product col-xs-8 col-sm-6 col-md-6 col-lg-5th">
+   <div class="product-inner">
+      <a
+            class="product-image"
+            data-prodhref="prodHref"
+            data-image="/media/r/{{ pr.img.0 }}"
+            href="/pr/{{ pr._id }}"
+            data-ga-event="click"
+            data-ga-event-category="Ecommerce"
+            data-ga-event-action="Clicks Homepage trending"
+            data-ga-event-label="Product Click-image"
+      ></a>
+
+      <a
+            data-content="title"
+            data-prodhref="prodHref"
+            href="/pr/{{ pr._id }}"
+            data-ga-event="click"
+            data-ga-event-category="Ecommerce"
+            data-ga-event-action="Clicks Homepage trending"
+            data-ga-event-label="Product Click-label"
+      >
+         <span itemprop="name" class="product-title">
+            <bdi>{{ pr.title }}</bdi>
+         </span>
+      </a>
+
+      <star-font ,>
+         <div class='rating'>
+            <a class='stars' href='/pr/{{ pr._id }}#product-detail-reviews'>
+               <i class='icon-stars_50 full' title='4.8/5 - 25 Reviews'></i>
+            </a>
+            <a
+               class='rating-count'
+               href='/pr/{{ pr._id }}#product-detail-reviews'
+               title='4.8/5 - 25 Reviews'
+            >
+               <span>{{ pr.reviews.score.population }}</span>
+            </a>
+         </div>
+      </star-font>
+
+      <div class="product-price">
+         <span class="price ">
+            <bdi>{{ pr.value.our }}</bdi>
+         </span>
+      </div>
+   </div>
+</div>
+{%- endmacro %}

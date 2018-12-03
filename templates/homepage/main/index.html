@@ -1,0 +1,346 @@
+<section id="iherb-homepage">
+   {% include 'homepage/main/banner.html' %}
+   <div class="home-carousel-container">
+      <div class="carousel-container home-module core">
+         <div class="container-fluid">
+            <div class="row row-buffer">
+               <div class="col-xs-24">
+                  <input type="hidden"
+                         id="trending-model-properties"
+                         data-country-code="US"
+                         data-language-code="en-US"
+                         data-error-no-data-selected="No data available for the selected category please try again or select a different category."
+                         data-message-try-again="Try Again"
+                         data-link-see-all="SEE ALL"/>
+
+                  <div class="text-center">
+                    <span class="h3 text-secondary-darker">
+                        <bdi>{{ _('Trending Now') }}</bdi>
+                    </span>
+                     <div class="question-mark question-mark-sm popup-trending">?</div>
+                     <div class="filter-trending region-filter">
+                        <input class="country-filter" data-value="country" value="United States" readonly
+                               data-ga-event="click" data-ga-event-category="Ecommerce"
+                               data-ga-event-action="Clicks Homepage Toggle" data-ga-event-label="Country"/>
+                        <input class="global-filter" data-value="global" value="Global" readonly data-ga-event="click"
+                               data-ga-event-category="Ecommerce" data-ga-event-action="Clicks Homepage Toggle"
+                               data-ga-event-label="Global"/>
+                        <i class="icon-uparrow"></i>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-xs-24">
+                  <div class="carousel">
+                     <div id="carousel-trending"
+                          class="carousel slide iherb-carousel-items clearfix"
+                          data-lazyload="product"
+                          data-interval="false">
+
+                        <div id="trending-inner"
+                             class="carousel-inner product-carousels rounded-product-cells col-xs-offset-1 col-xs-22 col-md-offset-2 col-md-20">
+                           <!-- product kiri pouria -->
+                           {% import 'product/card/m.html' as pr_card %}
+                           {% for pr in products %}
+                              {% if loop.index < 6 %}
+                                 {{ pr_card.active_ins(pr) }}
+                              {% else %}
+                                 {{ pr_card.passive_ins(pr) }}
+                              {% endif %}
+                           {% endfor %}
+                        </div>
+                        <div class="control-bar">
+                           <ol class="carousel-indicators" data-target="#carousel-trending"></ol>
+                        </div>
+                        <a class="carousel-control previous left" href="#carousel-trending" role="button"
+                           data-slide="prev" hidden="hidden" data-ga-event="click" data-ga-event-category="Ecommerce"
+                           data-ga-event-action="Clicks Homepage Navigation"
+                           data-ga-event-label="trending now-left button">
+                            <span class="transitionIcon transitionLeft">
+                                <i class="icon-recentlyviewedarrowleft"></i>
+                            </span>
+                        </a>
+                        <a class="carousel-control next right" href="#carousel-trending" role="button" data-slide="next"
+                           hidden="hidden" data-ga-event="click" data-ga-event-category="Ecommerce"
+                           data-ga-event-action="Clicks Homepage Navigation"
+                           data-ga-event-label="trending now-right button">
+                            <span class="transitionIcon transitionRight">
+                                <i class="icon-recentlyviewedarrowright"></i>
+                            </span>
+                        </a>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="popup-container modal-trending">
+            <div class="popup-title">
+               {{ _('Trending Now') }}
+            </div>
+            <div class="popup-content">
+               <p>{{ _('The biggest gainers in iHerb.com sales rank over the past 24 hours.') }}</p>
+            </div>
+         </div>
+      </div>
+      <div class="grey-gutter"></div>
+
+
+      <div id="js-scroll-location-check" class="carousel-container home-module core">
+         <div class="container-fluid">
+            <div class="row row-buffer-md">
+               <div class="col-xs-24">
+                  <input type="hidden"
+                         id="best-selling-model-properties"
+                         data-country-code="US"
+                         data-language-code="en-US"
+                         data-error-no-data-selected="No data available for the selected category please try again or select a different category."
+                         data-message-try-again="Try Again"
+                         data-link-see-all="SEE ALL"
+                         data-active-tab="supplements"/>
+
+                  <div class="text-center">
+                    <span class="h3 text-secondary-darker">
+                        <bdi>{{ _('Best Selling') }}</bdi>
+                    </span>
+                     <div class="filter-best-selling region-filter">
+                        <input class="country-filter" data-value="country" value="United States" readonly
+                               data-ga-event="click" data-ga-event-category="Ecommerce"
+                               data-ga-event-action="Clicks Homepage Toggle" data-ga-event-label="Country"/>
+                        <input class="global-filter" data-value="global" value="Global" readonly data-ga-event="click"
+                               data-ga-event-category="Ecommerce" data-ga-event-action="Clicks Homepage Toggle"
+                               data-ga-event-label="Global"/>
+                        <i class="icon-uparrow"></i>
+                     </div>
+                  </div>
+               </div>
+            </div>
+            <div class="row row-buffer">
+               <div class="col-xs-24 text-center">
+                  <div id="best-selling-categories">
+                     <ul class="tabs best-selling-nav">
+                        <li>
+                           <a id="supplements-tab"
+                              class="h4 best-selling-available-category-tab text-ellipsis"
+                              href="#supplements"
+                              data-toggle="tab"
+                              data-category="supplements"
+                              data-category-link="/Supplements"
+                              data-ga-event="click"
+                              data-ga-event-category="Ecommerce"
+                              data-ga-event-action="Clicks Homepage Navigation"
+                              data-ga-event-label="supplements-txt-p1">
+                              {{ _('Supplements') }}
+                           </a>
+                        </li>
+                        <li>
+                           <a id="herbs-tab"
+                              class="h4 best-selling-available-category-tab text-ellipsis"
+                              href="#herbs"
+                              data-toggle="tab"
+                              data-category="herbs"
+                              data-category-link="/Herbs"
+                              data-ga-event="click"
+                              data-ga-event-category="Ecommerce"
+                              data-ga-event-action="Clicks Homepage Navigation"
+                              data-ga-event-label="herbs-txt-p2">
+                              {{ _('Herbs') }}
+                           </a>
+                        </li>
+                        <li>
+                           <a id="bb-tab"
+                              class="h4 best-selling-available-category-tab text-ellipsis"
+                              href="#bb"
+                              data-toggle="tab"
+                              data-category="bathbeauty"
+                              data-category-link="/Bath-Beauty"
+                              data-ga-event="click"
+                              data-ga-event-category="Ecommerce"
+                              data-ga-event-action="Clicks Homepage Navigation"
+                              data-ga-event-label="bath-txt-p3">
+                              {{ _('Bath') }}
+                           </a>
+                        </li>
+                        <li>
+                           <a id="skin-tab"
+                              class="h4 best-selling-available-category-tab text-ellipsis"
+                              href="#skin"
+                              data-toggle="tab"
+                              data-category="skincare"
+                              data-category-link="/Face-Lotions-Cream"
+                              data-ga-event="click"
+                              data-ga-event-category="Ecommerce"
+                              data-ga-event-action="Clicks Homepage Navigation"
+                              data-ga-event-label="beauty-txt-p4">
+                              {{ _('Beauty') }}
+                           </a>
+                        </li>
+                        <li>
+                           <a id="grocery-tab"
+                              class="h4 best-selling-available-category-tab text-ellipsis"
+                              href="#grocery"
+                              data-toggle="tab"
+                              data-category="foodsandgrocery"
+                              data-category-link="/Food-Grocery-Items"
+                              data-ga-event="click"
+                              data-ga-event-category="Ecommerce"
+                              data-ga-event-action="Clicks Homepage Navigation"
+                              data-ga-event-label="grocery-txt-p5">
+                              {{ _('Grocery') }}
+                           </a>
+                        </li>
+                        <li class="visible-lg-inline-block visible-xl-inline-block">
+                           <a id="kids-tab"
+                              class="h4 best-selling-available-category-tab text-ellipsis"
+                              href="#kids"
+                              data-toggle="tab"
+                              data-category="childrenshealth"
+                              data-category-link="/Children-s-Health"
+                              data-ga-event="click"
+                              data-ga-event-category="Ecommerce"
+                              data-ga-event-action="Clicks Homepage Navigation"
+                              data-ga-event-label="baby-txt-p6">
+                              {{ _('Baby') }}
+                           </a>
+                        </li>
+                        <li class="visible-lg-inline-block visible-xl-inline-block">
+                           <a id="sports-tab"
+                              class="h4 best-selling-available-category-tab text-ellipsis"
+                              href="#sports"
+                              data-toggle="tab"
+                              data-category="sports"
+                              data-category-link="/Sports-Fitness-Athletic"
+                              data-ga-event="click"
+                              data-ga-event-category="Ecommerce"
+                              data-ga-event-action="Clicks Homepage Navigation"
+                              data-ga-event-label="sports-txt-p7">
+                              {{ _('Sports') }}
+                           </a>
+                        </li>
+                        <li>
+                           <a id="other-best-selling-tab"
+                              class="h4 best-selling-available-category-tab text-ellipsis"
+                              href="#HealthyHomeandGarden"
+                              data-toggle="tab"
+                              data-category="healthyhomeandgarden"
+                              data-category-link="/Healthy-Home"
+                              data-ga-event="click"
+                              data-ga-event-category="Ecommerce"
+                              data-ga-event-action="Clicks Homepage Navigation"
+                              data-ga-event-label="home-txt-p8">
+                              {{ _('Home') }}
+                           </a>
+                        </li>
+                        <li>
+                           <a id="pets-tab"
+                              class="h4 best-selling-available-category-tab text-ellipsis"
+                              href="#pets"
+                              data-toggle="tab"
+                              data-category="petscare"
+                              data-category-link="/Pets"
+                              data-ga-event="click"
+                              data-ga-event-category="Ecommerce"
+                              data-ga-event-action="Clicks Homepage Navigation"
+                              data-ga-event-label="pets-txt-p9">
+                              {{ _('Pets') }}
+                           </a>
+                        </li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+            <div class="row">
+               <div class="col-xs-24">
+                  <div id="best-selling-carousel" class="carousel">
+                     <div id="supplements" class="tab-pane fade active">
+                        <div id="carousel-best-selling" class="carousel slide iherb-carousel-items clearfix"
+                             data-lazyload="product" data-interval="false">
+                           <div id="best-selling-inner"
+                                class="carousel-inner product-carousels rounded-product-cells col-xs-offset-1 col-xs-22 col-md-offset-2 col-md-20">
+                              {% import 'product/card/m.html' as pr_card %}
+                              {% for pr in products %}
+                                 {% if loop.index < 6 %}
+                                    {{ pr_card.active_ins(pr) }}
+                                 {% else %}
+                                    {{ pr_card.passive_ins(pr) }}
+                                 {% endif %}
+                              {% endfor %}
+                              <div class="product see-all col-xs-6 col-md-5th col-lg-4">
+                                 <div class="product-inner">
+                                    <a href="/Supplements" data-ga-event="click" data-ga-event-category="Ecommerce"
+                                       data-ga-event-action="Clicks Homepage best-selling"
+                                       data-ga-event-label="See All">
+                                       {{ _('SEE ALL') }}
+                                    </a>
+                                 </div>
+                              </div>
+                           </div>
+                           <a class="carousel-control previous left" href="#carousel-best-selling" role="button"
+                              data-slide="prev" hidden="hidden" data-ga-event="click" data-ga-event-category="Ecommerce"
+                              data-ga-event-action="Clicks Homepage Navigation"
+                              data-ga-event-label="best selling-left button">
+                                <span class="transitionIcon transitionLeft">
+                                    <i class="icon-recentlyviewedarrowleft"></i>
+                                </span>
+                           </a>
+                           <div class="control-bar">
+                              <ol class="carousel-indicators" data-target="#carousel-best-selling"></ol>
+                           </div>
+                           <a class="carousel-control next right" href="#carousel-best-selling" role="button"
+                              data-slide="next" hidden="hidden" data-ga-event="click" data-ga-event-category="Ecommerce"
+                              data-ga-event-action="Clicks Homepage Navigation"
+                              data-ga-event-label="best selling-right button">
+                                <span class="transitionIcon transitionRight">
+                                    <i class="icon-recentlyviewedarrowright"></i>
+                                </span>
+                           </a>
+                        </div>
+                     </div>
+
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="grey-gutter hide"></div>
+
+
+      <div class="recently-viewed-placeholder home-module" style="display:none"></div>
+
+
+      <div id="product-template">
+
+         <div class="product-inner">
+            <a class="product-image image-available" data-product-url>
+               <img data-img data-img-title alt=""/>
+            </a>
+
+            <a class="product-image image-coming" data-product-url>
+               <image-coming-soon>
+                  <div class="image-coming-soon medium"><i class="icon-iherbleafcircle"></i>
+                     <div>
+                        <bdi>{{ _('Image Coming Soon') }}</bdi>
+                     </div>
+                  </div>
+               </image-coming-soon>
+            </a>
+
+            <a data-product-title data-product-url><span class="product-title"></span></a>
+            <!-- the stars -->
+            <div class="rating">
+               <a class="stars" data-review-url>
+                  <i data-star-font></i>
+                  <i class='icon-stars_50 empty'></i>
+               </a>
+               <a class="rating-count" data-review-url>
+                  <span data-ratingcount="ratingCount" class="carosel-review-number"></span>
+               </a>
+            </div>
+            <div class="product-price">
+               <span class="price" data-discount-price></span>
+               <span class="list-price" data-list-price></span>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>

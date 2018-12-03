@@ -1,0 +1,243 @@
+<script>
+// Simple JavaScript Templating
+// John Resig - https://johnresig.com/ - MIT Licensed
+// kiram dahanet use underline only
+// ' is bad inside template just in data.
+(function(){
+  var cache = {};
+
+  this.tmpl = function tmpl(str, data){
+    // Figure out if we're getting a template, or if we need to
+    // load the template - and be sure to cache the result.
+    var fn = !/\W/.test(str) ?
+      cache[str] = cache[str] ||
+        tmpl(document.getElementById(str).innerHTML) :
+
+      // Generate a reusable function that will serve as a template
+      // generator (and which will be cached).
+      new Function("obj",
+        "var p=[],print=function(){p.push.apply(p,arguments);};" +
+
+        // Introduce the data as local variables using with(){}
+        "with(obj){p.push('" +
+
+        // Convert the template into pure JavaScript
+        str
+          .replace(/[\r\t\n]/g, " ")
+          .split("<%").join("\t")
+          .replace(/((^|%>)[^\t]*)'/g, "$1\r")
+          .replace(/\t=(.*?)%>/g, "',$1,'")
+          .split("\t").join("');")
+          .split("%>").join("p.push('")
+          .split("\r").join("\\'")
+      + "');}return p.join('');");
+
+    // Provide some basic currying to the user
+    return data ? fn( data ) : fn;
+  };
+})();
+
+</script>
+
+<script type="text/html" id="live_card">
+   <div {# id #} class="product live-item" data-item-index="72"
+        style="width: 146.25px;">
+      <div class="product-inner">
+         <a class="product-image" data-prodhref="prodHref"
+            href="https://www.iherb.com/pr/Doctor-s-Best-Hyaluronic-Acid-Chondroitin-Sulfate-60-Gelatin-Caps/4457"
+            data-ga-event="click" data-ga-event-category="Ecommerce"
+            data-ga-event-action="Clicks Homepage iHerb Live"
+            data-ga-event-label="Product Click">
+            <img src="https://www.images-iherb.com/k/DRB-00146-11.jpg"
+                 srcset="https://www.images-iherb.com/r/DRB-00146-11.jpg 1x, https://www.images-iherb.com/k/DRB-00146-11.jpg 1.5x"
+                 alt="<%=title%>"
+                 itemprop="image" data-img="img" data-imgtitle="title"
+                 title="<%=title%>"
+                 width="120" height="120">
+         </a>
+
+         <a data-content="title" data-prodhref="prodHref"
+            href="https://www.iherb.com/pr/Doctor-s-Best-Hyaluronic-Acid-Chondroitin-Sulfate-60-Gelatin-Caps/4457"
+            data-ga-event="click" data-ga-event-category="Ecommerce"
+            data-ga-event-action="Clicks Homepage iHerb Live"
+            data-ga-event-label="Product Click">
+                        <span itemprop="name" class="product-title">
+                            <bdi><%=title%></bdi>
+                        </span>
+         </a>
+
+         <div class="rating">
+
+            <a class="stars"
+               href="https://www.iherb.com/pr/Doctor-s-Best-Hyaluronic-Acid-Chondroitin-Sulfate-60-Gelatin-Caps/4457#product-detail-reviews">
+               <i class="icon-stars_40 full" title="4.2 of 5 based on 1999"></i>
+               <i class="icon-stars_50 empty"></i>
+            </a>
+            <a class="rating-count"
+               href="https://www.iherb.com/pr/Doctor-s-Best-Hyaluronic-Acid-Chondroitin-Sulfate-60-Gelatin-Caps/4457#product-detail-reviews"
+               title="4.2 of 5 based on 1999">
+               <span>1999</span>
+            </a>
+
+         </div>
+
+         <div class="product-price">
+
+                <span class="price">
+                    <bdi>$11.40</bdi>
+                </span>
+
+         </div>
+      </div>
+      <div class="text-center location">
+         <span class="flag-sprite cn"></span><span class="country-name">China</span>
+      </div>
+   </div>
+</script>
+
+<div class="live-container home-module" style="">
+   <div class="container-fluid">
+      <div class="row">
+         <div class="col-xs-24">
+            <div class="title-container">
+                    <span class="h4">
+                        <bdi>{{ _('doloka') }} <strong class="text-uppercase title">{{ _('Live') }}</strong></bdi>
+                    </span>
+               <span class="subtitle">
+                        {{ _('Check out what others are buying in real time!') }}
+                    </span>
+               <div class="navigation-container">
+                        <span class="iherb-live-navigation scroll-left">
+                                <i class="icon-rewind"></i>
+                        </span>
+                  <span class="iherb-live-navigation scroll-right">
+                            <i class="icon-pause"></i>
+                        </span>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="row row-buffer">
+         <div class="col-xs-24">
+            <div class="live-carousel">
+               <div class="row">
+                  <div class="col-xs-24">
+                     <div class="live-wrapper">
+                        <div id="live_stage" class="live-scroller">
+                        </div>
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+
+<script>
+   var card_width = 146.25;
+   resink_flag = 0;
+   document.addEventListener('DOMContentLoaded', function() {
+      $(function (){
+         resink = function() {
+            width = $('.live-carousel').css('width');
+            width = parseFloat(width);
+            width %= card_width;
+            width -= card_width * resink_flag;
+            resink_flag = 1 - resink_flag;
+            $("#live_stage").css({
+               marginLeft: '+=' + width + 'px'
+            });
+         };
+
+         resink();
+         $(window).resize(function() {
+            resink();
+         });
+
+         next = function() {
+            $("#live_stage").animate({
+                marginLeft: '-=146.25px'
+            }, 500);
+         };
+
+         prev = function() {
+            $("#live_stage").animate({
+                marginLeft: '+=146.25px'
+            }, 500);
+         };
+
+         $('span.iherb-live-navigation.scroll-left').click(function() {
+            prev();
+         });
+         function InvervalTimer(callback, interval) {
+           var timerId, startTime, remaining = 0;
+           var state = 0; //  0 = idle, 1 = running, 2 = paused, 3= resumed
+
+           this.pause = function () {
+               if (state != 1) return;
+
+               remaining = interval - (new Date() - startTime);
+               window.clearInterval(timerId);
+               state = 2;
+           };
+
+           this.resume = function () {
+               if (state != 2) return;
+
+               state = 3;
+               window.setTimeout(this.timeoutCallback, remaining);
+           };
+
+           this.timeoutCallback = function () {
+               if (state != 3) return;
+               callback();
+               startTime = new Date();
+               timerId = window.setInterval(callback, interval);
+               state = 1;
+           };
+           startTime = new Date();
+           timerId = window.setInterval(callback, interval);
+           state = 1;
+         }
+         var cards_threshold = 10, cards_limit = 10, analytic_order = null;
+         var timee = function() {
+            if (cards_threshold == cards_limit) {
+               var skip = '';
+               if (analytic_order)
+                  skip = '/' + analytic_order;
+               $.post('/analytics/live/' + cards_limit + skip, function(response) {
+                  analytic_order = response['analytic_order'];
+                  _list = response['list'];
+                  console.log(_list);
+                  for( var i=0;i<_list.length;i++ ) {
+                     _item = _list[i];
+                     $('#live_stage').append(tmpl("live_card", _item));
+                  }
+                  cards_threshold = 0;
+                  next();
+                  cards_threshold ++;
+               });
+            } else {
+               next();
+               cards_threshold ++;
+            }
+         };
+         var timer_flag = 1;
+         var timer = new InvervalTimer(timee, 3333);
+         $('span.iherb-live-navigation.scroll-right').click(function(eve) {
+            if(timer_flag) {
+               $(this).children('i').removeClass( "icon-pause" );
+               $(this).children('i').addClass( "icon-play" );
+               timer.pause();
+            }
+            else {
+               $(this).children('i').removeClass( "icon-play" );
+               $(this).children('i').addClass( "icon-pause" );
+               timer.resume();
+            }
+            timer_flag = 1 - timer_flag;
+         });
+      });
+   });
+</script>
