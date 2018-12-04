@@ -74,16 +74,16 @@ def homepage():
     }])
     context['banner'] = [
         {
-            'img': 'http://localhost:5000/static/img/banner/0.jpg',
+            'img': '/static/img/banner/0.jpg',
             'link': 'beauty'
         }, {
-            'img': 'http://localhost:5000/static/img/banner/1.jpg',
+            'img': '/static/img/banner/1.jpg',
             'link': 'wellness'
         }, {
-            'img': 'http://localhost:5000/static/img/banner/2.jpg',
+            'img': '/static/img/banner/2.jpg',
             'link': 'conditions'
         }, {
-            'img': 'http://localhost:5000/static/img/banner/3.jpg',
+            'img': '/static/img/banner/3.jpg',
             'link': 'soap'
         },
     ]

@@ -29,7 +29,7 @@ def configure(app):
         return jsonify(sorted(l))
 
 
-client = MongoClient('localhost:27017', unicode_decode_error_handler='ignore')
+client = MongoClient(unicode_decode_error_handler='ignore')
 db_name = 'herb'
 db = client[db_name]
 fs = GridFS(client[db_name + '_FS'])

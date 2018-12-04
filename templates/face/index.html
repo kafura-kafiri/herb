@@ -214,9 +214,8 @@
                             // add waiter
                             setInterval(function() {
                                 $.get('/face/' + data + '-', function(response) {
-                                    alert(response);
                                     if(response != 'null') {
-                                        document.location.href = '/face/' + data;
+                                        setTimeout(function(){ document.location.href = '/face/' + data; }, 1000);
                                     }
                                     console.log('he he');
                                 });

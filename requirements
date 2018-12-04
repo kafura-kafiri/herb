@@ -13,3 +13,17 @@ bs4
 
 uwsgi
 gunicorn
+
+
+numpy
+keras
+sklearn
+scipy
+tensorflow
+
+dlib
+imutils
+
+opencv-python
+scikit-learn
+scikit-image
