@@ -191,7 +191,7 @@
                      <div id="iherb-accounttt" class="iherb-header-account float-right {{ 'iherb-header-account-signed-in' if current_user.is_authenticated else '' }}">
                         <div class="iherb-header-account-sign-in">
                                     <span class="hidden-xs hidden-sm">
-                                        <label onclick="document.location = '/login?prev_url=' + encodeURIComponent(window.location.href)" class="iherb-header-signed-out sign-in">
+                                        <label onclick="document.location = '/login?redirect={{ request.path }}'" class="iherb-header-signed-out">
                                             {{ _('Sign In') }}
                                         </label>
                                         <bdi>
@@ -247,16 +247,16 @@
                            <div class="separator"></div>
                            <ul class="action-container">
                               <li class="iherb-header-signed-in">
-                                 <a onclick="document.location = '/logout?prev_url=' + encodeURIComponent(window.location.href)" {#href="/logout?redirect={{ redirect }}"#} {#onclick="sessionStorage.clear()"#}
+                                 <a {# onclick="document.location = '/logout?prev_url=' + encodeURIComponent(window.location.href)" #} href="/logout?redirect={{ request.path }}" {#onclick="sessionStorage.clear()"#}
                                     class="btn btn-primary btn-block">
                                     {{ _('Sign Out') }}
                                  </a>
                               </li>
-                              <li onclick="document.location = '/signup?prev_url=' + encodeURIComponent(window.location.href)" class="iherb-header-signed-out dropdown-createacc-link">
+                              <a {# onclick="document.location = '/signup?prev_url=' + encodeURIComponent(window.location.href)" #} href="/signup?redirect={{ request.path }}" class="iherb-header-signed-out dropdown-createacc-link">
                                  {{ _('Create an Account') }}
-                              </li>
+                              </a>
                               <li>
-                                 <a onclick="document.location = '/login?prev_url=' + encodeURIComponent(window.location.href)" {#href="/login?redirect={{ redirect }}"#} class="iherb-header-signed-out btn btn-primary btn-block sign-in">
+                                 <a {# onclick="document.location = '/login?redirect={{ redirect }}'" #} href="/login?redirect={{ request.path }}" class="iherb-header-signed-out btn btn-primary btn-block sign-in">
                                     {{ _('Sign In') }}
                                  </a>
                               </li>

@@ -197,13 +197,14 @@ pr = {
         ]
     },
     'reviews': init_structure(),
-    'aggregation': {},
     'img': [
         'https://www.images-iherb.com/y/THR-00287-6.jpg',
         'https://www.images-iherb.com/y/THR-00287-5.jpg',
     ],
     'categories': [],
 }
+
+pr['reviews']['aggregation'] = {'view': 0}
 
 blue = Blueprint('pr', __name__, url_prefix='/pr')
 crud(

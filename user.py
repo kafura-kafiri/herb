@@ -3,6 +3,8 @@ from config import users
 from tools.rest import crud
 from tools.utility import obj2str, request_json
 from flask_login import login_required, current_user
+from config import products
+from bson import ObjectId
 
 
 skeleton = {
@@ -72,6 +74,7 @@ def load_user(user):
     }
     return user, context
 
+
 blue = Blueprint('users', __name__, template_folder='../templates', url_prefix='/users')
 crud(blue, users, template='user/page', load=load_user)
 
@@ -104,11 +107,8 @@ def update_profile():
 @blue.route('/me/wishlist')
 @login_required
 def wish_list():
-    from config import products
-    from bson import ObjectId
-    from flask import jsonify
-    _products = current_user.wish_list['products']
-    if type(_products) is dict:
+    _products = current_user.wish_list
+    if _products:
         _products = [ObjectId(str(_product)) for _product in _products]
         current_user.wish_list['products'] = products.find({'_id': {'$in': _products}})
     return render_template('user/wishlist.html')

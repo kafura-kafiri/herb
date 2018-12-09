@@ -6,7 +6,7 @@ import numpy as np
 from threading import Thread
 from face.core import analyse
 from bson import ObjectId
-from face.age_gender import FaceCV
+# from face.age_gender import FaceCV
 import cv2
 from tools.media import insert_img
 from datetime import datetime
@@ -16,7 +16,7 @@ from random import randint
 
 blue = Blueprint('face', __name__, url_prefix='/face')
 crud(blue, faces, getter=False)
-model = FaceCV(depth=16, width=8)
+# model = FaceCV(depth=16, width=8)
 banners = [
     {
         'img': '/static/img/face_banner/0.jpg',
@@ -52,7 +52,7 @@ def home(_id=None):
 
 
 def atomic_task(img, _id):
-    age, gender = model.detect(img)[0]
+    # age, gender = model.detect(img)[0]
     (lips, pebble), (bar, whiteness), (hessian, frangi, wrinkles), areas = analyse(img)
     lips, _ = insert_img(cv2.imencode('.jpg', lips)[1].tostring(), ObjectId(), sizes=())
     bar, _ = insert_img(cv2.imencode('.jpg', bar)[1].tostring(), ObjectId(), sizes=())
@@ -62,8 +62,8 @@ def atomic_task(img, _id):
     face = {
         '_id': ObjectId(_id),
         '_date': datetime.now(),
-        'age': age,
-        'gender': gender,
+        # 'age': age,
+        # 'gender': gender,
         'lips': {
             'value': pebble,
             'picture': lips,

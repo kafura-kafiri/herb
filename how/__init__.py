@@ -4,7 +4,7 @@ from tools import crud
 from how.instance import how
 from bson import ObjectId
 from tools.media import insert_img
-from how.articlate import articlate
+from how.articlate import articlate, parse, _aline
 
 blue = Blueprint('how', __name__, template_folder='templates', url_prefix='/hows')
 crud(blue, hows, template='how/index', load=lambda x: (x, {'no_secondary': True}), skeleton=how)
@@ -20,11 +20,8 @@ def add_image(_id, level_1, level_2):
     o = ObjectId()
     o = insert_img(raw_img.read(), o, sizes=())
     level_2['i'] = str(o[0])
-    hows.update(
-        {"_id": article['_id']},
-        article,
-        upsert=True
-    )
+    article['meta']['i'] = article['meta']['i'] if article['meta']['i'] else level_2['i']
+    hows.save(article)
     return o
 
 
@@ -61,8 +58,8 @@ def hows_homepage():
     return render_template('how/homepage/index.html', **extra, result=result, query={'onlyHows': 'on'})
 
 
-@blue.route('/++/<path:path>')
-def insert(path):
-    with open('/' + path + '/text') as f:
-        article = articlate(f.read())
-    return redirect('/hows/+?json={}'.format(article))
+@blue.route('/<_id>$', methods=['POST'])
+def insert(_id):
+    article = request.files['article'].read().decode('utf-8')
+    article = articlate(parse(_aline(article)))
+    return redirect('/hows/{}$?json={}'.format(_id, article))

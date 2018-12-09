@@ -1,10 +1,11 @@
 from config import analytics, products
 from flask import Blueprint, request, jsonify
-from flask_login import current_user
+from flask_login import current_user, login_required
 from functools import wraps
 from datetime import datetime
 from bson import ObjectId
 from tools import obj2str
+import json
 
 
 def analyze(func):
@@ -25,17 +26,15 @@ def analyze(func):
     return inner
 
 
-def _analyze(collection, document, action):
-    _document = {
+def _analyze(collection, document, action, user=None):
+    analytics.insert_one({
         'collection': collection,
         'document': ObjectId(document),
         'action': action,
         'date': datetime.now(),
         'order': analytics.count(),
-    }
-    if current_user.is_authenticated:
-        _document['user'] = current_user._id
-    analytics.insert_one(_document)
+        'user': ObjectId(user) if user else current_user._id
+    })
 
 
 def show_trending():
@@ -80,8 +79,7 @@ def crud():
         for collection_name, collection_set in _documents.items():
             _list.extend(collection_set)
         _list = {
-            'list': [obj2str(d) for d in _list]
-            ,
+            'list': [obj2str(d) for d in _list],
             'analytic_order': skip + limit
         }
         return jsonify(_list)
@@ -101,4 +99,15 @@ def crud():
     def get_trending():
         return jsonify(show_trending())
 
+    @blue.route('/--/<collection>/<_id>/')
+    @login_required
+    def fake(collection, _id):
+        # check for user privileges
+        _analyze(collection, _id, 'paid')
+        return json.dumps({'success': True, 'message': 'you faked purchasing'}), 200, {'ContentType': 'application/json'}
+
     return blue
+
+
+if __name__ == '__main__':
+    _analyze('products', '5bf91846dfda753037327e2d', 'paid', user='5c08b701dfda75400d4105e7')

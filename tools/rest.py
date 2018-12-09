@@ -113,6 +113,7 @@ def crud(blueprint, collection, skeleton={}, projection=None, template='', load=
                 return str(e), 403
             return render_template(template + '.html', **document, **ctx)
 
+    @blueprint.route('/<_id>$$', methods=['GET', 'POST'])
     def universal_alter(_id):
         _id = ObjectId(_id)
         if request.method == 'POST':
@@ -135,7 +136,9 @@ def crud(blueprint, collection, skeleton={}, projection=None, template='', load=
             document = obj2str(document)
             return render_template('$$.html', ctx=document)
 
-    def alter(_id, operator):
+    @blueprint.route('/<_id>$', methods=['GET'])
+    @blueprint.route('/<_id>$<operator>', methods=['GET'])
+    def alter(_id, operator='set'):
         _id = ObjectId(_id)
         try:
             from pymongo import ReturnDocument
@@ -166,7 +169,7 @@ def crud(blueprint, collection, skeleton={}, projection=None, template='', load=
             if 'ajax' in request.values:
                 return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
         except Exception as e:
-            print(e)
+            # print(e)
             try:
                 document = collection.find_one({'_id': _id})
             except Exception as e:
@@ -174,10 +177,3 @@ def crud(blueprint, collection, skeleton={}, projection=None, template='', load=
                 abort(405)
         document, ctx = load(document)
         return render_template(template + '_plus.html', **document, **ctx)
-
-    @blueprint.route('/<_id>$', methods=['GET', 'POST'])
-    @blueprint.route('/<_id>$<operator>', methods=['GET', 'POST'])
-    def alter_wrapper(_id, operator='set'):
-        if operator == '$':
-            return universal_alter(_id)
-        return alter(_id, operator)

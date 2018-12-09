@@ -258,7 +258,7 @@
                         </div>
                         <div class="panel">
                            {# {% include 'result/cards.html' %} #}
-                           {% import 'pr/card/s.html' as pr_card %}
+                           {% import 'product/card/s.html' as pr_card %}
                            {% for pr in products %}
                            {{ pr_card.ins(pr, lang) }}
                            {% endfor %}

@@ -1,5 +1,5 @@
 from flask_login import LoginManager, login_required, UserMixin, current_user, login_user, logout_user
-from flask import redirect, request, url_for, Blueprint, flash, abort
+from flask import redirect, request, url_for, Blueprint, flash, abort, render_template
 from config import users
 from werkzeug.security import generate_password_hash, check_password_hash
 from itsdangerous import URLSafeSerializer, BadSignature
@@ -7,6 +7,8 @@ import re
 import urllib
 from urllib.parse import urlparse
 from tools.mail import simple_send
+from bson import ObjectId
+from tools.pqdict import pqdict
 
 
 def setup(app):
@@ -34,6 +36,8 @@ def setup(app):
         try:
             json = users.find_one({'username': username})
             user = User(json)
+            if isinstance(user.carts, dict):
+                user.carts = pqdict(user.carts, key=lambda x: x[2])
             return user
         except:
             return
@@ -45,6 +49,8 @@ def setup(app):
             json = users.find_one({'username': username})
             user = User(json)
             user.is_authenticated = check_password_hash(user.password, request.form['password'])
+            if isinstance(user.carts, dict):
+                user.carts = pqdict(user.carts, key=lambda x: x[2])
             return user
         except:
             return
@@ -67,6 +73,7 @@ def setup(app):
     @app.route('/login', methods=['GET', 'POST'])
     def login():
         if request.method == 'GET':
+            return render_template('user/login.html')
             return '''
                    <form action='login' method='POST'>
                     <input type='text' name='username' id='username' placeholder='username'></input>
@@ -90,6 +97,7 @@ def setup(app):
             error = 'not found'
         elif check_password_hash(json['password'], request.form['password']):
             user = User(json)
+            # user.carts = pqdict(user.carts, key=lambda x: x[2])
             login_user(user)
         else:
             error = 'password mismatch'
@@ -117,31 +125,23 @@ def setup(app):
     @app.route('/signup', methods=['GET', 'POST'])
     def signup():
         if request.method == 'GET':
-            return '''
-                   <form action='signup' method='POST'>
-                    <input type='text' name='username' id='username' placeholder='username'></input>
-                    <input type='text' name='email' id='email' placeholder='email'></input>
-                    <input type='password' name='password' id='pw' placeholder='password'></input>
-                    <input type='submit' name='submit'></input>
-                   </form>
-                   '''
-
-        username = request.form['username']
+            return render_template('user/login.html')
+        # username = request.form['username']
         email = request.form['email']
         password = generate_password_hash(request.form['password'])
         error = ''
-        if not username or not email or not password:
+        if not email or not password:
             error = 'input empty'
         elif not re.match(r"[^@]+@[^@]+\.[^@]+", email):
             error = 'email not valid'
         else:
             json = {
                 '_active': False,
-                'username': username,
+                'username': str(ObjectId()),
                 'password': password,
-                'phone': '+989104961290',
-                'first_name': '*',
-                'last_name': '*',
+                'phone': '',
+                'first_name': '',
+                'last_name': '',
                 'email': email,
                 'hosting': {
                     'language': ['farsi'],
@@ -149,17 +149,23 @@ def setup(app):
                     'Response time': 145,
                 },
                 'wish_list': [],
+                'carts': {},
                 'notifications': [],
             }
+            user = None
             try:
-                users.insert_one(json)
+                user = users.insert_one(json)
+            except Exception as e:
+                error = 'user already existed'
+            if user:
                 user = User(json)
+                # user.carts = pqdict(user.carts, key=lambda x: x[2])
                 login_user(user)
                 _link = get_activation_link(user)
-                simple_send('activation', _link, you=user.email)
-            except Exception as e:
-                error = str(e)
+                # simple_send('activation', _link, you=user.email)
+
         if 'redirect' in request.values:
+            print('***')
             _redirect = request.values['redirect']
             _parse = urlparse(_redirect)
             url = _parse[2]
@@ -178,7 +184,8 @@ def setup(app):
     @app.route('/protected')
     @login_required
     def protected():
-        return 'Logged in as: ' + current_user.username
+        print(type(current_user.carts))
+        return 'Logged in as: ' + current_user.username + ', ' + str(current_user.carts.__class__)
 
     @app.route('/logout', methods=['GET', 'POST'])
     @login_required

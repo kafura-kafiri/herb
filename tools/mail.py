@@ -5,7 +5,7 @@ import smtplib
 from email.mime.text import MIMEText
 
 
-def simple_send(subject, text, you='sharifinezhad1@gmail.com', me='kafura.kafiri@gmail.com'):
+def simple_send(subject, text, you='kafura.kafiri@gmail.com', me='sharifinezhad1@gmail.com'):
     # me == the sender's email address
     # you == the recipient's email address
     msg = MIMEText(text)

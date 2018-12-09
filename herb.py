@@ -44,29 +44,12 @@ app.register_blueprint(analytic(), url_prefix='/analytics')
 app.register_blueprint(search)
 app.register_blueprint(face)
 
-context = {
-    'banner': [
-        {
-            'link': "/K-Beauty",
-            'img': "https://s.images-iherb.com/cms/banners/dkorebanner1004en-US.jpg",
-        }, {
-            'link': "/Azelique",
-            'img': "https://s.images-iherb.com/cms/banners/dazelbanner1004en-US.jpg",
-        }, {
-            'link': "/Sports-Oct-Special",
-            'img': "https://s.images-iherb.com/cms/banners/dsporbanner1004en-US.jpg",
-        }, {
-            'link': "/Nutiva",
-            'img': "https://s.images-iherb.com/cms/banners/dnutbanner1004en-US.jpg",
-        }
-    ],
-}
-
 
 @app.route('/')
 def homepage():
     # from crud._services.analytics import show_trending
     # it's just a query to mongodb to show some products
+    context = dict()
     context['products'] = products.aggregate([{
         '$sample': {
             'size': 7
@@ -93,6 +76,21 @@ def homepage():
 @app.route('/header')
 def header():
     return render_template('layout/header/index.html')
+
+
+@app.route('/pro/dropdown', methods=['GET', 'POST'])
+def dropdown():
+    return render_template('layout/header/dropdown.html')
+
+
+@app.route('/pro/sticky-header', methods=['GET', 'POST'])
+def sticky_header():
+    return render_template('layout/header/sticky-header.html')
+
+
+@app.route('/Pro/CountrySelection/', methods=['GET', 'POST'])
+def country_selection():
+    return render_template('layout/header/country-selection.html')
 
 
 if __name__ == '__main__':

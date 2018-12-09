@@ -10,6 +10,7 @@ def request_json(request, _json=None, specific_type=dict):
         raw = request.values['json']
     raw = raw.replace(':false', ':False')
     raw = raw.replace(':true', ':True')
+    raw = raw.replace(':null', ':None')
     evaluated = literal_eval(raw)
     if type(evaluated) is dict:
         for key, value in request.values.items():

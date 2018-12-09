@@ -18,8 +18,7 @@
    <title>iHerb.com - Login</title>
    <!-- build:css -->
    <!--[if gt IE 9]><!-->
-   <link href="https://s.images-iherb.com/css/app.desktop.min.checkout-optimized_7f5f1205c870e7630f807ee0ffe6bbfb.css"
-         rel="stylesheet" type="text/css"/><!--<![endif]-->
+   <link href="{{ url_for('static', filename='css/login.css') }}" rel="stylesheet" type="text/css"/>
    <!-- endbuild -->
    <!-- build:cssie -->
    <!--[if lte IE 9]>
@@ -51,7 +50,7 @@
         var iHerb_ActionHost = "//secure.iherb.com";
    </script>
 
-   <script type="text/javascript" id="d__inj" class="d__inj_delayed" src="/dstlhrb.js" defer></script>
+   <!--<script type="text/javascript" id="d__inj" class="d__inj_delayed" src="/dstlhrb.js" defer></script>-->
    <style type="text/css">
       #d__fFH{position:absolute;top:-5000px;left:-5000px}#d__fF{font-family:serif;font-size:200px;visibility:hidden}#yvffrxxscbrxxb{display:none!important}
    </style>
@@ -163,11 +162,8 @@
             <div class="login-returning-customer-options-inner-container login-inner-container">
                <div class="login-with-password">
                   <form id="login-password-form" class="clearBoth" method="post" action="login" novalidate>
-                     {% if redirect %}
-                        <input type='hidden' name='redirect' id='redirect' value='{{ redirect }}'></input>
-                     {% endif %}
-                     {% if prev_url %}
-                        <input type='hidden' name='prev_url' id='prev_url' value='{{ prev_url }}'></input>
+                     {% if request.args.redirect %}
+                        <input type='hidden' name='redirect' value='{{ request.args.redirect }}'></input>
                      {% endif %}
                      <h3 class="form-group text-center sign-in-password-options" id="email-sign-in-header">Returning
                         Customer</h3>
@@ -212,11 +208,8 @@
                      <h1 id="create-acc-title">{{ _('Create an Account') }}</h1>
                   </div>
                   <form id="login-register-form" method="post" class="clearBoth" action="/signup" novalidate>
-                     {% if redirect %}
-                        <input type='hidden' name='redirect' id='redirect' value='{{ redirect }}'></input>
-                     {% endif %}
-                     {% if prev_url %}
-                        <input type='hidden' name='prev_url' id='prev_url' value='{{ prev_url }}'></input>
+                     {% if request.args.redirect %}
+                        <input type='hidden' name='redirect' value='{{ request.args.redirect }}'></input>
                      {% endif %}
                      <div class="form-group register-options">
                         <input autocomplete="off" class="form-control" id="UserNameReg" maxlength="50"
@@ -235,12 +228,31 @@
                      <div class="form-group has-feedback register-options">
                         <input class="form-control" id="ConfirmPassword" maxlength="120" name="confirm_password"
                                required="required" type="password"/>
-                        <label name="ConfirmPassword" for="ConfirmPassword">{{ _('Confirm Password') }}</label>
+                        <label id="ConfirmPasswordMessage" name="ConfirmPassword" for="ConfirmPassword">{{ _('Confirm Password') }}</label>
                         <div class="show-hide-pw" data-id="Password">
                            <i class="icon-eyeopen form-control-feedback hide" aria-hidden="true"></i>
                            <i class="icon-eyeclosed form-control-feedback" aria-hidden="true"></i>
                         </div>
                      </div>
+                     <script>
+                        $(function() {
+                           $('#ConfirmPassword, #PasswordReg').change(function(e) {
+                              if ($('#ConfirmPassword').val() == $('#PasswordReg').val()) {
+                                 $('#ConfirmPasswordMessage').html('<span style="color: green">{{ _('Equal') }}</span>');
+                                 window.permission = true;
+                              } else {
+                                 $('#ConfirmPasswordMessage').html('<span style="color: red">{{ _('Not Equal') }}</span>');
+                                 window.permission = false;
+                              }
+                           });
+                           $('#login-register-form').submit(function(){
+                              if(window.permission) {
+                                 return true;
+                              }
+                              return false;
+                           });
+                        });
+                     </script>
                      <div class="form-group register-options">
                         <p class="new-customer-terms">{{ _('By creating an account you are agreeing to our') }}
                            <a href="https://www.iherb.com/info/privacy" target="_blank">{{_('privacy policy') }}</a>
