@@ -45,11 +45,12 @@ tavakoli: why snappherb <<<<<
 tavakoli: secondary menu -> just filling the charts <<<
 tavakoli: heart(wish list) ->
 
-poorya: herbgram
-poorya: sharing
-
+poorya: herbgram  new Socket() -> find host -> send, receive.
 poorya: profile
 poorya: shopping
+
+pr review, voting == TEST
+how review, voting == TEST
 
 blog voting + reviews -> aggregation -> show -> in blog homepage -> DONE !!!
                                      -> compatible with pr ->

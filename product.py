@@ -1,7 +1,12 @@
-from flask import Blueprint
+from flask import Blueprint, abort, request
+from flask_login import current_user, login_required
 from config import products
-from tools import crud
+from tools import crud, request_attributes
 from search.topic import bring_reviews, init_structure
+from datetime import datetime
+from bson import ObjectId
+import json
+import random
 
 combo = lambda x: {
     'title': 'lorem ipsum dollor hapa lut',
@@ -213,3 +218,79 @@ crud(
     skeleton=pr,
     projection=combo
 )
+
+
+@blue.route('/<_id>/@reviews/+', methods=['GET', 'POST'])
+def insert_review(_id):
+    if not current_user.is_authenticated:
+        abort(401)
+    _id = ObjectId(_id)
+    author_id = current_user._id
+    author_name = current_user.first_name or current_user.last_name or current_user.username
+    author_img = current_user.img if hasattr(current_user, 'img') else '/static/semantic/examples/assets/images/avatar/{}.jpg'.format(random.choice(['nan', 'tom']))
+    _json = request_attributes(request, type=int, value=int)
+    if 'text' in request.values:
+        _json['text'] = request.values['text']
+    if _json['type'] == 0 and _json['value'] == 1:
+        result = products.update_one({'_id': _id}, {
+            '$push': {
+                'reviews': {
+                    'type': 0,
+                    '_author': {
+                        '_id': author_id,
+                        'name': author_name,
+                        'img': author_img
+                    },
+                    '_date': datetime.now(),
+                }
+            }
+        })
+        if result.modified_count:
+            products.update_one({'_id': _id}, {
+                '$inc': {
+                    'aggregation.like': 1
+                }
+            })
+
+    if _json['type'] == 0 and _json['value'] == -1:
+        result = products.update_one({'_id': _id}, {
+            '$pull': {
+                'reviews': {
+                    'type': 0,
+                    '_author._id': author_id,
+                }
+            }
+        }, False, True)
+        if result.modified_count:
+            products.update_one({'_id': _id}, {
+                '$inc': {
+                    'aggregation.like': -1
+                }
+            })
+
+    if _json['type'] == 1:
+        result = products.update_one(
+            {'_id': _id},
+            {
+                '$push': {
+                    'reviews': {
+                        '_author': {
+                            '_id': author_id,
+                            'name': author_name,
+                            'img': author_img
+                        },
+                        '_date': datetime.now(),
+                        **_json,
+                    }
+                }
+            }
+        )
+        if result.modified_count:
+            direction = 1
+            products.update_one({'_id': ObjectId(_id)}, {
+                '$inc': {
+                    'aggregation.score.sum': direction * _json['value'],
+                    'aggregation.score.num': direction
+                }
+            })
+    return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}

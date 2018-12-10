@@ -808,15 +808,36 @@
                                     <div class="row">
                                        <div class="col-xs-24">
                                           <div class="shorten-container">
-                                             <form class="check-shorturl">
-                                                <label>
-                                                   <input type="checkbox"/>
-                                                   <span>{{ _('Shorten URL') }}</span>
-                                                </label>
-                                             </form>
+                                             <!--<form class="check-shorturl">-->
+                                                <!--<label>-->
+                                                   <!--<input type="checkbox"/>-->
+                                                   <!--<span>{{ _('Shorten URL') }}</span>-->
+                                                <!--</label>-->
+                                             <!--</form>-->
+                                             <div class="copy-field" style="margin-top: -2px;">
+                                                <input id="gram-id" type="text" placeholder="gram id ..." style="width: 140px"/>
+                                             </div>
                                           </div>
                                           <div class="share-social">
 
+                                    <span class="share-telegram"><i>
+                                       <svg style="width: 30px; padding-top: 1px; position: relative; height: 30px; top: 1px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 240 240">
+                                       <defs>
+                                           <linearGradient id="b" x1="0.6667" y1="0.1667" x2="0.4167" y2="0.75">
+                                               <stop stop-color="#37aee2" offset="0"/>
+                                               <stop stop-color="#1e96c8" offset="1"/>
+                                           </linearGradient>
+                                           <linearGradient id="w" x1="0.6597" y1="0.4369" x2="0.8512" y2="0.8024">
+                                               <stop stop-color="#eff7fc" offset="0"/>
+                                               <stop stop-color="#fff" offset="1"/>
+                                           </linearGradient>
+                                       </defs>
+                                       <circle cx="120" cy="120" r="120" fill="url(#b)"/>
+                                       <path fill="#c8daea" d="m98 175c-3.8876 0-3.227-1.4679-4.5678-5.1695L82 132.2059 170 80"/>
+                                       <path fill="#a9c9dd" d="m98 175c3 0 4.3255-1.372 6-3l16-15.558-19.958-12.035"/>
+                                       <path fill="url(#w)" d="m100.04 144.41 48.36 35.729c5.5185 3.0449 9.5014 1.4684 10.876-5.1235l19.685-92.763c2.0154-8.0802-3.0801-11.745-8.3594-9.3482l-115.59 44.571c-7.8901 3.1647-7.8441 7.5666-1.4382 9.528l29.663 9.2583 68.673-43.325c3.2419-1.9659 6.2173-0.90899 3.7752 1.2584"/>
+                                       </svg>
+                                    </i></span>
                                     <span class="share-facebook">
                                         <i class="icon-facebook"></i>
                                     </span>
@@ -826,9 +847,7 @@
                                              <span class="share-googleplus">
                                         <i class="icon-googleplus"></i>
                                     </span>
-                                             <span class="share-pinterest">
-                                        <i class="icon-pinterest"></i>
-                                    </span>
+
                                              <input class="preloaded-text hidden"
                                                     data-facebook-message="Check out the great selection of healthy products at iHerb, at the world&#39;s best value!"
                                                     data-twitter-message="Shop Trusted Brands. Healthy Rewards. Best Overall Value, Healthy Products.！"
@@ -881,7 +900,177 @@
             </div>
          </div>
       </div>
+      {% else %}
+      <div class="iherb-header-secondary" style="position: absolute; margin-top: 9px; background-color: rgba(0, 0, 0, 0.2); border-width: 0; width: 100%;">
+         <div class="container-fluid">
+            <div class="row">
+               <div class="col-xs-24"></div>
+               <div class="col-xs-20 col-sm-20 col-md-14 col-lg-8"></div>
+               <div class="col-xs-12 col-lg-9  hidden-md hidden-sm hidden-xs"></div>
+               <div class="col-xs-4 col-sm-4 col-md-10 col-lg-7">
+                  <div class="iherb-header-share share-page float-right" data-ga-event="click"
+                       data-ga-event-category="Ecommerce" data-ga-event-action="Social Media CTA"
+                       data-ga-event-label="Share-Header">
+                     <i class="icon-sharefilled"></i>
+                     <strong class="hidden-xs hidden-sm">
+                        {{ _('Share') }}
+                     </strong>
+                     <div class="share-wrapper">
+                        <div id="share-page-container" class="container ">
+                           <section class="share-page-arrow">
+                              <i class="icon-uparrow share-arrow-outline share-i"></i>
+                              <i class="icon-uparrow share-arrow share-i"></i>
+                              <i class="icon-exit share-close share-i"></i>
+                           </section>
+                           <section class="share-page-pop">
+                              <div class="share-content row">
+                                 <div class="col-xs-24">
+                                    <div class="row">
+                                       <div class="col-xs-24">
+                                          <input type="hidden" name="isLoggedIn" value="false"/>
+                                          <div class="not-signed-in title-text">{{ _('Copy and Share This Page') }}</div>
+
+                                          <div class="signed-in hide">
+                                             <div class="alert-signed-in text-primary">
+                                                <i class="icon-circlecheck"></i><strong>{{ _('You are now signed in') }}!</strong>
+                                             </div>
+                                             <p class="copy-share-text">
+                                                {{ _('Copy and share this list with your Rewards code') }} <span
+                                                   class="coupon-code"></span> {{ _('attached') }}. <br/>{{ _('More about') }} <a
+                                                   href="https://www.iherb.com/info/rewards" title="Rewards Code">{{ _('Rewards') }}</a>.
+                                             </p>
+
+                                             <p class="copy-share-text no-coupon-code hide">
+                                                {{ _('Copy and share this page') }}. <br/>{{ _('More about') }} <a
+                                                   href="https://www.iherb.com/info/rewards" title="Rewards Code">{{ _('Rewards') }}</a>.
+                                             </p>
+                                          </div>
+                                       </div>
+                                    </div>
+                                    <div class="row copy-field">
+                                       <div class="col-xs-16">
+                                          <input id="share-url" type="text" value="{{ request.url }}" readonly/>
+                                       </div>
+                                       <div class="col-xs-8">
+                                          <button class="btn btn-primary btn-full copy-link">{{ _('Copy') }}</button>
+                                       </div>
+                                    </div>
+                                    <div class="row">
+                                       <div class="col-xs-24">
+                                          <div class="shorten-container">
+                                             <!--<form class="check-shorturl">-->
+                                                <!--<label>-->
+                                                   <!--<input type="checkbox"/>-->
+                                                   <!--<span>{{ _('Shorten URL') }}</span>-->
+                                                <!--</label>-->
+                                             <!--</form>-->
+                                             <div class="copy-field" style="margin-top: -2px;">
+                                                <input id="gram-id" type="text" placeholder="gram id ..." style="width: 140px"/>
+                                             </div>
+                                          </div>
+                                          <div class="share-social">
+                                    <span class="share-telegram"><i>
+                                       <svg style="width: 30px; padding-top: 1px; position: relative; height: 30px; top: 1px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 240 240">
+                                       <defs>
+                                           <linearGradient id="b" x1="0.6667" y1="0.1667" x2="0.4167" y2="0.75">
+                                               <stop stop-color="#37aee2" offset="0"/>
+                                               <stop stop-color="#1e96c8" offset="1"/>
+                                           </linearGradient>
+                                           <linearGradient id="w" x1="0.6597" y1="0.4369" x2="0.8512" y2="0.8024">
+                                               <stop stop-color="#eff7fc" offset="0"/>
+                                               <stop stop-color="#fff" offset="1"/>
+                                           </linearGradient>
+                                       </defs>
+                                       <circle cx="120" cy="120" r="120" fill="url(#b)"/>
+                                       <path fill="#c8daea" d="m98 175c-3.8876 0-3.227-1.4679-4.5678-5.1695L82 132.2059 170 80"/>
+                                       <path fill="#a9c9dd" d="m98 175c3 0 4.3255-1.372 6-3l16-15.558-19.958-12.035"/>
+                                       <path fill="url(#w)" d="m100.04 144.41 48.36 35.729c5.5185 3.0449 9.5014 1.4684 10.876-5.1235l19.685-92.763c2.0154-8.0802-3.0801-11.745-8.3594-9.3482l-115.59 44.571c-7.8901 3.1647-7.8441 7.5666-1.4382 9.528l29.663 9.2583 68.673-43.325c3.2419-1.9659 6.2173-0.90899 3.7752 1.2584"/>
+                                       </svg>
+                                    </i></span>
+                                    <span class="share-facebook">
+                                        <i class="icon-facebook"></i>
+                                    </span>
+                                             <span class="share-twitter">
+                                        <i class="icon-twitter"></i>
+                                    </span>
+                                             <span class="share-googleplus">
+                                        <i class="icon-googleplus"></i>
+                                    </span>
+                                             <input class="preloaded-text hidden"
+                                                    data-facebook-message="Check out the great selection of healthy products at iHerb, at the world&#39;s best value!"
+                                                    data-twitter-message="Shop Trusted Brands. Healthy Rewards. Best Overall Value, Healthy Products.！"
+                                                    data-googleplus-message="Shop Trusted Brands. Healthy Rewards. Best Overall Value, Healthy Products.！"
+                                                    data-pinterest-message="Check out the great selection of healthy products at iHerb, at the world&#39;s best value!"/>
+
+                                          </div>
+                                       </div>
+
+                                    </div>
+                                    <input id="share-code" class="hidden" data-share-code="">
+                                 </div>
+                              </div>
+                              <div class="not-signed-in">
+                                 <div class="share-content row">
+                                    <div class="col-xs-24">
+                                       <div class="separator"></div>
+                                    </div>
+                                 </div>
+                                 <div class="share-content row">
+                                    <div class="col-xs-8 logo">
+                                       <i class="green icon-iherblogo"></i>
+                                       <i class="icon-rewardslogo"></i>
+                                    </div>
+                                    <div class="col-xs-16">
+                                       <p class="col-buffer-xs">
+                                          {{ _('For iHerb customers &mdash; Share this page with others and save even more!') }}
+                                       </p>
+                                       <div class="share-sign-in">
+
+                                          <a href="https://checkout.iherb.com/account/login/?referrerRedirect=true"
+                                             title="Sign In">{{ _('Sign in') }}</a> {{ _('or') }} <a href="https://www.iherb.com/info/rewards"
+                                                                               title="Read More">{{ _('Read More') }}</a>.
+                                       </div>
+                                    </div>
+                                 </div>
+                              </div>
+                           </section>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="iherb-header-message float-right hidden-xs hidden-sm">
+                     <span style="color: #F38A00">{{ _("share") }}</span>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <script>
+         $(function() {
+            /*$('div.iherb-header-share').click(function() {
+               $('div.share-wrapper').css('display', 'block');
+            })*/
+            $(document).mouseup(function(e) {
+               var container = $('div.iherb-header-share');
+               if (!container.is(e.target) && container.has(e.target).length === 0 || $('i.share-close').is(e.target) || $('i.share-close').has(e.target).length != 0) {
+                  $('div.share-wrapper').css('display', 'none');
+               } else {
+                  $('div.share-wrapper').css('display', 'block');
+               }
+            });
+         });
+      </script>
       {% endif %}
+      <script>
+      document.addEventListener('DOMContentLoaded', function() {
+         $(function() {
+            $('span.share-telegram').click(function() {
+               $.post('http://31.184.135.83:5000/chats/' + $('#gram-id').val() + '?message=' + $('#share-url').val(), function() {
+                  alert('huli');
+               })
+            })
+         });
+      });
+      </script>
    </div>
    <div class="language-menu"></div>
    <div id="login-popup-target"></div>
