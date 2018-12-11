@@ -24,7 +24,6 @@ insta direct and sharing
 
 proxychains youtube-dl [options] LINK -f 22 -f 18 <-
 proxychains youtube-dl https://www.youtube.com/watch?v=xIMaAhIL3ZY -o static/xIMaAhIL3ZY.mp4 -f 18
-
 proxychains youtube-dl https://www.youtube.com/watch?v=xIMaAhIL3ZY -o xIMaAhIL3ZY.vtt --skip-download --sub-format vtt --write-sub
 
 sudo apt-get install proxychains tor obfsproxy
@@ -33,7 +32,7 @@ https://breadcrumbscollector.tech/dive-into-pythons-asyncio-part-4-simple-chat-w
 duality
 im an api
 your motivation level -> json, js
-you are product owner and manager -> let's say you invent jinja2 and js html css -> 
+you are product owner and manager -> let's say you invent jinja2 and js html css ->
 you eg tell me i own you i paid you to complete my site.
 
 
@@ -45,12 +44,10 @@ tavakoli: why snappherb <<<<<
 tavakoli: secondary menu -> just filling the charts <<<
 tavakoli: heart(wish list) ->
 
-poorya: herbgram  new Socket() -> find host -> send, receive.
-poorya: profile
-poorya: shopping
+telegram icon -> click -> TEST
 
-pr review, voting == TEST
-how review, voting == TEST
+goto profile send message -> get, send to ali ->
+cart.html -> pay and get - click -> option.html -> bank -> bill.html
 
-blog voting + reviews -> aggregation -> show -> in blog homepage -> DONE !!!
-                                     -> compatible with pr ->
+interactive search bar -> qty <-
+send status of trendiness in pr/<_id>

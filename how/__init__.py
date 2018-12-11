@@ -69,7 +69,6 @@ def insert(_id):
     return redirect('/hows/{}$?json={}'.format(_id, article))
 
 
-
 @blue.route('/<_id>/@reviews/+', methods=['GET', 'POST'])
 def insert_review(_id):
     if not current_user.is_authenticated:
@@ -78,13 +77,13 @@ def insert_review(_id):
     author_id = current_user._id
     author_name = current_user.first_name or current_user.last_name or current_user.username
     author_img = current_user.img if hasattr(current_user, 'img') else '/static/semantic/examples/assets/images/avatar/{}.jpg'.format(random.choice(['nan', 'tom']))
-    _json = request_attributes(request, type=int, value=int)
+    _json = request_attributes(request, type=int, value=float)
     if 'text' in request.values:
         _json['text'] = request.values['text']
     if _json['type'] == 0 and _json['value'] == 1:
         result = hows.update_one({'_id': _id}, {
             '$push': {
-                'reviews': {
+                'reviews.reviews': {
                     'type': 0,
                     '_author': {
                         '_id': author_id,
@@ -98,14 +97,14 @@ def insert_review(_id):
         if result.modified_count:
             hows.update_one({'_id': _id}, {
                 '$inc': {
-                    'aggregation.like': 1
+                    'reviews.aggregation.like': 1
                 }
             })
 
     if _json['type'] == 0 and _json['value'] == -1:
         result = hows.update_one({'_id': _id}, {
             '$pull': {
-                'reviews': {
+                'reviews.reviews': {
                     'type': 0,
                     '_author._id': author_id,
                 }
@@ -114,16 +113,18 @@ def insert_review(_id):
         if result.modified_count:
             hows.update_one({'_id': _id}, {
                 '$inc': {
-                    'aggregation.like': -1
+                    'reviews.aggregation.like': -1
                 }
             })
 
     if _json['type'] == 1:
+        if 'comment' in request.values:
+            _json['comment'] = request.values['comment']
         result = hows.update_one(
             {'_id': _id},
             {
                 '$push': {
-                    'reviews': {
+                    'reviews.reviews': {
                         '_author': {
                             '_id': author_id,
                             'name': author_name,
@@ -139,8 +140,8 @@ def insert_review(_id):
             direction = 1
             hows.update_one({'_id': ObjectId(_id)}, {
                 '$inc': {
-                    'aggregation.score.sum': direction * _json['value'],
-                    'aggregation.score.num': direction
+                    'reviews.aggregation.sum': direction * _json['value'],
+                    'reviews.aggregation.num': direction
                 }
             })
     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}

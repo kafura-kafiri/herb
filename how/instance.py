@@ -5,6 +5,15 @@ schema = {
 }
 
 how = {
+    "reviews": {
+        "aggregation": {
+            "like": 0,
+            "num": 0,
+            "sum": 0,
+            "view": 0,
+        },
+        "reviews": []
+    },
     'base': {
         'theme': '5b65add0dfda757b82b7d3ae'
     },

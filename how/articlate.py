@@ -107,11 +107,12 @@ def articlate(parsed):
         },
         "reviews": {
             "aggregation": {
+                "like": 0,
                 "num": 0,
                 "sum": 0,
                 "view": 0,
             },
-            "data": []
+            "reviews": []
         },
         "level_1": []
     }

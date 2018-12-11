@@ -265,5 +265,6 @@ dictionary = {
     'thanks for your feedback': 'از بازخورد شما متشکریم',
     'quickshop': 'Quickshop',
     'feature': 'ویژگی.',
+    'leave your comment here then press stars': 'نظر خود را اینجا بنویسید سپس ستاره ها را فشار دهید',
     'conditions': 'شرایط'
 }

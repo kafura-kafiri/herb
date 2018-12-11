@@ -159,13 +159,8 @@
                      <script>
                         document.addEventListener('DOMContentLoaded', function() {
                            $('button[name="AddToWishlist"]').click(function() {
-                              data = {json: '1', node: 'wish_list.products.{{ pr._id }}', ajax: ''};
-                              $.ajax({
-                                 url: '/users/{{ current_user._id }}$',
-                                 type: 'POST',
-                                 data: data,
-                              }).done(function(response) {
-                                 alert(response);
+                              $.post(window.location.pathname + '/@reviews/+', {type: 0, value: 1}, function(response) {
+                                 alert('good night');
                               });
                            });
                         });

@@ -583,6 +583,8 @@
 <div id="sp_star_box" class="sidebox social_sidebox">
 	<div id="sp_helpful_box" class="sp_box sp_box_hoverable sp_helpful_hoverable helpful_sidebox" data-helpful="100">
 		<div id="sp_helpful_statement"><span>{{ score | round(1) }}%</span> of readers found this article <b>helpful</b>.</div>
+		<textarea id="comment" placeholder="{{ _('leave your comment here then press stars') }}"
+				  style="color: #222222; margin-bottom: 6px; display: none; width: calc(100% + 10px);margin-left: -15px;border-radius: 3px;border: solid 0px black;background: #F0F5EC;resize: none; height: 80px; padding: 10px; text-align: right; direction: rtl;"></textarea>
 		<div id="sp_star_section_upper">
 			<div class="sp_star_section_hoverable">
 				{% for star in ['Unhelpful', 'Mostly unhelpful', 'Possibly helpful', 'Mostly helpful', 'Very helpful'] %}
@@ -606,285 +608,36 @@
 
 <div id="userreviews" class="sidebox">
 	<div id="reviews">
-		<div class="ur_review ur_review0">
-			<div class="ur_user">
-				<span class="ur_initials">
-					AG
-				</span>
-				<div class="ur_author">
-					<p class="ur_name">Alex G.</p>
-					<p class="ur_date">Jul 17</p>
+		{% set cnt = [0] %}
+		{% for review in reviews.reviews %}
+			{% if review.comment %}
+			<div class="ur_review ur_review{{ cnt.0 }}">
+				{% if cnt.append(cnt.pop() + 1) %}{% endif %}
+				<div class="ur_user">
+					<span class="ur_initials">
+						AG
+					</span>
+					<div class="ur_author">
+						<p class="ur_name">Alex G.</p>
+						<p class="ur_date">Jul 17</p>
+					</div>
+				</div>
+				<div class="ur_review_text">
+					{{ review.comment }}
+				</div>
+				<div class="ur_rating">
 				</div>
 			</div>
-			<div class="ur_review_text">
-				"Going to Canada in my car, wish me luck! Thanks, this is the best web page I've never heard about!"
-			</div>
-			<div class="ur_rating">
-			</div>
-		</div>
-		<div class="ur_review ur_review1">
-			<div class="ur_user">
-				<span class="ur_initials">
-					SP
-				</span>
-				<div class="ur_author">
-					<p class="ur_name">S. P.</p>
-					<p class="ur_date">May 19</p>
-				</div>
-			</div>
-			<div class="ur_review_text">
-				"I'm a single parent about to take a 12-hour trip. I am not mechanically-inclined, so this list is helpful so I can<span class="ur_review_more"> get prepared."</span><span class="ur_ellipsis">..." </span><a href="#ur_anchor_full" class="ur_review_show">more</a>
-			</div>
-			<div class="ur_rating">
-			</div>
-		</div>
-		<div class="ur_review ur_review2">
-			<div class="ur_user">
-				<span class="ur_initials">
-					DR
-				</span>
-				<div class="ur_author">
-					<p class="ur_name">Dulce Ramon</p>
-					<p class="ur_date">Jul 14, 2017</p>
-				</div>
-			</div>
-			<div class="ur_review_text">
-				"My sister and I are about to go on a short road trip and I know we needed to change the oil beforehand, but I was<span class="ur_review_more"> not sure what else needed our attention since we are not that mechanically-inclined. However, this for sure helped us, thank you! "</span><span class="ur_ellipsis">..." </span><a href="#ur_anchor_full" class="ur_review_show">more</a>
-			</div>
-			<div class="ur_rating">
-					<span>Rated this article: </span>
-						<div class="ur_star ur_rating_on"></div>
-						<div class="ur_star ur_rating_on"></div>
-						<div class="ur_star ur_rating_on"></div>
-						<div class="ur_star ur_rating_on"></div>
-						<div class="ur_star ur_rating_on"></div>
-					<div class="clearall"></div>
-			</div>
-		</div>
-		<div class="ur_review ur_review3">
-			<div class="ur_user">
-					<img src="https://lh6.googleusercontent.com/-RrOMgbaKV2E/AAAAAAAAAAI/AAAAAAAAAAs/e3p3TYXR388/s96-c/photo.jpg" class="ur_avatar">
-				<div class="ur_author">
-					<p class="ur_name"><span class="qa_user_link" data-href="/User:M-Loyaltie">M Loyaltie</span></p>
-					<p class="ur_date">Jun 8, 2017</p>
-				</div>
-			</div>
-			<div class="ur_review_text">
-				"I learn something new every time I visit your site, and so far all advice has been successful. Thank you, keep up<span class="ur_review_more"> the good work, very helpful."</span><span class="ur_ellipsis">..." </span><a href="#ur_anchor_full" class="ur_review_show">more</a>
-			</div>
-			<div class="ur_rating">
-			</div>
-		</div>
-		<div class="ur_review ur_review4">
-			<div class="ur_user">
-				<span class="ur_initials">
-					DP
-				</span>
-				<div class="ur_author">
-					<p class="ur_name">Divya Prasher</p>
-					<p class="ur_date">Mar 4, 2017</p>
-				</div>
-			</div>
-			<div class="ur_review_text">
-				"Very helpful article, especially for beginners. I like how wikiHow makes it so easy to understand, showing<span class="ur_review_more"> practical ways for everything."</span><span class="ur_ellipsis">..." </span><a href="#ur_anchor_full" class="ur_review_show">more</a>
-			</div>
-			<div class="ur_rating">
-			</div>
-		</div>
-		<div class="ur_review ur_review5">
-			<div class="ur_user">
-				<span class="ur_initials">
-					HC
-				</span>
-				<div class="ur_author">
-					<p class="ur_name">Harikrishnan C.</p>
-					<p class="ur_date">Apr 22, 2017</p>
-				</div>
-			</div>
-			<div class="ur_review_text">
-				"This is my first long trip. Tips like tires will get heated on the long run are very useful tips."
-			</div>
-			<div class="ur_rating">
-			</div>
-		</div>
-		<div class="ur_review ur_review6">
-			<div class="ur_user">
-				<span class="ur_initials">
-					A
-				</span>
-				<div class="ur_author">
-					<p class="ur_name">Anonymous</p>
-					<p class="ur_date">Nov 13, 2016</p>
-				</div>
-			</div>
-			<div class="ur_review_text">
-				"wikiHow is the best!  This is great for someone that is a first-time vehicle owner like myself."
-			</div>
-			<div class="ur_rating">
-			</div>
-		</div>
-		<div class="ur_review ur_review7">
-			<div class="ur_user">
-				<span class="ur_initials">
-					A
-				</span>
-				<div class="ur_author">
-					<p class="ur_name">Anonymous</p>
-					<p class="ur_date">Aug 26, 2017</p>
-				</div>
-			</div>
-			<div class="ur_review_text">
-				"Helped me provide a list to my mechanic to check before my long trip."
-			</div>
-			<div class="ur_rating">
-			</div>
-		</div>
-		<div class="ur_review ur_review8">
-			<div class="ur_user">
-				<span class="ur_initials">
-					SG
-				</span>
-				<div class="ur_author">
-					<p class="ur_name">Sarah Gowe</p>
-					<p class="ur_date">Apr 28, 2017</p>
-				</div>
-			</div>
-			<div class="ur_review_text">
-				"The tire tread test and why it's important is really good to know!"
-			</div>
-			<div class="ur_rating">
-					<span>Rated this article: </span>
-						<div class="ur_star ur_rating_on"></div>
-						<div class="ur_star ur_rating_on"></div>
-						<div class="ur_star ur_rating_on"></div>
-						<div class="ur_star ur_rating_on"></div>
-						<div class="ur_star ur_rating_on"></div>
-					<div class="clearall"></div>
-			</div>
-		</div>
-		<div class="ur_review ur_review9">
-			<div class="ur_user">
-				<span class="ur_initials">
-					EL
-				</span>
-				<div class="ur_author">
-					<p class="ur_name">Elijah Lane</p>
-					<p class="ur_date">Jul 13, 2017</p>
-				</div>
-			</div>
-			<div class="ur_review_text">
-				"Love taking long trips. Want car to be just as ready as I am."
-			</div>
-			<div class="ur_rating">
-					<span>Rated this article: </span>
-						<div class="ur_star ur_rating_on"></div>
-						<div class="ur_star ur_rating_on"></div>
-						<div class="ur_star ur_rating_on"></div>
-						<div class="ur_star ur_rating_on"></div>
-						<div class="ur_star ur_rating_on"></div>
-					<div class="clearall"></div>
-			</div>
-		</div>
-		<div class="ur_review ur_review10">
-			<div class="ur_user">
-				<span class="ur_initials">
-					GJ
-				</span>
-				<div class="ur_author">
-					<p class="ur_name">Gladys Johnson</p>
-					<p class="ur_date">Jul 28, 2017</p>
-				</div>
-			</div>
-			<div class="ur_review_text">
-				"This showed me how to take proper preventive maintenance."
-			</div>
-			<div class="ur_rating">
-			</div>
-		</div>
-		<div class="ur_review ur_review11">
-			<div class="ur_user">
-				<span class="ur_initials">
-					JL
-				</span>
-				<div class="ur_author">
-					<p class="ur_name">John Lucio</p>
-					<p class="ur_date">Jun 26, 2017</p>
-				</div>
-			</div>
-			<div class="ur_review_text">
-				"Helped me by getting me prepared before a road trip."
-			</div>
-			<div class="ur_rating">
-					<span>Rated this article: </span>
-						<div class="ur_star ur_rating_on"></div>
-						<div class="ur_star ur_rating_on"></div>
-						<div class="ur_star ur_rating_on"></div>
-						<div class="ur_star ur_rating_on"></div>
-						<div class="ur_star ur_rating_on"></div>
-					<div class="clearall"></div>
-			</div>
-		</div>
-		<div class="ur_review ur_review12">
-			<div class="ur_user">
-				<span class="ur_initials">
-					RL
-				</span>
-				<div class="ur_author">
-					<p class="ur_name">Renea Lawson</p>
-					<p class="ur_date">May 21, 2017</p>
-				</div>
-			</div>
-			<div class="ur_review_text">
-				"It helped a lot, I really needed to know this info."
-			</div>
-			<div class="ur_rating">
-					<span>Rated this article: </span>
-						<div class="ur_star ur_rating_on"></div>
-						<div class="ur_star ur_rating_on"></div>
-						<div class="ur_star ur_rating_on"></div>
-						<div class="ur_star ur_rating_on"></div>
-						<div class="ur_star ur_rating_on"></div>
-					<div class="clearall"></div>
-			</div>
-		</div>
-		<div class="ur_review ur_review13">
-			<div class="ur_user">
-				<span class="ur_initials">
-					PM
-				</span>
-				<div class="ur_author">
-					<p class="ur_name">Patricia Moss</p>
-					<p class="ur_date">Jun 25, 2016</p>
-				</div>
-			</div>
-			<div class="ur_review_text">
-				"It was helpful because I'm going on a road trip."
-			</div>
-			<div class="ur_rating">
-			</div>
-		</div>
-		<div class="ur_review ur_review14">
-			<div class="ur_user">
-				<span class="ur_initials">
-					AS
-				</span>
-				<div class="ur_author">
-					<p class="ur_name">Anuj S.</p>
-					<p class="ur_date">Jan 16, 2017</p>
-				</div>
-			</div>
-			<div class="ur_review_text">
-				"App experience is smoother and faster."
-			</div>
-			<div class="ur_rating">
-			</div>
-		</div>
+			{% endif %}
+		{% endfor %}
+		{% if cnt.0 %}
 		<div class="ur_nav_container">
 			<a href="#" class="ur_share" style="float: right">Share yours!</a>
 			<a href="#" class="ur_more ur_nav" style="display: block">More success stories</a>
 			<a href="#" class="ur_even_more ur_nav" style="display: none">All success stories</a>
 			<a href="#" class="ur_hide ur_nav" style="display: none">Hide success stories</a>
 		</div>
+		{% endif %}
 		<script>
 			$(function() {
 				$('div.ur_nav_container .ur_more').click(function() {
@@ -898,6 +651,10 @@
 					$('div.ur_nav_container .ur_more').css('display', 'block');
 					$('div.ur_review').css('display', 'none');
 					$('div.ur_review0').css('display', 'block');
+				});
+
+				$('div.ur_nav_container .ur_share').click(function() {
+					$('#comment').css('display', 'block');
 				});
 
 				$('#sp_staff').hover(
@@ -945,23 +702,36 @@
 
 				$('div.sp_star_container').click(function(eve) {
 					if (!window.star_clicked) {
-						window.star_clicked = true;
-						flag = 1;
 						target = $(eve.target).closest('.sp_star_container');
-						id = target.attr('id');
-						id = parseInt(id.substr(4)) - 1;
-						$('div.sp_star_container .pretty_star').each(function(i, e) {
-							$(e).css('width', flag * 100 + '%');
-							if (i == id) flag = 0;
+						var data = {
+							type: 1,
+							value: target.attr('value'),
+						};
+						$comment = $('#comment');
+						if ($comment.css('display') != 'none' && $comment.val() != '')
+							data.comment = $comment.val();
+						$.post(window.location.pathname + '/@reviews/+', data).done(function() {
+							$('#sp_helpful_text_sidebox').html('thank you for voting!');
+							window.star_clicked = true;
+							flag = 1;
+							id = target.attr('id');
+							id = parseInt(id.substr(4)) - 1;
+							$('div.sp_star_container .pretty_star').each(function(i, e) {
+								$(e).css('width', flag * 100 + '%');
+								if (i == id) flag = 0;
+							});
+						}).fail(function(httpObj, response) {
+							if(httpObj.status == 401)
+								$('#sp_helpful_text_sidebox').html('please <a href="/login?redirect=' + window.location.pathname + '">login</a> first');
+							else
+								$('#sp_helpful_text_sidebox').html('network got wrong !!');
 						});
-						$('#sp_helpful_text_sidebox').html('thank you for voting!');
 					}
 				});
 
 			});
 		</script>
 	</div>
-
 </div>
 
 

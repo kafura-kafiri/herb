@@ -209,7 +209,7 @@ pr = {
     'categories': [],
 }
 
-pr['reviews']['aggregation'] = {'view': 0}
+pr['reviews']['aggregation'] = {'view': 0, 'like': 0}
 
 blue = Blueprint('pr', __name__, url_prefix='/pr')
 crud(
@@ -234,7 +234,7 @@ def insert_review(_id):
     if _json['type'] == 0 and _json['value'] == 1:
         result = products.update_one({'_id': _id}, {
             '$push': {
-                'reviews': {
+                'reviews.reviews': {
                     'type': 0,
                     '_author': {
                         '_id': author_id,
@@ -248,14 +248,14 @@ def insert_review(_id):
         if result.modified_count:
             products.update_one({'_id': _id}, {
                 '$inc': {
-                    'aggregation.like': 1
+                    'reviews.aggregation.like': 1
                 }
             })
 
     if _json['type'] == 0 and _json['value'] == -1:
         result = products.update_one({'_id': _id}, {
             '$pull': {
-                'reviews': {
+                'reviews.reviews': {
                     'type': 0,
                     '_author._id': author_id,
                 }
@@ -264,7 +264,7 @@ def insert_review(_id):
         if result.modified_count:
             products.update_one({'_id': _id}, {
                 '$inc': {
-                    'aggregation.like': -1
+                    'reviews.aggregation.like': -1
                 }
             })
 
