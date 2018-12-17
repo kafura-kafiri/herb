@@ -7,6 +7,10 @@ from sonic import api_hash, api_id, app
 # @app.websocket('/chats/')
 @app.websocket('/chats/<_id>')
 async def feed(request, ws, _id):
+    print(_id)
+    client = TelegramClient('session_name', api_id, api_hash)
+    async with client:
+        print(client.get_entity(_id))
     await ws.send('hello im {}. how can i help you'.format(_id))
     client = TelegramClient('session_name', api_id, api_hash)
     async with client:

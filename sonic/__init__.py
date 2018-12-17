@@ -19,13 +19,18 @@ async def send_message(request, _id):
     return json({'success': True})
 
 
+@app.route('/favicon.ico')
+async def ico(request):
+    return json({'success': True})
+
+
 @app.route('/')
 async def home(request):
     return html("""
     <!DOCTYPE html>
     <html>
     <script type="text/javascript">
-        var webSocket = new WebSocket('ws://localhost:5001/feed');
+        var webSocket = new WebSocket('ws://' + window.location.url.split('/')[2] + '/chats/+989058083768');
         webSocket.onerror = function(event) {
             alert(event.data);
         };
