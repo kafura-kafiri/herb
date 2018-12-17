@@ -1,10 +1,12 @@
 from sanic import Sanic
 from sanic.response import html, json, file, file_stream
 from telethon import TelegramClient
+from sanic_cors import CORS
 import asyncio
 import subprocess
 
 app = Sanic()
+CORS(app)
 api_id = 165248
 api_hash = '287208e1887c8e18f37d92a545a26376'
 
@@ -49,6 +51,7 @@ async def home(request):
     </html>
     """)
 
+from sonic.tg import app
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5001)
