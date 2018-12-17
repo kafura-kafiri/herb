@@ -100,6 +100,7 @@ def init_structure():
         },
         'reviews': [],
         'top_review': '',
+        'aggregation': {'view': 0, 'like': 0}
     }
 
 

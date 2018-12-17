@@ -16,6 +16,8 @@ pr views -> reviews.aggregation.view / (now - _date) -> por bazdid ha <-
 #3 pr insertion is now just for admin. -> focus on get(show) ->
 #3 topic insert -> topic alter -> topic get -> search: [topics, products, how]
 #3 beside worlds best values -> check box for search in [topics, hows, products]
+interactive search bar -> qty <-
+better face detector, landmarks, ages
 
 too har safhe munde yeseri linka doros shan ya {{}} in ha camel shan
 -> mobile, later on zoom and drag
@@ -35,7 +37,6 @@ your motivation level -> json, js
 you are product owner and manager -> let's say you invent jinja2 and js html css ->
 you eg tell me i own you i paid you to complete my site.
 
-
 tavakoli: insert some: deal <<<<
 tavakoli: face comeback
 tavakoli: advie maah, mango powder
@@ -44,10 +45,6 @@ tavakoli: why snappherb <<<<<
 tavakoli: secondary menu -> just filling the charts <<<
 tavakoli: heart(wish list) ->
 
-telegram icon -> click -> TEST
-
-goto profile send message -> get, send to ali ->
+send status of trendiness in pr/<_id>, hows/<_id>, hybrids/<_id>
 cart.html -> pay and get - click -> option.html -> bank -> bill.html
-
-interactive search bar -> qty <-
-send status of trendiness in pr/<_id>
+>>> goto profile send message -> get, send to ali ->

@@ -142,6 +142,7 @@ def crud(blueprint, collection, skeleton={}, projection=None, template='', load=
         _id = ObjectId(_id)
         try:
             from pymongo import ReturnDocument
+            document = None
             if 'node' in request.values:
                 _json = request_json(request, specific_type=None)
                 node = request.values['node']
@@ -168,8 +169,9 @@ def crud(blueprint, collection, skeleton={}, projection=None, template='', load=
                 redundancies['update'](document)
             if 'ajax' in request.values:
                 return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
+            document, ctx = load(document)
+            return render_template(template + '_plus.html', **document, **ctx)
         except Exception as e:
-            # print(e)
             try:
                 document = collection.find_one({'_id': _id})
             except Exception as e:

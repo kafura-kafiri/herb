@@ -17,6 +17,7 @@ from aggregation import crud as analytic
 from search import blue as search
 from config import products
 from face import blue as face
+from hybrid import blue as hybrid
 
 
 app = Flask(__name__, template_folder='templates', static_folder='static')
@@ -43,6 +44,7 @@ app.register_blueprint(tag)
 app.register_blueprint(analytic(), url_prefix='/analytics')
 app.register_blueprint(search)
 app.register_blueprint(face)
+app.register_blueprint(hybrid)
 
 
 @app.route('/')

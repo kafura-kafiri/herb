@@ -23,22 +23,25 @@
 
 .upload,
 .intro {
-	display: inline-block;
-	vertical-align: top;
-	width: 100%;
+	/* display: inline-table; /
 }
 
 .upload {
 	/* background: rgba(255, 100, 255, .3); */
 	background-image: url(/static/img/hole/3.jpg);
 	/* background-repeat:no-repeat; */
-	background-size: contain;
+	background-size: cover;
 	background-position: 50% 50%;
-	height: calc(100vh - 170px - 72px);
-	position: relative;
+	height: calc(100% - 138px);
 }
 
-.upload .border {
+.frame {
+	position: absolute;
+	height: calc(100% - 170px - 72px);
+	width: 57%;
+}
+
+.frame .border {
 	border-style: solid;
 	border-color: rgba(147, 184, 116, 1);
 	height: 90px;
@@ -46,93 +49,21 @@
 	position: absolute;
 }
 
-.upload .border.left.top {
-   border-width: 7px 0px 0px 7px;
-   left: calc(50% - 25vw - 6px);
-   top: calc(50% - 25vw - 6px);
-}
-
-.upload .border.right.top {
-   border-width: 7px 7px 0px 0px;
-   right: calc(50% - 25vw - 6px);
-   top: calc(50% - 25vw - 6px);
-}
-
-.upload .border.left.bottom {
-   border-width: 0px 0px 7px 7px;
-   left: calc(50% - 25vw - 6px);
-   bottom: calc(50% - 25vw - 6px);
-}
-
-.upload .border.right.bottom {
-   border-width: 0px 7px 7px 0px;
-   right: calc(50% - 25vw - 6px);
-   bottom: calc(50% - 25vw - 6px);
-}
-
-.upload .face {
+.frame .face {
 	position: absolute;
-   width: 50vw;
-   height: 50vw;
-	left: calc(50% - 25vw);
-	top: calc(50% - 25vw);
+	width: 306px;
+	height: 306px;
+	/* background: rgba(0,0,0,.5); */
+	left: calc(50% - 153px);
+	top: calc(50% - 153px);
 }
 
-.content {
-   width: 100%;
-   background-color: #FFF3C4;
-}
-
-@media only screen and (min-width: 600px) {
-  .upload .face {
-     width: 28.5vw;
-     height: 28.5vw;
-     left: calc(50% - 14.25vw);
-     top: calc(50% - 14.25vw);
-  }
-
-   .upload {
-      width: 57%;
-   }
-
-   .intro {
-      width: 43%;
-   }
-
-   .content {
-      width: 57%;
-      position: absolute;
-      top: 100vh;
-   }
-
-   .upload .border.left.top {
-      left: calc(50% - 14.25vw - 6px);
-      top: calc(50% - 14.25vw - 6px);
-   }
-
-   .upload .border.right.top {
-      right: calc(50% - 14.25vw - 6px);
-      top: calc(50% - 14.25vw - 6px);
-   }
-
-   .upload .border.left.bottom {
-      left: calc(50% - 14.25vw - 6px);
-      bottom: calc(50% - 14.25vw - 6px);
-   }
-
-   .upload .border.right.bottom {
-      right: calc(50% - 14.25vw - 6px);
-      bottom: calc(50% - 14.25vw - 6px);
-   }
-
-}
-
-.upload .face:hover {
+.frame .face:hover {
 	cursor: pointer;
 }
 
-.upload .face .zebra.hover,
-.upload .face:hover .zebra {
+.frame .face .zebra.hover,
+.frame .face:hover .zebra {
 	background-image: url(http://localhost:5000/static/img/zebra.jpg);
 	height: 100%;
 	width: 100%;
@@ -141,11 +72,11 @@
 	display: block;
 }
 
-.upload .face:hover img {
+.frame .face:hover img {
 	display: none;
 }
 
-.upload .face img {
+.frame .face img {
 	display: block;
 	width: 100%;
 	height: 100%;
@@ -156,7 +87,7 @@
 	top: 0;
 }
 
-.upload .face .zebra {
+.frame .face .zebra {
 	display: none;
 	text-align: center;
 	padding-top: 50px;
@@ -189,6 +120,7 @@
 .intro {
 	margin-left: -4px;
 	background: #FFF3C4;
+	width: 43%;
 	text-align: center;
 }
 
@@ -263,35 +195,41 @@ a.ui.label {
 	box-shadow: 0 -1px 1px 0 rgba(0, 0, 0, .3);
 	border-radius: 500rem;
 }
+
+
+
 </style>
 <div class="banner"
-     style="background-image: url({{ banner.img }}); background-position: 50% {{ banner.position }}px;"></div>
-
-<main style="overflow: auto">
-<div class="upload">
-   <div class="border left bottom"
-        style=""></div>
-   <div class="border left top"
-        style=""></div>
-   <div class="border right bottom"
-        style=""></div>
-   <div class="border right top"
-        style=""></div>
-   <div class="face">
-      <div class="zebra" id="auto_hover">
-         {{ _('Upload your face') }}
-         <br>
-         <span style="color: #666">({{ _('click') }})</span>
+     style="background-image: url({{ banner.img }}); background-position: 0px {{ banner.position }}px;"></div>
+<div>
+   <div class="upload">
+      <div class="frame">
+         <div class="border"
+              style="border-width: 0px 0px 7px 7px; left: calc(50% - 160px); bottom: calc(50% - 160px);"></div>
+         <div class="border"
+              style="border-width: 7px 0px 0px 7px; left: calc(50% - 160px); top: calc(50% - 160px);"></div>
+         <div class="border"
+              style="border-width: 0px 7px 7px 0px; right: calc(50% - 160px); bottom: calc(50% - 160px);"></div>
+         <div class="border"
+              style="border-width: 7px 7px 0px 0px; right: calc(50% - 160px); top: calc(50% - 160px);"></div>
+         <div class="face">
+            <div class="zebra" id="auto_hover">
+               {{ _('Upload your face') }}
+               <br>
+               <span style="color: #666">({{ _('click') }})</span>
+            </div>
+            <img id="face_img">
+            <form id="img_form" action="/action_page.php" method="post" enctype="multipart/form-data">
+               <input type="file" name="pic" id="imgupload" accept="image/*" onchange="readURL(this);"
+                      style="display:none">
+               <input id="submit_img" type="submit">
+            </form>
+         </div>
       </div>
-      <img id="face_img">
-      <form id="img_form" action="/action_page.php" method="post" enctype="multipart/form-data">
-         <input type="file" name="pic" id="imgupload" accept="image/*" onchange="readURL(this);"
-                style="display:none">
-         <input id="submit_img" type="submit">
-      </form>
+      <div class="content" style="height: 1000px;"></div>
    </div>
 </div>
-<div class="intro" style="text-align: right; background-color: rgb(255, 243, 196);">
+<div style="text-align: right; background-color: rgb(255, 243, 196);">
    <div style="padding: 8px;">
       {% if face %}
       <span style="float: left;">{{ face.age }}</span>
@@ -329,30 +267,24 @@ a.ui.label {
          </div>
       </div>
       <br>
-      <div style="margin-left: 8%; margin-right: 8%; padding: 8px; padding-bottom: 1px; border: dashed 1px #93B874; text-align: center">
+      <br>
+      <div style="margin-left: 20%; margin-right: 20%; padding: 8px; padding-bottom: 1px; border: dashed 1px #93B874; text-align: center">
          <img src="/media/n/{{ face.wrinkle.frangi }}" alt="Smiley face" style="width: 100%">
          <div style="position: absolute; display: inline-block; margin-top: -1px; margin-left: -50px; width: 100px; background-color: #FFF3C4">
-            {{ _('Wrinkles') }}
+            {{ _('Face dominant colors') }}
          </div>
       </div>
       <br>
+      <div style="padding: 8px; padding-bottom: 1px; border: dashed 1px #93B874; text-align: center">
+         <img src="/media/n/{{ face.areas }}" alt="Smiley face" style="width: 100%">
+         <div style="position: absolute; display: inline-block; margin-top: -1px; margin-left: -50px; width: 100px; background-color: #FFF3C4">
+            {{ _('Face dominant colors') }}
+         </div>
+      </div>
       {% endif %}
    </div>
 </div>
-{% if face %}
-   <div class="content">
-      <div style="height: 8px;"></div>
-      <br>
-      <div style="margin-left: 17%; margin-right: 17%; padding: 8px; padding-bottom: 1px; border: dashed 1px #93B874; text-align: center">
-         <img src="/media/n/{{ face.areas }}" alt="Smiley face" style="width: 100%">
-         <div style="position: absolute; display: inline-block; margin-top: -1px; margin-left: -50px; width: 100px; background-color: #FFF3C4">
-            {{ _('Face Areas') }}
-         </div>
-      </div>
-      <br>
-   </div>
-{% endif %}
-</main>
+
 <script>
     $(function() {
         $('#auto_hover').click(function(){
@@ -422,8 +354,6 @@ a.ui.label {
             });
         });
     });
-
-
 
 
 

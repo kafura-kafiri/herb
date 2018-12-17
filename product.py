@@ -1,4 +1,4 @@
-from flask import Blueprint, abort, request
+from flask import Blueprint, abort, request, jsonify
 from flask_login import current_user, login_required
 from config import products
 from tools import crud, request_attributes
@@ -78,7 +78,7 @@ ctx = {
 }
 
 pr = {
-    'remedy': '',
+'remedy': '',
     'countable': False,
     'sub': [],
     'title': 'chamomile from lorem ipsum dolor 3/2 off road',
@@ -209,8 +209,6 @@ pr = {
     'categories': [],
 }
 
-pr['reviews']['aggregation'] = {'view': 0, 'like': 0}
-
 blue = Blueprint('pr', __name__, url_prefix='/pr')
 crud(
     blue, products, template='product/index',
@@ -294,3 +292,50 @@ def insert_review(_id):
                 }
             })
     return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
+
+
+# @blue.route('/<_id>/@hybrid')
+# def get_hybrid(_id):
+#     pass
+
+
+@blue.route('/<_id>/@hybrid+')
+def set_hybrid(_id):
+    """make the hybrid from product information"""
+    product = products.find_one({'_id': ObjectId(_id)})
+    if not product:
+        abort(404)
+    product['hybrid'] = {
+        'title': product['title'],
+
+    }
+    products.save(product)
+    return json.dumps({'success': True}), 200, {'ContentType': 'application/json'}
+
+
+@blue.route('/<_id>/@hybrid-')
+def minus_hybrid(_id):
+    hybrid = products.find_one({'_id': ObjectId(_id)}, {'hybrid': 1})
+    return jsonify(hybrid)
+
+
+@blue.route('/<_id>/@hybrid*')
+def remove_hybrid(_id):
+    products.update_one({'_id': ObjectId(_id)}, {'$unset': {'hybrid':1}}, False, True)
+
+
+@blue.route('/@hybrid', methods=['POST'])  # ids -> bring
+def bulk():
+    titles = request_attributes(request, titles=list)['titles']
+    _products = products.find({'hybrid.title': {'$in': titles}})
+    return jsonify([
+        {
+            '_id': str(product['_id']),
+            'title': product['hybrid']['title'],
+            'price': 30.1297,
+            'qty': 1,
+            'img_x': product['hybrid']['img_x'],
+            'img': '/media/n/{}.jpg'.format(product['hybrid']['img']),
+            'info': 'رازیانه را گیاه ۷۲ ملت خوانده اند',
+            'nature': random.randint(0, 3)
+        } for product in _products])

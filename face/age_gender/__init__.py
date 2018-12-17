@@ -9,6 +9,9 @@ import argparse
 from face.age_gender.wide_resnet import WideResNet
 from keras.utils.data_utils import get_file
 import tensorflow as tf
+import dlib
+from imutils import face_utils
+
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
 
@@ -94,12 +97,11 @@ class FaceCV(object):
                 minNeighbors=10,
                 minSize=(self.face_size, self.face_size)
             )
+            print(faces)
             # placeholder for cropped faces
             face_imgs = np.empty((len(faces), self.face_size, self.face_size, 3))
             for i, face in enumerate(faces):
-                face_img, cropped = self.crop_face(frame, face, margin=40, size=self.face_size)
-                (x, y, w, h) = cropped
-                cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 200, 0), 2)
+                face_img, _ = self.crop_face(frame, face, margin=40, size=self.face_size)
                 face_imgs[i, :, :, :] = face_img
             if len(face_imgs) > 0:
                 # predict ages and genders of the detected faces
@@ -120,10 +122,8 @@ class FaceCV(object):
         video_capture.release()
         cv2.destroyAllWindows()
 
-    def detect(self, frame):
+    def _detect(self, frame):
         face_cascade = cv2.CascadeClassifier(self.CASE_PATH)
-        # infinite loop, break by key ESC
-
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
         faces = face_cascade.detectMultiScale(
             gray,
@@ -148,16 +148,43 @@ class FaceCV(object):
         # draw results
         return [(int(predicted_ages[i]), False if predicted_genders[i][0] > 0.5 else True)
                 for i, face in enumerate(faces)]
+
+    def detect(self, frame):
+        face_cascade = cv2.CascadeClassifier(self.CASE_PATH)
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        # faces = face_cascade.detectMultiScale(
+        #     gray,
+        #     scaleFactor=1.2,
+        #     minNeighbors=10,
+        #     minSize=(self.face_size, self.face_size)
+        # )
+
+        faces = dlib.get_frontal_face_detector()(gray, 1)
+        # placeholder for cropped faces
+        face_imgs = np.empty((len(faces), self.face_size, self.face_size, 3))
         for i, face in enumerate(faces):
-            label = "{}, {}".format(int(predicted_ages[i]),
-                                    "F" if predicted_genders[i][0] > 0.5 else "M")
-            self.draw_label(frame, (face[0], face[1]), label)
-        cv2.imshow('Keras Faces', frame)
-        cv2.waitKey()
+            face = face_utils.rect_to_bb(face)
+            face_img, cropped = self.crop_face(frame, face, margin=40, size=self.face_size)
+            # (x, y, w, h) = cropped
+            # cv2.rectangle(frame, (x, y), (x + w, y + h), (255, 200, 0), 2)
+            face_imgs[i, :, :, :] = face_img
+
+        if len(face_imgs) > 0:
+            # predict ages and genders of the detected faces
+            with self.graph.as_default():
+                results = self.model.predict(face_imgs)
+            predicted_genders = results[0]
+            ages = np.arange(0, 101).reshape(101, 1)
+            predicted_ages = results[1].dot(ages).flatten()
+
+        return [(int(predicted_ages[i]), False if predicted_genders[i][0] > 0.5 else True)
+                for i, face in enumerate(faces)]
 
 
 if __name__ == "__main__":
-    img = cv2.imread('../faces/brad.jpg')
+    import imutils
+    img = cv2.imread('/home/pouria/Desktop/sh-0.jpg')
+    img = imutils.resize(img, width=500)
     model = FaceCV(depth=16, width=8)
     result = model.detect(img)
     print(result)

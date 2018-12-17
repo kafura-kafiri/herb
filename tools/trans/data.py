@@ -266,5 +266,15 @@ dictionary = {
     'quickshop': 'Quickshop',
     'feature': 'ویژگی.',
     'leave your comment here then press stars': 'نظر خود را اینجا بنویسید سپس ستاره ها را فشار دهید',
+    'age': 'سن',
+    'gender': 'جنسيت',
+    'face color': 'رنگ چهره',
+    'lips volume': 'حجم لب',
+    'face dominant color': 'صورت غالب رنگ',
+    'face dominant colors': 'رنگ غالب چهره',
+    'lips': 'لب ها',
+    'lips': 'لب ها',
+    'wrinkles': 'چین و چروک',
+    'face areas': 'مناطق رویشی',
     'conditions': 'شرایط'
 }

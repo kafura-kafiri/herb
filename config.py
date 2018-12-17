@@ -44,6 +44,8 @@ products.create_index([("$**", "text")], weights={"$**": 1, "title": 3})
 products.create_index([("title", 1)])
 pr = products
 
+hybrids = db['HYBRIDS']
+
 hows = db['HOWS']
 hows.drop_indexes()
 hows.create_index([("$**", "text")], weights={"$**": 1, "title": 3})

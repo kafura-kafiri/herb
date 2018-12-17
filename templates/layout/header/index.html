@@ -1064,8 +1064,8 @@
       document.addEventListener('DOMContentLoaded', function() {
          $(function() {
             $('span.share-telegram').click(function() {
-               $.post('http://31.184.135.83:5000/chats/' + $('#gram-id').val() + '?message=' + $('#share-url').val(), function() {
-                  alert('huli');
+               $.post('http://31.184.135.83:5001/chats/' + $('#gram-id').val() + '/@send?message=' + $('#share-url').val(), function() {
+                  alert('Done :) .');
                })
             })
          });

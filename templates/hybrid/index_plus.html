@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   {% include 'layout/resources.html' %}
+   <link rel="stylesheet" href="{{ url_for('static', filename='semantic/dist/semantic.min.css') }}">
+   <script src="{{ url_for('static', filename='jquery/jquery-3.2.1.min.js') }}"></script>
+   <script src="{{ url_for('static', filename='semantic/dist/semantic.min.js') }}"></script>
+   <script src="{{ url_for('static', filename='ractive.js') }}"></script>
+   <meta charset="UTF-8">
+   <title>Hybridestan</title>
+   <style>
+      .iherb-header-secondary {
+         margin-top: 0 !important;
+         padding-bottom: 5px !important;
+      }
+
+      /* .top-categories .popup-content .search-list {
+         overflow: visible !important;
+      } */
+
+        body {
+            font-family: Helvetica, Arial, sans-serif;
+            background: #d6d6d6;
+            text-align: center;
+            overflow-x: visible !important;
+        }
+
+        .btn-img {
+            display: inline-block;
+            background-size: auto 110%;
+            background-position: 50% 50%;
+            width: 100%;
+            height: 100%;
+        }
+
+        .btn-gradient {
+            top: calc(-100% - 1px);
+            position: relative;
+            display: block;
+            width: 100%;
+            height: 100%;
+
+            background-image: linear-gradient(bottom, rgba(73,132,180,.1) 0%, rgba(97,155,203,.1) 100%);
+            background-image: -o-linear-gradient(bottom, rgba(73,132,180,.1) 0%, rgba(97,155,203,.1) 100%);
+            background-image: -moz-linear-gradient(bottom, rgba(73,132,180,.1) 0%, rgba(97,155,203,.1) 100%);
+            background-image: -webkit-linear-gradient(bottom, rgba(73,132,180,.1) 0%, rgba(97,155,203,.1) 100%);
+            background-image: -ms-linear-gradient(bottom, rgba(73,132,180,.1) 0%, rgba(97,155,203,.1) 100%);
+
+            background-image: -webkit-gradient(
+                linear,
+                left bottom,
+                left top,
+                color-stop(0, rgba(73,132,180, .2)),
+                color-stop(1, rgba(97,155,203, .2))
+            );
+
+            -webkit-box-shadow: inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+            -moz-box-shadow: inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+            box-shadow: inset 0px 1px 0px rgba(255, 255, 255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+        }
+
+        .btn {
+            display: block;
+            text-decoration: none;
+            color: #fff;
+            /* background-color: #538fbe; */
+
+            width: 100%;
+            height: 100%;
+            font-size: 24px;
+            border: 1px solid #2d6898;
+
+            -webkit-border-radius: 5px;
+            -moz-border-radius: 5px;
+            border-radius: 5px;
+
+            -webkit-box-shadow: 0px 6px 0px #2b638f, 0px 3px 15px rgba(0,0,0,.4);
+            -moz-box-shadow: 0px 6px 0px #2b638f, 0px 3px 15px rgba(0,0,0,.4);
+            box-shadow: 0px 6px 0px #2b638f, 0px 3px 15px rgba(0,0,0,.4);
+
+            /* -webkit-transform: rotateX(15deg); */
+
+            cursor: pointer;
+            overflow: hidden;
+
+        }
+
+      .btn.dry-cold {
+
+      }
+
+      .btn.nature-3 {
+         /* rgb(237, 18, 113) */
+         /* rgb(215, 38, 127) */
+         /* wet hot */
+         border-color: rgb(237, 18, 113, .9);
+         -webkit-box-shadow: 0px 6px 0px rgb(237, 18, 113, .9), 0px 3px 15px rgba(96, 10, 48,.4);
+         -moz-box-shadow: 0px 6px 0px rgb(237, 18, 113, .9), 0px 3px 15px rgba(96, 10, 48,.4);
+         box-shadow: 0px 6px 0px rgb(237, 18, 113, .9), 0px 3px 15px rgba(96, 10, 48,.4);
+      }
+
+      .nature-3 .btn-text {
+         color: rgba(237, 98, 193, .9);
+         background-color: rgba(237, 98, 193, .3);
+      }
+
+      .btn.nature-2 {
+         /* rgb(56, 234, 219) */
+         /* rgb(16, 239, 232) */
+         /* wet hot */
+         border-color: rgb(16, 239, 232);
+         -webkit-box-shadow: 0px 6px 0px rgb(16, 239, 232), 0px 3px 15px rgba(96, 10, 48,.4);
+         -moz-box-shadow: 0px 6px 0px rgb(16, 239, 232), 0px 3px 15px rgba(96, 10, 48,.4);
+         box-shadow: 0px 6px 0px rgb(16, 239, 232), 0px 3px 15px rgba(96, 10, 48,.4);
+      }
+
+      .nature-2 .btn-text {
+         color: rgba(16, 239, 232, .9);
+         background-color: rgba(56, 234, 219, .3);
+      }
+
+      .btn.nature-1 {
+         /* rgb(247, 91, 39) */
+         /* rgb(249, 33, 9) */
+         /* wet hot */
+         border-color: rgb(247, 91, 39);
+         -webkit-box-shadow: 0px 6px 0px rgb(247, 91, 39), 0px 3px 15px rgba(249, 33, 9,.4);
+         -moz-box-shadow: 0px 6px 0px rgb(247, 91, 39), 0px 3px 15px rgba(249, 33, 9,.4);
+         box-shadow: 0px 6px 0px rgb(247, 91, 39), 0px 3px 15px rgba(249, 33, 9,.4);
+      }
+
+      .nature-1 .btn-text {
+         color: rgba(249, 33, 9, .9);
+         background-color: rgba(247, 91, 39, .3);
+      }
+        .btn:hover {
+            background-image: linear-gradient(bottom, rgb(79,142,191) 0%, rgb(102,166,214) 100%);
+            background-image: -o-linear-gradient(bottom, rgb(79,142,191) 0%, rgb(102,166,214) 100%);
+            background-image: -moz-linear-gradient(bottom, rgb(79,142,191) 0%, rgb(102,166,214) 100%);
+            background-image: -webkit-linear-gradient(bottom, rgb(79,142,191) 0%, rgb(102,166,214) 100%);
+            background-image: -ms-linear-gradient(bottom, rgb(79,142,191) 0%, rgb(102,166,214) 100%);
+
+            background-image: -webkit-gradient(
+                linear,
+                left bottom,
+                left top,
+                color-stop(0, rgb(79,142,191)),
+                color-stop(1, rgb(102,166,214))
+            );
+        }
+
+        .btn:active {
+            background-image: linear-gradient(bottom, rgb(88,154,204) 0%, rgb(90,150,199) 100%);
+            background-image: -o-linear-gradient(bottom, rgb(88,154,204) 0%, rgb(90,150,199) 100%);
+            background-image: -moz-linear-gradient(bottom, rgb(88,154,204) 0%, rgb(90,150,199) 100%);
+            background-image: -webkit-linear-gradient(bottom, rgb(88,154,204) 0%, rgb(90,150,199) 100%);
+            background-image: -ms-linear-gradient(bottom, rgb(88,154,204) 0%, rgb(90,150,199) 100%);
+
+            background-image: -webkit-gradient(
+                linear,
+                left bottom,
+                left top,
+                color-stop(0, rgb(88,154,204)),
+                color-stop(1, rgb(90,150,199))
+            );
+
+            -webkit-box-shadow: 0px 2px 0px #2b638f, 0px 1px 6px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+            -moz-box-shadow: 0px 2px 0px #2b638f, 0px 1px 6px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+            box-shadow: 0px 2px 0px #2b638f, 0px 1px 6px rgba(0,0,0,.4), inset 0px 1px 0px rgba(255,255,255,.3), inset 0px 0px 3px rgba(255,255,255,.5);
+
+            -webkit-transform: translate(0, 4px);
+            -moz-transform: translate(0, 4px);
+            transform: translate(0, 4px);
+
+            -webkit-transition: all .03s ease-in-out;
+            -moz-transition: all .06s ease-in-out;
+            transition: all .06s ease-in-out;
+
+            -webkit-transform: translate(0, 4px); /* rotateX(15deg); */
+            -moz-transform: translate(0, 4px);
+            transform: translate(0, 4px);
+        }
+
+        .btn-text {
+            text-shadow: 0px  -1px 0px rgba(0,0,0,.5), 0px  2px 0px rgba(0,0,0,.5);
+            font-weight: bold;
+            font-size: .8em;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(10, 100, 240, .4);
+            padding-bottom: 5px;
+            color: rgba(90, 190, 230, 1);
+        }
+
+        .row {
+            margin: 0 auto;
+            /* width: 350px; */
+        }
+
+         .row.table {
+            min-height: 140px;
+            background-color: rgba(164, 112, 55, 0.2);
+
+            -webkit-box-shadow: 0px 6px 0px rgba(164, 112, 55, 0.4), 0px 3px 15px rgba(0,0,0,.4);
+            -moz-box-shadow: 0px 6px 0px rgba(164, 112, 55, 0.4), 0px 3px 15px rgba(0,0,0,.4);
+            box-shadow: 0px 6px 0px rgba(164, 112, 55, 0.4), 0px 3px 15px rgba(0,0,0,.4);
+         }
+
+        .btn-container {
+            display: inline-block;
+            margin-top: 5px;
+            margin-bottom: 29px;
+            margin-left: 4px;
+            margin-right: 5px;
+
+            width: 90px;
+            height: 100px;
+        }
+
+      .bottom-button {
+         position: absolute;
+         z-index: 4;
+      }
+
+      @keyframes keyframes1 {
+          0% {
+              transform: rotate(-1deg);
+              animation-timing-function: ease-in;
+          }
+          50% {
+              transform: rotate(1.5deg);
+              animation-timing-function: ease-out;
+          }
+      }
+
+      @keyframes keyframes2 {
+          0% {
+              transform: rotate(1deg);
+              animation-timing-function: ease-in;
+          }
+          50% {
+              transform: rotate(-1.5deg);
+              animation-timing-function: ease-out;
+          }
+      }
+
+      .btn:nth-child(2n) {
+          animation-name: keyframes1;
+          animation-iteration-count: infinite;
+          transform-origin: 50% 10%;
+      }
+
+      .btn:nth-child(2n-1) {
+          animation-name: keyframes2;
+          animation-iteration-count: infinite;
+          animation-direction: alternate;
+          transform-origin: 30% 5%;
+      }
+
+      .ui.form input, .ui.form textarea, .ui.form .ui.dropdown .menu>.item, .ui.fluid.dropdown {
+         text-align: right;
+         direction: rtl;
+      }
+
+      .ui.selection.dropdown>.text {
+          position: relative;
+          display: inline-block;
+          padding-right: 0px;
+          width: 100%;
+          overflow: visible;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          line-height: 1em;
+          -webkit-transition: none;
+          -moz-transition: none;
+          transition: none;
+          cursor: pointer;
+      }
+
+      .btn {
+          /* display: inline-block; */
+          /* margin-bottom: 0; */
+          /* font-weight: 400; */
+          /* text-align: center; */
+          /* vertical-align: middle; */
+          -ms-touch-action: manipulation;
+          /* touch-action: manipulation; */
+          /* cursor: pointer; */
+          /* background-image: none; */
+          /* border: 1px solid transparent; */
+          padding: 0 0 !important;
+          /* font-size: 14px; */
+          line-height: inherit !important;
+          /* border-radius: 3px; */
+          /* -webkit-user-select: none; */
+          -moz-user-select: none;
+          -ms-user-select: none;
+          /* user-select: none; */
+      }
+
+   </style>
+</head>
+<body>
+<script src="https://s.images-iherb.com/js/ga-pro6.min.js"></script>
+{% set no_secondary = True %}
+{% include 'layout/header/index.html' %}
+<div class="iherb-header-threshold" style="height: 2.3em">{# for price #}</div>
+<div class="iherb-header-overlay transparency hide"></div>
+<main style="display: inline-block; width: 350px;"></main>
+{% raw %}
+<script id="template" type="text/ractive">
+   {{#partial card}}
+   <div class="btn-container">
+      <div style="position: absolute; margin: -4px -6px; background-color: rgb(240, 30, 30); padding: 1px 5px; border-radius: 500px; z-index: 3; font-weight: bold; font-size: .8em; color: rgb(242, 233, 225); box-shadow: 0px 1px 5px 0px rgba(0, 0, 0, .3);">
+         {{ price * qty }} $
+      </div>
+      <div on-click="event.splice('..', event.get('num'), 1), @this.set('active', -1)" style="
+      {{#if bias == 0 && active == 2 * num }}
+         display: block;
+      {{else }}
+         display: none;
+      {{/if }}
+      position: absolute; margin: -9px 79px; background-color: rgb(240, 230, 230); padding: 3px 5px; border-radius: 500px; z-index: 5; font-weight: bold; font-size: .8em; color: rgb(42, 33, 25)">x</div>
+      <div class="btn nature-{{ nature }}" on-click="@this.set('active', 2 * num + bias)" style="
+         {{#if active == 2 * num + bias }}
+            animation-delay: -0.75s; animation-duration: .25s;
+         {{/if }}
+      ">
+         <div class="btn-img" style="background-image: url({{ img }}); background-position: {{ img_x * 10 / 9 - 10 }}px 0; background-size: cover"></div>
+         <div class="btn-gradient">
+            <div class="btn-text">{{ title }}</div>
+         </div>
+      </div>
+      <div class="ui green progress active" data-percent="{{ qty }}" style="margin-top: 5px;">
+         <div class="bar" style="transition-duration: 300ms; min-width: 1.4em; width: {{ qty }}%;">
+            <div class="progress">{{ qty }}</div>
+         </div>
+      </div>
+      <div class="ui button primary bottom-button" style="
+            {{#if active == 2 * num + bias }}
+               display: inline-block;
+            {{else }}
+               display: none;
+            {{/if }}
+            margin: {{ 2 - 62 }}px -33px;" on-click="['info', @keypath, @event, @node]">Info
+      </div>
+      {{#if bias == 0 }}
+      <div on-click="['qty', @keypath, @node]" class="ui button yellow bottom-button" style="
+            {{#if active == 2 * num + bias }}
+               display: inline-block;
+            {{else }}
+               display: none;
+            {{/if }}
+            margin: {{ 39 - 62 }}px -33px;">Qty
+      </div>
+      {{/if }}
+      {{#if bias == 1 }}
+      <div on-click="['use', title]" class="ui button yellow bottom-button" style="
+            {{#if active == 2 * num + bias }}
+               display: inline-block;
+            {{else }}
+               display: none;
+            {{/if }}
+            margin: {{ 39 - 62 }}px -33px;">Use
+      </div>
+      {{/if }}
+   </div>
+   {{/partial }}
+
+   <div class="ui top attached tabular menu">
+      <a class="item active" data-tab="first">First</a>
+      <a on-click="@global.save()" class="{{ saving }} ui big inverted fluid green button" style="margin-right: 2px; margin-left: 2px; margin-bottom: 2px;">Save</a>
+      <a class="item" data-tab="second">Second</a>
+   </div>
+   <div class="ui bottom attached tab segment active" data-tab="first">
+      {{#each table: bias }}
+         <div class="row {{#if bias == 0 }} table {{/ if }}">
+         {{#each this: num }}
+            {{> card }}
+         {{/each }}
+         </div>
+         {{#if bias == 0 }}
+         <br>
+         <div class="ui search selection dropdown">
+            <input type="hidden" name="country">
+            <i class="dropdown icon"></i>
+            <div class="default text">Select Country</div>
+            <div class="menu">
+               {{#each tags}}
+                  <div on-click="['load', @key, 0]" class="item" on-click="" data-value="{{ @key }}"><i class="af flag"></i>{{ @key }}</div>
+               {{/each }} {{#each extra }}
+                  <div on-click="['use', this]" class="item" data-value="{{ this }}"><i class="ir flag"></i>{{ this }}</div>
+               {{/each }}
+            </div>
+         </div>
+         <br>
+         <br>
+         {{/if }}
+      {{/each }}
+   </div>
+   <div class="ui bottom attached tab segment" data-tab="second">
+      <form class="ui form">
+         <div class="field">
+            <label>عنوان</label>
+            <div class="fields">
+               <div class="ten wide field">
+                  <input type="text" name="shipping[address]" placeholder="اسم" value="{{ hybrid.title }}">
+               </div>
+               <div class="six wide field">
+                  <select class="ui fluid dropdown" name="card[expire-month]">
+                     <option value="">طبع</option>
+                     <option value="0">سرد-خشک</option>
+                     <option value="1">گرم-خشک</option>
+                     <option value="2">سرد-تر</option>
+                     <option value="3">گرم-تر</option>
+                  </select>
+               </div>
+            </div>
+            <div class="field">
+               <label>معرفی</label>
+               <textarea>{{ hybrid.info }}</textarea>
+            </div>
+            <div class="field">
+               <label>درمان</label>
+               <textarea rows="2">{{ hybrid.remedy }}</textarea>
+            </div>
+         </div>
+      </form>
+   </div>
+   <div id="shadow"
+        style="
+        {{#if shadow }}
+            display: block;
+        {{else }}
+           display: none;
+        {{/if }}
+        width: 100%; height: 100%; background-color: rgba(0, 0, 0, .8); position: absolute; top: 0; left: 0; z-index: 10">
+      <div style="display: inline-block; width: 100px; height: 100px; background-color: white; top: calc(50% - 50px); position: relative">
+         <div on-click="@this.set('shadow', '')"
+              style="position: absolute; margin: -9px 79px; background-color: rgb(240, 230, 230); padding: 3px 5px; border-radius: 500px; z-index: 3; font-weight: bold; font-size: .8em; color: rgb(42, 33, 25)">
+            x
+         </div>
+         {{{ shadow }}}
+      </div>
+   </div>
+</script>
+{% endraw %}
+{% include 'live/index.html' %}
+{% include 'how/latest/index.html' %}
+{% include 'layout/footer.html' %}
+</body>
+<script>
+   $(function() {
+      var $$ = new Ractive({
+         template: '#template',
+         target: 'main',
+         data: {
+            active: -1,
+            saving: '',
+            table: [
+               {{ table | tojson }}, []
+            ],
+            shadow: '',
+            tags: {{ tags | tojson }},
+            extra: [],
+            hybrid: {
+               'title': '{{ title }}',
+               'nature': {{ nature }},
+               'remedy': '{{ remedy }}',
+               'info': '{{ specifications.0.p.0 }}',
+            }
+         },
+      });
+      window.$$ = $$;
+      dictionary = {{ dictionary | tojson }};
+      tags = {};
+      _tags = $$.get('tags');
+      for (var i=0;i<_tags.length;i++) {
+         tag = _tags[i][0];
+         list = [];
+         for(var j=1;j<_tags[i].length;j++)
+            list.push(dictionary[_tags[i][j]]);
+         tags[tag] = list;
+      }
+      tags['همه'] = dictionary;
+      $$.set('tags', tags);
+      function generate_trie(arr, h) {
+         d = {};
+         for (var i=0;i<arr.length;i++) {
+            var word = arr[i];
+            if (word.length >= h) {
+               var prefix = word.substr(0, h);
+               if (!(prefix in d))
+                  d[prefix] = [];
+               d[prefix].push(word);
+            }
+         }
+         return d;
+      }
+      trie = {};
+      var q = [[dictionary, 2]];
+      while(q.length > 0) {
+         var pair = q.shift();
+         d = generate_trie(pair[0], pair[1]);
+         for (var key in d) {
+            if (d.hasOwnProperty(key)) {
+               var value = d[key];
+               trie[key] = value;
+               if (value.length > 10)
+                  q.push([value, pair[1] + 1]);
+            }
+         }
+      }
+      $('.ui.dropdown').dropdown();
+      $(document).on('keyup', '.ui.dropdown .search',  function () {
+         var phrase = $(this).val();
+         var extra = [];
+         if (phrase.length > 4)
+            for(var i=phrase.length;i>=4;i--) {
+               phrase = phrase.substr(0, i);
+               if (phrase in trie) {
+                  extra = trie[phrase];
+                  break;
+               }
+            }
+         else if (phrase in trie)
+            extra = trie[phrase];
+         $$.set('extra', extra);
+      });
+
+      $$.on( 'info', function( ctx, keyPath, event ) {
+         var html = $$.get(keyPath + '.info') +
+         '<br><a href="/pr/' + $$.get(keyPath + '._id') + '">' +
+         $$.get(keyPath + '.title') + '<a>';
+         $$.set('shadow', html);
+      });
+
+      window.qty = function() {
+         $q = $('#qty');
+         $$.set($q.attr('path') + '.qty', parseInt($q.val()));
+         $$.set('shadow', '');
+         // $('.ui.progress').progress();
+      };
+
+      $$.on( 'qty', function( ctx, keyPath, node ) {
+         $$.set('shadow', '<input id="qty" path="' + keyPath + '"><div onclick="qty()" class="ui green button">Submit</div>')
+      });
+
+      function use(doc) {
+         var table = $$.get('table.0');
+         for (var i=0;i<table.length;i++)
+            if (table[i].title == doc.title)
+               return;
+         $$.push('table.0', doc);
+         $$.set('active', $$.get('table.0').length * 2 - 2);
+         // $('.ui.progress').progress();
+      }
+      $$.on( 'use', function(ctx, title) {
+         var dictionary = $$.get('dictionary');
+         if(!('title' in dictionary[title]))
+            $.post('/pr/@hybrid', {titles: JSON.stringify([title])}, function(response) {
+               dictionary[title] = response[0];
+               use(response[0]);
+            });
+         else
+            use(dictionary[title]);
+      });
+      var dict = {}
+      for (var i=0;i<dictionary.length;i++)
+         dict[dictionary[i]] = {};
+      $$.set('dictionary', dict);
+      $$.on( 'load', function(ctx, tag, page) {
+         var collection = $$.get('tags')[tag].slice(page * 10, (page + 1) * 10);
+         var empties = [];
+         var dictionary = $$.get('dictionary');
+         for (var i=0;i<collection.length;i++)
+            if (dictionary[collection[i]].length == 0)
+               empties.push(collection[i]);
+         if (empties)
+            $.post('/pr/@hybrid', {titles: JSON.stringify(collection)}, function(response) {
+               for (var i=0;i<response.length;i++)
+                  dictionary[response[i].title] = response[i];
+               $$.update('dictionary');
+               for (var i=0;i<collection.length;i++)
+                  collection[i] = dictionary[collection[i]];
+               $$.set('table.1', collection);
+               // $('.ui.progress').progress();
+            });
+         else {
+            for (var i=0;i<collection.length;i++)
+               collection[i] = dictionary[collection[i]];
+            $$.set('table.1', collection);
+            // $('.ui.progress').progress();
+         }
+      });
+      $$._subs.load[0].callback(null, 'همه', 0);
+
+      $('.menu .item').tab();
+
+      $(document).on("click", ".menu.transition .item" , function(eve) {
+         $$.set('hybrid.nature', parseInt($(eve.target).attr('data-value')));
+      });
+
+      window.save = function() {
+         $$.set('saving', 'loading');
+         var hybrid = $$.get('hybrid');
+         hybrid.table = $$.get('table.0');
+         hybrid.specifications = [{p:[hybrid['info']]}]
+         delete hybrid['info']
+         $.get(window.location.href, {json: JSON.stringify(hybrid)}, function() {
+            $$.set('saving', '');
+         });
+         hybrid['info'] = hybrid.specifications.0.p.0;
+      };
+   });
+</script>
+</html>
