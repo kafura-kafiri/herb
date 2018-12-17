@@ -10,18 +10,23 @@ CORS(app)
 api_id = 165248
 api_hash = '287208e1887c8e18f37d92a545a26376'
 
-
-@app.route('/chats/<_id>/@send')
-async def send_message(request, _id):
+so
+# @app.websocket('/chats/')
+@app.websocket('/chats/<_id>')
+async def feed(request, ws, _id):
+    print(_id)
     client = TelegramClient('session_name', api_id, api_hash)
     async with client:
-        await client.send_message(_id, request.args['message'][0])
-    return json({'success': True})
-
-
-@app.route('/favicon.ico')
-async def ico(request):
-    return json({'success': True})
+        print(client.get_entity(_id))
+    await ws.send('hello im {}. how can i help you'.format(_id))
+    client = TelegramClient('session_name', api_id, api_hash)
+    async with client:
+        while True:
+            try:
+                await asyncio.wait_for(client.send_message(_id, await ws.recv()), timeout=.5)
+            except:
+                for message in client.get_messages(_id):
+                    ws.send(message)
 
 
 @app.route('/')
@@ -55,6 +60,32 @@ async def home(request):
     </body>
     </html>
     """)
+
+
+@app.route('/chats/<_id>/@send')
+async def send_message(request, _id):
+    client = TelegramClient('session_name', api_id, api_hash)
+    async with client:
+        await client.send_message(_id, request.args['message'][0])
+    return json({'success': True})
+
+
+@app.route('/favicon.ico')
+async def ico(request):
+    return json({'success': True})
+
+
+@app.route("/videos/<_id>/")
+async def test(request, _id):
+    url = 'https://www.youtube.com/watch?v={}'.format(_id)
+    subprocess.Popen(["proxychains", " youtube-dl", "-o", "static/{}.mp4".format(_id), url], stdout=subprocess.PIPE)
+    return json({"hello": url})
+
+
+@app.route("/videos/<path>")
+async def video_get(request, path):
+    return await file_stream('static/' + path, mime_type='video/mp4')
+
 
 from sonic.tg import app
 
